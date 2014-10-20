@@ -18,3 +18,4 @@ pip-delete-this-directory.txt
 *.log
 .sass-cache
 *.css.map
+.DS_Store
