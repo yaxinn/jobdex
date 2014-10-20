@@ -1,0 +1,79 @@
+@import 'unsemantic-grid-base.css';
+@import 'unsemantic2.css';
+@import 'progress.scss';
+
+@font-face
+{
+	font-family: Futura_Oblique;
+	src: url(../fonts/futura_oblique.ttf);
+}
+
+@font-face
+{
+	font-family: SourceSansRegular;
+	src: url(../fonts/SourceSansPro-Regular.otf);
+}
+
+@font-face
+{
+	font-family: SourceSansLight;
+	src: url(/static/fonts/SourceSansPro-Light.otf);
+}
+
+@font-face
+{
+	font-family: SourceSansItalic;
+	src: url(/static/fonts/SourceSansPro-It.otf);
+}
+
+@font-face
+{
+	font-family: SourceSansBold;
+	src: url(../fonts/SourceSansPro-Bold.otf);
+}
+
+$nice-blue: #003973;
+$gradient2: #E5E5BE;
+
+$lite-blue: #79a9da;
+$dark: #050e10;
+$blue: #0074D9;
+$clouds: #ecf0f1;
+$navy: #001F3F;
+$orange: #FF851B;
+$lite-orange: #EDAA4E;
+$c4: #D1D2D5;
+
+$lowest: #f63a0f;
+$low: #f27011;
+$middle: #f2b01e;
+$high: #f2d31b;
+$highest: #86e01e;
+
+$green: #A3CD99;
+$darkgreen: #579E81;
+$dark-grey: #2a2a2a;
+$lite-grey: #939393;
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.grid-container {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+    max-width: none;
+}
+
+#container {
+	background: $clouds;
+    margin: 0 auto;
+	font-family: SourceSansRegular;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	text-align: center;
+	font-family: Futura_Oblique;
+}

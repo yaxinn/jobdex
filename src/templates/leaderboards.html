@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="materials_app">
+<head>
+<meta charset="utf-8">
+<title>Materials App</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="../static/styles/main.css">
+</head>
+<body>
+
+<div id="container" class='grid-container'>
+    <div class="grid-100 grid-parent" ng-controller="compoundsCtrl">
+        <div class="grid-100" id="header">
+            <h1>Citrine Materials Recommendation Engine</h1>
+            <h4><a href="/">Back to Home</a></h4>
+            <h4>Leaderboards</h4>
+        </div>
+        <div id="compounds-list">
+            <div class="grid-100" id="leaderboards-labels">
+                <div class="leaderboard-label grid-33">
+                    <h4>Rank</h4>
+                </div>
+                <div class="leaderboard-label grid-33">
+                    <h4>Username</h4>
+                </div>
+                <div class="leaderboard-label grid-33">
+                    <h4>Average Value</h4>
+                </div>
+            </div>
+            <div class="single-compound grid-100" ng-repeat="user in users">
+                <div class="leaderboard-info grid-33">
+                    {{user.rank}}
+                </div>
+                <div class="leaderboard-info grid-33">
+                    {{user.username}}
+                </div>
+                <div class="leaderboard-info grid-33">
+                    {{user.score}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="index.html">Back</a>
+</div>
+
+
+<script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../static/bower_components/angular/angular.min.js"></script>
+<script src="../static/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="../static/scripts/compounds-data.js"></script>
+<script src="../static/scripts/leaderboards-data.js"></script>
+<script src="../static/scripts/script.js"></script>
+<script src="../static/scripts/main/main-ctrl.js"></script>
+
+</body>
+</html>
