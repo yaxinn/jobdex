@@ -2,64 +2,108 @@
 
 var app = angular.module('jobdex_app', ['ngCookies']);
 
-app.controller('UserController', function() {
+app.controller('UserController', function($scope, $http) {
 	this.user = {};
 
 	this.sign_up = function(){		
-		// if user is valid
-		dummyUsers.push(this.user);
-		this.user = {};
+		//Modeled off of http://tutorials.jenkov.com/angularjs/ajax.html
+		$scope.myData = JSON.stringify({user: this.user.username, password: this.user.password, email: this.user.email});
+		
+		var responsePromise = $http.post(dummyURL.herokuapp.com/UserModel/sign_up, $scope.myData);
+
+		responsePromise.success(function(data, status headers, config) {
+			dummyUsers.push(this.user);
+			this.user = {};
+		});
+
+		responsePromise.error(function(data, status headers, config) {
+			//add error handling function
+		});
 	};
 
 	this.login = function(){
-		$
+		//Modeled off of http://tutorials.jenkov.com/angularjs/ajax.html
+		$scope.myData = JSON.stringify({user: this.user.username, password: this.user.password});
+		
+		var responsePromise = $http.post(dummyURL.herokuapp.com/UserModel/login, $scope.myData);
+
+		responsePromise.success(function(data, status headers, config) {
+			//add success result
+		});
+
+		responsePromise.error(function(data, status headers, config) {
+			//add error handling function
+		});
 	};
+
+	this.logout = function(){
+		this.user = {};
+		
+		$scope.myData = JSON.stringify({user: this.user.username, password: this.user.password}); //SEND COOKIES AS WELL
+		
+		var responsePromise = $http.post(dummyURL.herokuapp.com/UserModel/login, $scope.myData);
+
+		responsePromise.success(function(data, status headers, config) {
+			//add success result
+		});
+
+		responsePromise.error(function(data, status headers, config) {
+			//add error handling function
+		});
+
+		//Add navigation for HTML
+		//Save cookies to the backend
+	}
 
 
 });
 
-app.controller('TagController', function(cardId) {
-	
-	this.cardId = cardId;
+app.controller('CardController', function($scope, $http){
 
-	this.addTag = function(tagName){
+	this.add_tag = function(tagName){
 
 	};
 
-	this.modifyTag = function(currentTagName, newTagName){
+	this.modify_tag = function(currentTagName, newTagName){
 
 	};
 
-	this.getTags = function(tagName){
+	this.get_tags = function(tagName){
 
 	};
 
-	this.removeTag = function(tagName){
+	this.remove_tag = function(tagName){
 
 	};
 
-});
-
-app.controller('CardController', function(status){
-
-	this.status = status
-
-	this.createCard = function(companyName, jobTitle, status){
+	this.create_card = function(companyName, jobTitle, status){
 		
 	};
 
-	this.modifyCardStatus = function(cardId, updatedStatus){
+	this.modify_card_status = function(cardId, updatedStatus){
 		this.status = 
 	};
 
-	this.getUserCards = function(tagName){
+	this.get_user_cards = function(tagName){
 
 	};
 
 });
 
-app.controller('DocumentController', function() {
+app.controller('DocumentController', function($scope, $http) {
 	
+	this.upload_document = function(PDFdoc){
+
+	};
+
+	this.remove_document = function(docId){
+
+	};
+
+	this.get_documents = function(userId){
+
+	};
+
 });
 
 var dummyUsers = [{
