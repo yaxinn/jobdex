@@ -3,6 +3,18 @@
 var app = angular.module('jobdex_app', ['ngCookies']);
 
 app.controller('UserController', function() {
+	this.user = {};
+
+	this.sign_up = function(){		
+		// if user is valid
+		dummyUsers.push(this.user);
+		this.user = {};
+	};
+
+	this.login = function(){
+		$
+	};
+
 
 });
 
