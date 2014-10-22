@@ -8,11 +8,12 @@ Guide
 ### When you start
 Run 
 ```
-env/bin/activate
+. env/bin/activate
 gulp watch
 python manage.py runserver
 ```
 This ensures your development environment has the Python dependencies, converts SCSS/JS changes to minified files automatically, and runs a local server at port 8000.
+When you're done, you can switch out the virtualenv by running `deactivate`.
 
 ### Sync with remote repository
 To check if your local files are up-to-date with those in the remote repo on Github, run `git remote show origin`. If any of them are *not* up to date, run
