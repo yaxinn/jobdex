@@ -19,7 +19,7 @@ class Tag(models.Model):
 class Contact(models.Model):
     name = models.CharField(blank=False)
     phone = models.CharField(blank=False)
-    date = models.DateField(blank=False)
+    email = models.EmailField()
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):

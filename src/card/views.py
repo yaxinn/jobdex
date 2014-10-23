@@ -2,6 +2,7 @@ from django.shortcuts import render
 from card.models import *
 import json
 from django.core import serializers
+from django.http import JsonResponse
 
 # Create your views here.
 def home(request):
@@ -32,4 +33,24 @@ def add_card(request);
 	for tag in tags:
 		new_tag = Tag(tag=tag, tagged_card=new_card)
 		new_tag.save()
+	return JsonResponse({'errCode': 1}, safe=False)
 
+def add_contact(request);	
+	card_id = request.GET.get('card_id')
+	card = Card.objects.filter(unique_id=card_id)
+	contact_name = request.POST.get('contact_name')
+	contact_email = request.POST.get('contact_email')
+	contact_phone = request.POST.get('contact_phone')
+	new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=card)
+	new_company.save()
+	return JsonResponse({'errCode': 1}, safe=False)
+
+def add_tag(request);
+	card_id = request.GET.get('card_id')
+	card = Card.objects.filter(unique_id=card_id)
+	tags = request.POST.get('tags').split()
+	tags
+	for tag in tags:
+		new_tag = Tag(tag=tag, tagged_card=card)
+		new_tag.save()
+	return JsonResponse({'errCode': 1}, safe=False)
