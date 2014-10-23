@@ -80,28 +80,79 @@ app.controller('CardController', function($scope, $http){
 		
 	};
 
-	this.modify_card_status = function(cardId, updatedStatus){
-		this.status = 
+	$scope.modify_card_status = function(cardId, updatedStatus){
+
+		$scope.myData = JSON.stringify({card_id: cardId, status: updatedStatus});
+		var responsePromise = $http.post(dummyURL.herokuapp.com/CardModel/modify_card_status, $scope.myData);
+		
+		responsePromise.success(function(data, status, headers, config) {
+			//add success result
+		});
+
+		responsePromise.error(function(data, status headers, config) {
+			//add error handling function
+		});		
+
 	};
 
-	this.get_user_cards = function(tagName){
+	$scope.get_user_cards = function(user){
+		$scope.myData = JSON.stringify({username: user});
+		var responsePromise = $http.get(dummyURL.herokuapp.com/CardModel/get_user_cards. $scope.myData);
 
+		responsePromise.success(function(data, status, headers, config) {
+
+		});
+
+		responsePromise.error(function(data, status, headers, config){
+
+
+		});
 	};
 
 });
 
 app.controller('DocumentController', function($scope, $http) {
 	
-	this.upload_document = function(PDFdoc){
+	$scope.upload_document = function(user, PDFdoc){
+		$scope.myData = JSON.stringify({username: user, PDF: PDFdoc});
+		var responsePromise = $http.post(dummyURL.herokuapp.com/DocumentModel/upload_document. $scope.myData);
 
+		responsePromise.success(function(data, status, headers, config) {
+
+		});
+
+		responsePromise.error(function(data, status, headers, config){
+
+
+		});
 	};
 
-	this.remove_document = function(docId){
+	this.remove_document = function(doc_id){
+		$scope.myData = JSON.stringify({username: user, docId: doc_id});
+		var responsePromise = $http.post(dummyURL.herokuapp.com/DocumentModel/remove_document. $scope.myData);
 
+		responsePromise.success(function(data, status, headers, config) {
+
+		});
+
+		responsePromise.error(function(data, status, headers, config){
+
+
+		});
 	};
 
-	this.get_documents = function(userId){
+	this.get_documents = function(user_id){
+		$scope.myData = JSON.stringify({userId: user_id});
+		var responsePromise = $http.get(dummyURL.herokuapp.com/DocumentModel/remove_document. $scope.myData);
 
+		responsePromise.success(function(data, status, headers, config) {
+
+		});
+
+		responsePromise.error(function(data, status, headers, config){
+
+
+		});
 	};
 
 });
