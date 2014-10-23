@@ -100,8 +100,15 @@ app.controller('CardController', ['$http', function($http){
 
 		$http.post('/modify-tag.json', {currentTagName: 'currentTagName', newTagName: newTagName}).
 			success(function(data, status headers, config){
-				this.tags.splice(this.currentTagIndex, 1);
+				
+				if (data.errCode <= 0) {
+					this.errorHandler(data.errCode);
+				}
+				else if (data.errCode == 1){
+					this.tags.splice(this.currentTagIndex, 1);
 				this.tags.push(tagName);
+				}
+
 		}).error(function(data, status headers, config){
 			//Handle error
 		});
@@ -110,11 +117,16 @@ app.controller('CardController', ['$http', function($http){
 
 	this.get_tags = function(tagName){
 
-
-		$http.get('/get-tags.json').success(function(data, status headers, config){
-			//LOG??
-		}).error(function(data, status headers, config){
-			//Handle error
+		$http.get('/get-tags.json').
+			success(function(data, status headers, config){
+				if (data.errCode <= 0) {
+						this.errorHandler(data.errCode);
+					}
+					else if (data.errCode == 1){
+						return data.tags;
+					}
+			}).error(function(data, status headers, config){
+				//Handle error
 		});
 
 	};
@@ -125,7 +137,14 @@ app.controller('CardController', ['$http', function($http){
 
 		$http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).
 			success(function(data, status headers, config){
-				this.tags.splice(this.tagIndex, 1);
+				
+				if (data.errCode <= 0) {
+					this.errorHandler(data.errCode);
+				}
+				else if (data.errCode == 1){
+					this.tags.splice(this.tagIndex, 1);
+				}
+
 			}).error(function(data, status headers, config){
 			//Handle error
 		});
@@ -156,6 +175,34 @@ app.controller('CardController', ['$http', function($http){
 		$scope.myData = JSON.stringify({username: user});
 		var responsePromise = $http.get(dummyURL.herokuapp.com/CardModel/get_user_cards. $scope.myData);
 	};
+
+	var ERR_TAG_EXISTS = -1;
+	var ERR_TAG_INVALID = -2;
+	var ERR_TAG_DOES_NOT_EXIST = -3;
+	var ERR_INVALID_COMPANY = -4;
+	var ERR_INVALID_JOB = -5;
+	var ERR_NO_CARDS = -6;
+
+	this.errorHandler = function(errCode) {
+		if (errCode == ERR_TAG_EXISTS){
+			console.log("This card already contains this tag.");
+		}
+		else if (errCode == ERR_TAG_INVALID){
+			console.log("Please make sure your tag is less than 128 characters.");
+		}
+		else if (errCode == ERR_TAG_DOES_NOT_EXIST){
+			console.log("The tag you are searching for does not extist.");
+		} 
+		else if (errCode == ERR_INVALID_COMPANY){
+			console.log("Please make sure your Company name is valid and under 128 characters.");
+		}
+		else if (errCode == ERR_INVALID_JOB){
+			console.log("Please make sure your Job title is valid and under 128 characters.");
+		}
+		else if (errCode == ERR_NO_CARDS){
+			console.log("There are currently no cards for this user.");
+		}
+	}
 
 }]);
 
