@@ -1,10 +1,18 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from user.models import *
+
+class Company(models.Model):
+    name = models.CharField(unique=True)
+    # Maybe
+    # description = models.TextField()
 
 class Card(models.Model):
     unique_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
-# Could be a different model if we want to later store additional info per company
-    associated_company = models.CharField()
+    status = models.CharField(max_length=20, blank=False, default="begin interviewing")
+    associated_company = models.ForeignKey(Company)
 
     def __str__(self):
         return "A card for " + associated_company
@@ -24,3 +32,4 @@ class Contact(models.Model):
 
     def __str__(self):
         return "Contact with name " + name
+
