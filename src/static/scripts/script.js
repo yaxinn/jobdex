@@ -58,37 +58,84 @@ app.controller('UserController', function($scope, $http) {
 
 });
 
-app.controller('CardController', function($scope, $http){
+app.controller('CardController', ['$http', function($http){
 
 	this.add_tag = function(tagName){
+		
+
+		$http.post('/add-tags.json', {tagName: tagName}).success(function(data){
+			this.tags.push(tagName);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
 
 	};
 
 	this.modify_tag = function(currentTagName, newTagName){
 
+		this.currentTagIndex = this.tags.indexOf(currentTagName);
+
+		$http.post('/modify-tag.json', {currentTagName: 'currentTagName', newTagName: newTagName}).success(function(data){
+			this.tags.splice(this.currentTagIndex, 1);
+			this.tags.push(tagName);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
+
 	};
 
 	this.get_tags = function(tagName){
 
+
+		$http.get('/get-tags.json').success(function(data){
+			//LOG??
+		});
+
+		$http.post('/get-tags.json').error(function(data){
+			//Handle error
+		});
+
 	};
 
-	this.remove_tag = function(tagName){
+	this.remove_tag = function(cardId, tagName){
+
+		this.tagIndex = this.tags.indexOf(tagName);
+
+		$http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).success(function(data){
+			this.tags.splice(this.tagIndex, 1);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
 
 	};
 
 	this.create_card = function(companyName, jobTitle, status){
-		
+	
+
+		$http.post('/create-card.json', {companyName: companyName, jobTitle: jobTitle, status: status}).success(function(data){
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
+
 	};
 
 	this.modify_card_status = function(cardId, updatedStatus){
-		this.status = 
+
 	};
 
 	this.get_user_cards = function(tagName){
 
 	};
 
-});
+}]);
 
 app.controller('DocumentController', function($scope, $http) {
 	
