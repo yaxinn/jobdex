@@ -2,6 +2,7 @@ from django.db import models
 from card.models import *
 from document.models import *
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile")
     companies = models.ManyToManyField('Company')

@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from user.models import *
+from document.models import *
 
 class Company(models.Model):
     name = models.CharField(unique=True)
