@@ -58,32 +58,79 @@ app.controller('UserController', function($scope, $http) {
 
 });
 
-app.controller('CardController', function($scope, $http){
+app.controller('CardController', ['$http', function($http){
 
 	this.add_tag = function(tagName){
+		
+
+		$http.post('/add-tags.json', {tagName: tagName}).success(function(data){
+			this.tags.push(tagName);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
 
 	};
 
 	this.modify_tag = function(currentTagName, newTagName){
 
+		this.currentTagIndex = this.tags.indexOf(currentTagName);
+
+		$http.post('/modify-tag.json', {currentTagName: 'currentTagName', newTagName: newTagName}).success(function(data){
+			this.tags.splice(this.currentTagIndex, 1);
+			this.tags.push(tagName);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
+
 	};
 
 	this.get_tags = function(tagName){
 
+
+		$http.get('/get-tags.json').success(function(data){
+			//LOG??
+		});
+
+		$http.post('/get-tags.json').error(function(data){
+			//Handle error
+		});
+
 	};
 
-	this.remove_tag = function(tagName){
+	this.remove_tag = function(cardId, tagName){
+
+		this.tagIndex = this.tags.indexOf(tagName);
+
+		$http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).success(function(data){
+			this.tags.splice(this.tagIndex, 1);
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
 
 	};
 
 	this.create_card = function(companyName, jobTitle, status){
-		
+	
+
+		$http.post('/create-card.json', {companyName: companyName, jobTitle: jobTitle, status: status}).success(function(data){
+		});
+
+		$http.post('/add-tags.json', {tagName: tagName}).error(function(data){
+			//Handle error
+		});
+
 	};
 
-	$scope.modify_card_status = function(cardId, updatedStatus){
+	this.modify_card_status = function(cardId, updatedStatus){
 
 		$scope.myData = JSON.stringify({card_id: cardId, status: updatedStatus});
-		var responsePromise = $http.post(dummyURL.herokuapp.com/CardModel/modify_card_status, $scope.myData);
+		var responsePromise = $http.post('/modify_card_status/json', $scope.myData);
 		
 		responsePromise.success(function(data, status, headers, config) {
 			//add success result
@@ -95,9 +142,9 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
-	$scope.get_user_cards = function(user){
+	this.get_user_cards = function(user){
 		$scope.myData = JSON.stringify({username: user});
-		var responsePromise = $http.get(dummyURL.herokuapp.com/CardModel/get_user_cards. $scope.myData);
+		var responsePromise = $http.get('/get_user_cards.json', $scope.myData);
 
 		responsePromise.success(function(data, status, headers, config) {
 
@@ -109,13 +156,13 @@ app.controller('CardController', function($scope, $http){
 		});
 	};
 
-});
+}]);
 
-app.controller('DocumentController', function($scope, $http) {
+app.controller('DocumentController', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.upload_document = function(user, PDFdoc){
 		$scope.myData = JSON.stringify({username: user, PDF: PDFdoc});
-		var responsePromise = $http.post(dummyURL.herokuapp.com/DocumentModel/upload_document. $scope.myData);
+		var responsePromise = $http.post('/upload_document.json', $scope.myData);
 
 		responsePromise.success(function(data, status, headers, config) {
 
@@ -127,9 +174,9 @@ app.controller('DocumentController', function($scope, $http) {
 		});
 	};
 
-	this.remove_document = function(doc_id){
+	$scope.remove_document = function(doc_id){
 		$scope.myData = JSON.stringify({username: user, docId: doc_id});
-		var responsePromise = $http.post(dummyURL.herokuapp.com/DocumentModel/remove_document. $scope.myData);
+		var responsePromise = $http.post('/remove_document.json', $scope.myData);
 
 		responsePromise.success(function(data, status, headers, config) {
 
@@ -141,9 +188,9 @@ app.controller('DocumentController', function($scope, $http) {
 		});
 	};
 
-	this.get_documents = function(user_id){
+	$scope.get_documents = function(user_id){
 		$scope.myData = JSON.stringify({userId: user_id});
-		var responsePromise = $http.get(dummyURL.herokuapp.com/DocumentModel/remove_document. $scope.myData);
+		var responsePromise = $http.get('/get_documents.json', $scope.myData);
 
 		responsePromise.success(function(data, status, headers, config) {
 
