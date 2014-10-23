@@ -17,3 +17,19 @@ def get_contacts(request):
         'contacts': contacts_output,
     })
     return render('index.html', context)
+
+def add_card(request);
+	company_name = request.POST.get('company_name')
+	tags = request.POST.get('tags').split()
+	contact_name = request.POST.get('contact_name')
+	contact_email = request.POST.get('contact_email')
+	contact_phone = request.POST.get('contact_phone')
+
+	new_card = Card(associated_company=company_name)
+	new_card.save()
+	new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
+	new_company.save()
+	for tag in tags:
+		new_tag = Tag(tag=tag, tagged_card=new_card)
+		new_tag.save()
+
