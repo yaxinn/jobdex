@@ -6,10 +6,10 @@ function error(xhr, ajaxOptions, thrownError) {
     console.log(xhr.responseText);
 }
 
-// 
+// Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
 
-	// 
+	// Send information on a new user to the backend and verify information
 	$scope.sign_up = function(){
 		
 		var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password, confirm_password: $scope.user.confirm_password, email: $scope.user.email});
@@ -27,6 +27,7 @@ app.controller('UserController', function($scope, $http) {
 		$scope.user = {};
 	};
 
+	//Verify a user's login info
 	$scope.login = function(){
 		
 		var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password});
@@ -44,6 +45,7 @@ app.controller('UserController', function($scope, $http) {
 		$scope.user = {};
 	};
 
+	//Once logout is selected, user should be brought back to the login page
 	$scope.logout = function(){
 
 		var req = JSON.stringify({});
@@ -63,6 +65,7 @@ app.controller('UserController', function($scope, $http) {
 		//Add navigation for HTML
 		//Save cookies to the backend
 	}
+
 
 	var ERR_BAD_CREDENTIALS = -1;
 	var ERR_EXISTING_USER = -2;
@@ -87,7 +90,10 @@ app.controller('UserController', function($scope, $http) {
 
 });
 
+//All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
+	
+	//This table is needed to store ids on the front end for some of the method calls to cards
 	//when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
 	var id_table = [{
 		id: 9999
@@ -97,7 +103,7 @@ app.controller('CardController', function($scope, $http){
 		id: 3333
 	}];
 
-
+	//add a tag to the tag given
 	$scope.add_tag = function(id_entry){
 
 		var req = JSON.stringify({card_id: id_entry.id, tags: $scope.card.tags});
@@ -173,6 +179,8 @@ app.controller('CardController', function($scope, $http){
 	// 	});
 	// };
 
+	//Create a new card with a company name, job title, and initial status. 
+	//The card's id should be returned and stored in the database.
 	$scope.create_card = function(){
 	
 		var req = JSON.stringify({company_name: $scope.card.company_name, job_title: $scope.card.job_title, status: $scope.card.status});
@@ -194,6 +202,7 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
+	//Change the status of a card (In Progress, Complete, Failed, or Interested)
 	$scope.modify_card_status = function(id_entry){
 		var req = JSON.stringify({card_id: id_entry.id, status: $scope.card.status});
 		$http.post('/api/card/' + id_entry.id + '/status', req).
@@ -212,7 +221,7 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
-
+	//Return a List of all of the cards from a certain company, when given the company name
 	$scope.get_company_cards = function(){
 
 		var req = JSON.stringify({company_name: $scope.card.company_name});
@@ -265,6 +274,7 @@ app.controller('CardController', function($scope, $http){
 
 app.controller('DocumentController', function($scope, $http) {
 	
+	//Upload a PDF doc to the backend database for storage
 	$scope.upload_document = function(){
 		var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.doc.PDFdoc});
 		$http.post('/api/user/upload_document/', req).
@@ -273,7 +283,7 @@ app.controller('DocumentController', function($scope, $http) {
 					$scope.errorHandler(data.error_message);
 				}
 				else if (data.error_message == 1){
-					// sucess
+					// success
 			}).error(function(data, status, headers, config){
 
 		});
@@ -328,27 +338,4 @@ app.controller('DocumentController', function($scope, $http) {
 
 });
 
-var dummyUsers = [{
-	username: 'seth',
-	password: 'hello',
-	email: 'sethanderson@berkeley.edu',
-	id: 1234
-}, {
-	username: 'yaxin',
-	password: 'goodbye',
-	email: 'yaxin.t@berkeley.edu',
-	id: 5678
-}];
-
-
-
-var dummyDocuments = [{
-	docName: 'resume_softwareEngineer',
-	type: 'pdf',
-	url: '',
-}, {
-	docName: 'resume_salesAssistant',
-	type: 'pdf',
-	url: '',
-}]
 
