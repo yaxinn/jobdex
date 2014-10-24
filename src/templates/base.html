@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+{% load tz %}
+<html>
+    <head>
+        <meta name="description" content="Jobdex">
+        <link rel="stylesheet" href="/static/css/unsemantic-grid-base.css">
+        <link rel="stylesheet" href="/static/css/unsemantic2.css">
+        <link rel="stylesheet" href="{% static "css/style.css" %}" />
+        
+        {% block additional_stylesheets %}
+        {% endblock %}
+        <meta charset="utf-8">
+        <title>
+            {% block title %}Jobdex{% endblock %}
+        </title>
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="grid-100 grid-parent" id="navbar">
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    {% block additional_scripts %}
+    {% endblock %}
+    </body>
+    {% block credits %}
+    {% endblock %}
+</html>
