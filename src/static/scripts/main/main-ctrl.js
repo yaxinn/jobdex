@@ -61,8 +61,7 @@ app.controller('UserController', function($scope, $http) {
 	//Once logout is selected, user should be brought back to the login page
 	$scope.logout = function(){
 
-		var req = JSON.stringify({});
-		$http.get('/api/users', req).
+		$http.get('/api/users').
 			success(function(data, status, headers, config) {
 			//add success result
 				if (data.error_message <= 0) {
@@ -82,9 +81,7 @@ app.controller('UserController', function($scope, $http) {
 	//Return a List of all of the cards for a user
 	$scope.get_user_cards = function(user){
 
-		var req = JSON.stringify({user_id: user.id});
-
-		$http.get('/api/users/' + user.id + '/cards', req).
+		$http.get('/api/users/' + user.id + '/cards').
 			success(function(data, status, headers, config) {
 
 				if (data.error_message <= 0) {
@@ -103,9 +100,7 @@ app.controller('UserController', function($scope, $http) {
 	//Return a List of all of the cards from a certain company, when given the company name
 	$scope.get_company_cards = function(user){
 
-		var req = JSON.stringify({user_id: user.id, company_name: $scope.user.company_name});
-
-		$http.get('/api/users/' + user.id + '/' + company_name '/cards', req).
+		$http.get('/api/users/' + user.id + '/' + company_name '/cards').
 			success(function(data, status, headers, config) {
 
 				if (data.error_message <= 0) {
