@@ -26,10 +26,10 @@ def get_contacts(request):
     return JsonResponse(contacts_output, safe=False)
 
 # Add card given company name, status, tags, and contact info
-def add_card(request):
+def create_card(request):
     company_name = request.POST.get('company_name')
     status = request.POST.get('status')
-    tags = request.POST.get('tags').split()
+    tags = request.POST.get('tags').split(',')
     contact_name = request.POST.get('contact_name')
     contact_email = request.POST.get('contact_email')
     contact_phone = request.POST.get('contact_phone')
@@ -41,7 +41,11 @@ def add_card(request):
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=new_card)
         new_tag.save()
-    return JsonResponse({'errCode': 1}, safe=False)
+    # Not sure if we should return the id so javascript can store it or just errorCode
+    card_id = new_card.unique_id
+    card_id_output = serializers.serialize("json", card_id)
+    return JsonResponse(card_id_output, safe=False)
+    #return JsonResponse({'error_message': 1}, safe=False)
 
 # Add contact given card id and contact info
 def add_contact(request):
@@ -52,26 +56,26 @@ def add_contact(request):
     contact_phone = request.POST.get('contact_phone')
     new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=card)
     new_company.save()
-    return JsonResponse({'errCode': 1}, safe=False)
+    return JsonResponse({'error_message': 1}, safe=False)
 
 # Add tags based on card id and tag names
 def add_tag(request):
     card_id = request.GET.get('card_id')
     card = Card.objects.filter(unique_id=card_id)
-    tags = request.POST.get('tags').split()
+    tags = request.POST.get('tags').split(',')
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=card)
         new_tag.save()
-    return JsonResponse({'errCode': 1}, safe=False)
+    return JsonResponse({'error_message': 1}, safe=False)
 
 # Change status based on card id and new status
-def change_status(request):
+def modify_card_status(request):
     card_id = request.GET.get('card_id')
     new_status = request.GET.get('status')
     card = Card.objects.filter(unique_id=card_id)
     if new_status != card.status:
         card.status = new_status
-    return JsonResponse({'errCode': 1}, safe=False)
+    return JsonResponse({'error_message': 1}, safe=False)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile")

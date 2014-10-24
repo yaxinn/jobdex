@@ -13,6 +13,7 @@ class Company(models.Model):
 class Card(models.Model):
     unique_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
     status = models.CharField(max_length=20, blank=False, default="begin interviewing")
+    job_title = models.CharField(blank=False)
     associated_company = models.ForeignKey(Company)
 
     def __str__(self):
