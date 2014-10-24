@@ -55,11 +55,10 @@ def add_contact(request):
     return JsonResponse({'errCode': 1}, safe=False)
 
 # Add tags based on card id and tag names
-def add_tags(request):
+def add_tag(request):
     card_id = request.GET.get('card_id')
     card = Card.objects.filter(unique_id=card_id)
     tags = request.POST.get('tags').split()
-    tags
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=card)
         new_tag.save()
