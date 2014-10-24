@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="/static/styles/unsemantic-grid-base.css">
         <link rel="stylesheet" href="/static/styles/unsemantic2.css">
         <link rel="stylesheet" href="{% static "styles/main.css" %}" />
-        
         {% block additional_stylesheets %}
         {% endblock %}
         <meta charset="utf-8">
@@ -15,7 +14,7 @@
             {% block title %}Jobdex{% endblock %}
         </title>
     </head>
-    <body>
+    <body ng-app="jobdex_app">
     <div id="container"> 
         <div class="grid-container">
             <div class="grid-100 grid-parent" id="navbar">
@@ -40,6 +39,10 @@
             {% endblock %}
         </div>
     </div>
+    <script src="/static/bower_components/angular/angular.min.js"></script>
+    <script src="/static/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/static/scripts/script.js"></script>
+    <script src="/static/scripts/main/main-ctrl.js"></script>
         {% block additional_scripts %}
         {% endblock %}
     </body>

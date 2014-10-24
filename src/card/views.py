@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_save
 from card.models import *
 import json
 from django.core import serializers
 from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
 
 # Home page view
 def home(request):
@@ -26,14 +28,22 @@ def get_contacts(request):
     return JsonResponse(contacts_output, safe=False)
 
 # Add card given company name, status, tags, and contact info
+@csrf_exempt
 def create_card(request):
-    company_name = request.POST.get('company_name')
-    status = request.POST.get('status')
-    tags = request.POST.get('tags').split(',')
-    contact_name = request.POST.get('contact_name')
-    contact_email = request.POST.get('contact_email')
-    contact_phone = request.POST.get('contact_phone')
+    print(request.POST)
+    company_name = request.POST('company_name')
+    print(company_name)
+    status = str(request.POST.get('status'))
+    tags = str(request.POST.get('tags')).split(',')
+    contact_name = str(request.POST.get('contact_name'))
+    contact_email = str(request.POST.get('contact_email'))
+    contact_phone = str(request.POST.get('contact_phone'))
 
+    print(status)
+    print(tags)
+    print(contact_name)
+    print(contact_email)
+    print(contact_phone)
     new_card = Card(associated_company=company_name, status=status)
     new_card.save()
     new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)

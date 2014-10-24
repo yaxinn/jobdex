@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="dashboard">
+<div id="dashboard" ng-controller="CardController">
     <h1>Dashboard</h1>
     <div id="menu-items">
         <div id="add-card">
@@ -18,7 +18,7 @@
             <br>
             <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
             <br>
-            <input type="submit" value="Add Card" ng-click="create_card()>
+            <input type="submit" value="Add Card" ng-click="create_card()">
         </div>
     </div>
     <div id="cards">
