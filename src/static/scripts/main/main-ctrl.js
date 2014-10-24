@@ -9,6 +9,16 @@ function error(xhr, ajaxOptions, thrownError) {
 // Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
 
+	//This table is needed to store ids on the front end for some of the method calls to users
+	//when using ng-repeat, set it to "user in userCtrl.cards", where userCtrl is the UserController alias
+	var users = [{
+		id: 9999
+	}, {
+		id: 5555
+	}, {
+		id: 3333
+	}];
+
 	// Send information on a new user to the backend and verify information
 	$scope.sign_up = function(){
 		
@@ -19,6 +29,9 @@ app.controller('UserController', function($scope, $http) {
 					$scope.errorHandler(data.error_message);
 				}
 				else if (data.error_message == 1){
+					//Store the user id in the table above
+					users.push(data.user_id_output);
+
 					// direct user to the dashboard in html
 				}
 			}).error(function(data, status, headers, config) {
@@ -65,6 +78,48 @@ app.controller('UserController', function($scope, $http) {
 		//Add navigation for HTML
 		//Save cookies to the backend
 	}
+
+	//Return a List of all of the cards for a user
+	$scope.get_user_cards = function(user){
+
+		var req = JSON.stringify({user_id: user.id});
+
+		$http.get('/api/users/' + user.id + '/cards', req).
+			success(function(data, status, headers, config) {
+
+				if (data.error_message <= 0) {
+					$scope.errorHandler(data.error_message);
+				}
+				else if (data.error_message == 1){
+					// in the html, use cardList to display company cards
+					$scope.cardList = data.cards_output;
+				}
+
+			}).error(function(data, status, headers, config){
+
+		});
+	};
+
+	//Return a List of all of the cards from a certain company, when given the company name
+	$scope.get_company_cards = function(user){
+
+		var req = JSON.stringify({user_id: user.id, company_name: $scope.user.company_name});
+
+		$http.get('/api/users/' + user.id + '/' + company_name '/cards', req).
+			success(function(data, status, headers, config) {
+
+				if (data.error_message <= 0) {
+					$scope.errorHandler(data.error_message);
+				}
+				else if (data.error_message == 1){
+					// in the html, use cardList to display company cards
+					$scope.cardList = data.cards_output;
+				}
+
+			}).error(function(data, status, headers, config){
+
+		});
+	};
 
 
 	var ERR_BAD_CREDENTIALS = -1;
@@ -192,7 +247,7 @@ app.controller('CardController', function($scope, $http){
 				}
 				else if (data.error_message == 1){
 					//add the new card_id to the cards table
-					cards.push(data.card_id_output);
+					id_table.push(data.card_id_output);
 				}
 
 			}).error(function(data, status, headers, config){
@@ -221,26 +276,7 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
-	//Return a List of all of the cards from a certain company, when given the company name
-	$scope.get_company_cards = function(){
-
-		var req = JSON.stringify({company_name: $scope.card.company_name});
-
-		$http.get('/', req).
-			success(function(data, status, headers, config) {
-
-				if (data.error_message <= 0) {
-					$scope.errorHandler(data.error_message);
-				}
-				else if (data.error_message == 1){
-					// in the html, use cardList to display company cards
-					$scope.cardList = data.cards_output;
-				}
-
-			}).error(function(data, status, headers, config){
-
-		});
-	};
+	
 
 	var ERR_TAG_EXISTS = -1;
 	var ERR_TAG_INVALID = -2;
