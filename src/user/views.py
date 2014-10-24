@@ -17,6 +17,8 @@ def signup_view(request):
             error_message = "Please fill in all fields."
         elif password and password != confirm_password:
             error_message = "Passwords don't match"
+        elif UserProfile.objects.filter(user=username).exists():
+            error_message = "User already exsits"
         else:
             user_form = UserForm(data=request.POST)
                 if user_form.is_valid():
