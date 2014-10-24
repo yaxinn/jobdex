@@ -11,9 +11,9 @@ def home(request):
     return render('index.html', {})
 
 # Return all cards of a company given company name
-def get_cards(request):
-    company = request.GET.get('company')
-    cards = Card.objects.filter(associated_company=company)
+def get_company_cards(request):
+    company_name = request.GET.get('company_name')
+    cards = Card.objects.filter(associated_company=company_name)
     cards_output = serializers.serialize("json", cards)
     return JsonResponse(cards_output, safe=False)
 
