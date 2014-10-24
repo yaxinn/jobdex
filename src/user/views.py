@@ -1,11 +1,12 @@
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from card.models import *
 from user.models import *
+from django.core import serializers
 
 def signup_view(request):
     if request.method == 'POST':
@@ -27,7 +28,9 @@ def signup_view(request):
                     user.save()
                     u = authenticate(username=username, password=password)
                     login(request, u)
-                    return HttpResponseRedirect('/')
+                    username_output = serializers.serialize("json", user.username)
+                    return JsonResponse(username_output, safe=False)
+                    #return HttpResponseRedirect('/')
                 else:
                     error_message = user_form.errors.items()[0][1]
     else:
