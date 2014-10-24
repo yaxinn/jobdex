@@ -5,3 +5,5 @@ app.controller('mainCtrl', function ($scope, $http, $cookies) {
 function error(xhr, ajaxOptions, thrownError) {
     console.log(xhr.responseText);
 }
+
+
