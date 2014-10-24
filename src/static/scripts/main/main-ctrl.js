@@ -6,6 +6,7 @@ function error(xhr, ajaxOptions, thrownError) {
     console.log(xhr.responseText);
 }
 
+<<<<<<< HEAD
 // Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
 
@@ -369,4 +370,6 @@ app.controller('DocumentController', function($scope, $http) {
 
 });
 
+=======
+>>>>>>> JSON stringify for every method and changed all this. to , and change dummyUsers to Users
 
