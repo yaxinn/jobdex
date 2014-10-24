@@ -1,4 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-Write shit here
+<div id="dashboard">
+    <h1>Dashboard</h1>
+    <div id="menu-items">
+        <div id="add-card">
+            <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
+            <br>
+            <label for="status">Status:</label><input type="text" name="status" ng-model="card.status">
+            <br>
+            <label for="tags">Tags:</label><input type="text" name="tags">
+            <br>
+            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
+            <br>
+            <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
+            <br>
+            <label for="contact-email">Contact Email:</label><input type="text" name="contact-email" ng-model="card.contactEmail">
+            <br>
+            <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
+            <br>
+            <input type="submit" value="Add Card" ng-click="create_card()>
+        </div>
+    </div>
+    <div id="cards">
+    </div>
+</div>
 {% endblock %}

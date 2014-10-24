@@ -6,9 +6,9 @@ import json
 from django.core import serializers
 from django.http import JsonResponse
 
-# Create your views here.
+# Home page view
 def home(request):
-    return render('index.html', {})
+    return render(request, 'index.html', {})
 
 # Return all cards of a company given company name
 def get_company_cards(request):

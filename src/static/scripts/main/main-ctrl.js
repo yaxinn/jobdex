@@ -233,9 +233,16 @@ app.controller('CardController', function($scope, $http){
 	//The card's id should be returned and stored in the database.
 	$scope.create_card = function(){
 	
-		var req = JSON.stringify({company_name: $scope.card.company_name, job_title: $scope.card.job_title, status: $scope.card.status});
+		var req = JSON.stringify({company_name: $scope.card.companyName, 
+                            position: $scope.card.position,
+                            tags: $scope.card.tags,
+                            contactName: $scope.card.contactName,
+                            contactEmail: $scope.card.contactEmail,
+                            contactPhone: $scope.card.contactphone,
+                            status: $scope.card.status});
 		$http.post('/api/user/create-card', req).
 			success(function(data, status, headers, config){
+                console.log(data);
 				
 				if (data.error_message <= 0) {
 					$scope.errorHandler(data.error_message);
