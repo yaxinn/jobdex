@@ -7,6 +7,7 @@ function error(xhr, ajaxOptions, thrownError) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
 
@@ -21,6 +22,12 @@ app.controller('UserController', function($scope, $http) {
 	}];
 
 	// Send information on a new user to the backend and verify information
+=======
+// 
+app.controller('UserController', function($scope, $http) {
+
+	// 
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.sign_up = function(){
 		
 		var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password, confirm_password: $scope.user.confirm_password, email: $scope.user.email});
@@ -30,9 +37,12 @@ app.controller('UserController', function($scope, $http) {
 					$scope.errorHandler(data.error_message);
 				}
 				else if (data.error_message == 1){
+<<<<<<< HEAD
 					//Store the user id in the table above
 					users.push(data.user_id_output);
 
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 					// direct user to the dashboard in html
 				}
 			}).error(function(data, status, headers, config) {
@@ -41,7 +51,10 @@ app.controller('UserController', function($scope, $http) {
 		$scope.user = {};
 	};
 
+<<<<<<< HEAD
 	//Verify a user's login info
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.login = function(){
 		
 		var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password});
@@ -59,10 +72,17 @@ app.controller('UserController', function($scope, $http) {
 		$scope.user = {};
 	};
 
+<<<<<<< HEAD
 	//Once logout is selected, user should be brought back to the login page
 	$scope.logout = function(){
 
 		$http.get('/api/users').
+=======
+	$scope.logout = function(){
+
+		var req = JSON.stringify({});
+		$http.get('/api/users', req).
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 			success(function(data, status, headers, config) {
 			//add success result
 				if (data.error_message <= 0) {
@@ -79,6 +99,7 @@ app.controller('UserController', function($scope, $http) {
 		//Save cookies to the backend
 	}
 
+<<<<<<< HEAD
 	//Return a List of all of the cards for a user
 	$scope.get_user_cards = function(user){
 
@@ -118,6 +139,8 @@ app.controller('UserController', function($scope, $http) {
 	};
 
 
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	var ERR_BAD_CREDENTIALS = -1;
 	var ERR_EXISTING_USER = -2;
 	var ERR_BAD_USERNAME = -3;
@@ -141,10 +164,14 @@ app.controller('UserController', function($scope, $http) {
 
 });
 
+<<<<<<< HEAD
 //All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
 	
 	//This table is needed to store ids on the front end for some of the method calls to cards
+=======
+app.controller('CardController', function($scope, $http){
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	//when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
 	var id_table = [{
 		id: 9999
@@ -154,7 +181,11 @@ app.controller('CardController', function($scope, $http){
 		id: 3333
 	}];
 
+<<<<<<< HEAD
 	//add a tag to the tag given
+=======
+
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.add_tag = function(id_entry){
 
 		var req = JSON.stringify({card_id: id_entry.id, tags: $scope.card.tags});
@@ -230,8 +261,11 @@ app.controller('CardController', function($scope, $http){
 	// 	});
 	// };
 
+<<<<<<< HEAD
 	//Create a new card with a company name, job title, and initial status. 
 	//The card's id should be returned and stored in the database.
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.create_card = function(){
 	
 		var req = JSON.stringify({company_name: $scope.card.company_name, job_title: $scope.card.job_title, status: $scope.card.status});
@@ -243,7 +277,11 @@ app.controller('CardController', function($scope, $http){
 				}
 				else if (data.error_message == 1){
 					//add the new card_id to the cards table
+<<<<<<< HEAD
 					id_table.push(data.card_id_output);
+=======
+					cards.push(data.card_id_output);
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 				}
 
 			}).error(function(data, status, headers, config){
@@ -253,7 +291,10 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
+<<<<<<< HEAD
 	//Change the status of a card (In Progress, Complete, Failed, or Interested)
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.modify_card_status = function(id_entry){
 		var req = JSON.stringify({card_id: id_entry.id, status: $scope.card.status});
 		$http.post('/api/card/' + id_entry.id + '/status', req).
@@ -272,7 +313,30 @@ app.controller('CardController', function($scope, $http){
 
 	};
 
+<<<<<<< HEAD
 	
+=======
+
+	$scope.get_company_cards = function(){
+
+		var req = JSON.stringify({company_name: $scope.card.company_name});
+
+		$http.get('/', req).
+			success(function(data, status, headers, config) {
+
+				if (data.error_message <= 0) {
+					$scope.errorHandler(data.error_message);
+				}
+				else if (data.error_message == 1){
+					// in the html, use cardList to display company cards
+					$scope.cardList = data.cards_output;
+				}
+
+			}).error(function(data, status, headers, config){
+
+		});
+	};
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 
 	var ERR_TAG_EXISTS = -1;
 	var ERR_TAG_INVALID = -2;
@@ -306,7 +370,10 @@ app.controller('CardController', function($scope, $http){
 
 app.controller('DocumentController', function($scope, $http) {
 	
+<<<<<<< HEAD
 	//Upload a PDF doc to the backend database for storage
+=======
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 	$scope.upload_document = function(){
 		var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.doc.PDFdoc});
 		$http.post('/api/user/upload_document/', req).
@@ -315,7 +382,11 @@ app.controller('DocumentController', function($scope, $http) {
 					$scope.errorHandler(data.error_message);
 				}
 				else if (data.error_message == 1){
+<<<<<<< HEAD
 					// success
+=======
+					// sucess
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 			}).error(function(data, status, headers, config){
 
 		});
@@ -370,6 +441,32 @@ app.controller('DocumentController', function($scope, $http) {
 
 });
 
+<<<<<<< HEAD
 =======
 >>>>>>> JSON stringify for every method and changed all this. to , and change dummyUsers to Users
+=======
+var dummyUsers = [{
+	username: 'seth',
+	password: 'hello',
+	email: 'sethanderson@berkeley.edu',
+	id: 1234
+}, {
+	username: 'yaxin',
+	password: 'goodbye',
+	email: 'yaxin.t@berkeley.edu',
+	id: 5678
+}];
+
+
+
+var dummyDocuments = [{
+	docName: 'resume_softwareEngineer',
+	type: 'pdf',
+	url: '',
+}, {
+	docName: 'resume_salesAssistant',
+	type: 'pdf',
+	url: '',
+}]
+>>>>>>> move controllers from script.js to main-ctrl.js, change the url for each method, create a id_table for card_id
 
