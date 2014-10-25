@@ -15,6 +15,10 @@ def home(request):
     cards = Card.objects.all()
     return render(request, 'index.html', {"cards": cards})
 
+def about(request):
+    context = {}
+    return render(request, 'about.html', context)
+
 def get_all_cards(request):
     cards = Card.objects.all()
     cards_output = serializers.serialize("json", cards)

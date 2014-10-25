@@ -60,9 +60,35 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+#footer {
+  background: #3b333f;
+  color: white;
+  height: 100px;
+  text-align: center;
+  font-size: 25px;
+}
+#footer p {
+  padding-top: 1em;
+}
+
 #dashboard {
+  height: 900px;
+  background: #ecf0f1;
+}
+
+#about-page {
   height: 700px;
   background: #ecf0f1;
+}
+#about-page #about-text {
+  width: 70%;
+  margin: 0 auto;
+  padding: 1em;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+#about-page #about-text p {
+  font-size: 20px;
 }
 
 #menu-items {
@@ -132,6 +158,8 @@ input[type=submit]:hover {
 label {
   display: inline-block;
   width: 200px;
+  text-align: right;
+  margin-right: 1em;
   font-size: 20px;
 }
 
