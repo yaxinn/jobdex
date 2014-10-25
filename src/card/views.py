@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_save
 from card.models import *
+from user.models import *
+from document.models import *
 import json
 from django.core import serializers
 from django.http import JsonResponse
@@ -30,31 +32,35 @@ def get_contacts(request):
 # Add card given company name, status, tags, and contact info
 @csrf_exempt
 def create_card(request):
-    print(request.POST)
-    company_name = request.POST('company_name')
-    print(company_name)
-    status = str(request.POST.get('status'))
-    tags = str(request.POST.get('tags')).split(',')
-    contact_name = str(request.POST.get('contact_name'))
-    contact_email = str(request.POST.get('contact_email'))
-    contact_phone = str(request.POST.get('contact_phone'))
+    info = json.loads(request.POST.keys()[0])
+    company_name = info['companyName']
+    status = str(info['status'])
+    job_title = info['jobTitle']
+    tags = str(info['tags'])
+    contact_name = str(info['contactName'])
+    contact_email = str(info['contactEmail'])
+    contact_phone = str(info['contactPhone'])
 
-    print(status)
-    print(tags)
-    print(contact_name)
-    print(contact_email)
-    print(contact_phone)
-    new_card = Card(associated_company=company_name, status=status)
+    try:
+        company = Company.objects.get(name=company_name)
+    except Company.DoesNotExist:
+        company = Company(name=company_name)
+        company.save()
+
+    new_card = Card(associated_company=company, status=status, job_title=job_title)
     new_card.save()
-    new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
-    new_company.save()
+
+    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
+    new_contact.save()
+
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=new_card)
         new_tag.save()
     # Not sure if we should return the id so javascript can store it or just errorCode
-    card_id = new_card.unique_id
-    card_id_output = serializers.serialize("json", card_id)
-    return JsonResponse(card_id_output, safe=False)
+    card_id = str(new_card.unique_id)
+    # card_id_output = serializers.serialize("json", card_id)
+    response = {'card_id': card_id, 'error_message': 1}
+    return JsonResponse(response, safe=False)
     #return JsonResponse({'error_message': 1}, safe=False)
 
 # Add contact given card id and contact info

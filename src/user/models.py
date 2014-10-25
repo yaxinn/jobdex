@@ -1,11 +1,12 @@
 from django.db import models
-from card.models import *
-from document.models import *
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+import card
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile")
-    companies = models.ManyToManyField('Company')
+    companies = models.ManyToManyField(card.models.Company)
     def __str__(self):
         return "%s's profile" % self.user
 

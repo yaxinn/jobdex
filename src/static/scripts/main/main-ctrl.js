@@ -234,12 +234,12 @@ app.controller('CardController', function($scope, $http){
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.create_card = function(){
 
-        var req = JSON.stringify({company_name: $scope.card.companyName, 
-            position: $scope.card.position,
+        var req = JSON.stringify({companyName: $scope.card.companyName, 
+            jobTitle: $scope.card.position,
             tags: $scope.card.tags,
             contactName: $scope.card.contactName,
             contactEmail: $scope.card.contactEmail,
-            contactPhone: $scope.card.contactphone,
+            contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
         $http.post('/api/user/create-card', req).
             success(function(data, status, headers, config){
