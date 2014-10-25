@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from unipath import Path
 import os
 BASE_DIR = Path(__file__).ancestor(2)
-STATIC_DIR = BASE_DIR.child("static")
+STATIC_DIR = BASE_DIR.child("login_counter_app").child("static")
 TEMPLATE_DIR = BASE_DIR.child("templates")
 
 
@@ -93,3 +93,30 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     TEMPLATE_DIR,
 )
+
+PRODUCTION SETTINGS
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
+TEST_DATABASES = {
+    'default': dj_database_url.config(env='TEST_DATABASE_URL')
+}
