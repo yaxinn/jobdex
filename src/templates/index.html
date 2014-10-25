@@ -22,6 +22,28 @@
         </div>
     </div>
     <div id="cards">
+        <h1>Your Cards</h1>
+        {% for card in cards %}
+            <div class="card">
+                <div class="card-company">
+                    {{card.associated_company.name}}
+                </div>
+                <div class="card-position">
+                    {{card.job_title}}
+                </div>
+                <div class="card-status">
+                    {{card.status}}
+                </div>
+                <div class="card-tags">
+                    {{card.tag_set.all}}
+                    <ul>
+                        {% for tag in card.tagged_card_set.all %}
+                            <li>{{tags}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

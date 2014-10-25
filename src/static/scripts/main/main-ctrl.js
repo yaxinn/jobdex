@@ -143,15 +143,22 @@ $scope.user = {};
 //All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
 
+    $scope.cards = {'hi': 'hello'};
+
+    $http.get('/api/card/all-cards').
+    success(function(data, status, headers, config) {
+        console.log("SUCCESS");
+        console.log(data);
+        $scope.cards = data;
+    }).
+    error(function(data, status, headers, config) {
+        console.log("ERROR");
+        console.log(data);
+    });
+
     //This table is needed to store ids on the front end for some of the method calls to cards
     //when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
-    var id_table = [{
-        id: 9999
-    }, {
-        id: 5555
-    }, {
-        id: 3333
-    }];
+    var id_table = [];
 
     //add a tag to the tag given
     $scope.add_tag = function(id_entry){
@@ -233,7 +240,6 @@ app.controller('CardController', function($scope, $http){
     //The card's id should be returned and stored in the database.
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.create_card = function(){
-
         var req = JSON.stringify({companyName: $scope.card.companyName, 
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
@@ -246,20 +252,16 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
 
                 if (data.error_message <= 0) {
-                    $scope.errorHandler(data.error_message);
+                    $scope.errorHandler(data.error_code);
                 }
                 else if (data.error_message == 1){
-                    //add the new card_id to the cards table
-                    id_table.push(data.card_id_output);
+                    id_table.push(data.card_id);
                 }
 
             }).error(function(data, status, headers, config){
-                //Handle error
-                error(data);
                 console.log(data);
             });
         $scope.card = {};
-
     };
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
@@ -277,7 +279,6 @@ app.controller('CardController', function($scope, $http){
 
             }).error(function(data, status, headers, config) {
             });		
-
     };
 
 

@@ -11,14 +11,14 @@ class Card(models.Model):
     associated_company = models.ForeignKey(Company)
 
     def __str__(self):
-        return "A card for " + associated_company
+        return "A card for " + self.associated_company.name
 
 class Tag(models.Model):
     tag = models.CharField(max_length=100)
     tagged_card = models.ForeignKey(Card)
 
     def __str__(self):
-        return tag
+        return self.tag
 
 class Contact(models.Model):
     name = models.CharField(max_length=255, blank=False)
@@ -27,5 +27,5 @@ class Contact(models.Model):
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):
-        return "Contact with name " + name
+        return "Contact with name " + self.name
 

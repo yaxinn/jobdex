@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #dashboard {
-  height: 400px;
+  height: 700px;
   background: #ecf0f1;
 }
 
@@ -70,6 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   margin-top: 2em;
   width: 700px;
+}
+
+#cards {
+  border: 1px solid black;
+  height: 200px;
+  color: black;
 }
 
 input[type=submit] {

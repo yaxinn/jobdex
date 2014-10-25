@@ -12,7 +12,13 @@ from django.views.decorators.http import require_http_methods
 
 # Home page view
 def home(request):
-    return render(request, 'index.html', {})
+    cards = Card.objects.all()
+    return render(request, 'index.html', {"cards": cards})
+
+def get_all_cards(request):
+    cards = Card.objects.all()
+    cards_output = serializers.serialize("json", cards)
+    return JsonResponse(cards_output, safe=False)
 
 # Return all cards of a company given company name
 def get_company_cards(request):
@@ -36,7 +42,7 @@ def create_card(request):
     company_name = info['companyName']
     status = str(info['status'])
     job_title = info['jobTitle']
-    tags = str(info['tags'])
+    tags = str(info['tags']).split(',')
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
@@ -56,12 +62,9 @@ def create_card(request):
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=new_card)
         new_tag.save()
-    # Not sure if we should return the id so javascript can store it or just errorCode
     card_id = str(new_card.unique_id)
-    # card_id_output = serializers.serialize("json", card_id)
-    response = {'card_id': card_id, 'error_message': 1}
+    response = {'card_id': card_id, 'error_code': 1}
     return JsonResponse(response, safe=False)
-    #return JsonResponse({'error_message': 1}, safe=False)
 
 # Add contact given card id and contact info
 def add_contact(request):
