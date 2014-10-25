@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from unipath import Path
 import os
 BASE_DIR = Path(__file__).ancestor(2)
-STATIC_DIR = BASE_DIR.child("login_counter_app").child("static")
+STATIC_DIR = BASE_DIR.child("jobdex").child("static")
 TEMPLATE_DIR = BASE_DIR.child("templates")
 
 
