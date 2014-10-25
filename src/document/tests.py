@@ -4,13 +4,13 @@ Unit tests UserApp, CardApp, and DocumentApp.
 
 import unittest
 import sys
-import models
+import views
 
 class TestDocument(unittest.TestCase):
     """
     Unit tests for the Document class (part of DocumentApp)
     """
-    documents = models.Document()
+    documents = views.Document()
 
     ######################
     ##                  ##
