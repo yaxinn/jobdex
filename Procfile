@@ -1,1 +1,1 @@
-web: gunicorn login_counter_app.wsgi --log-file -
+web: gunicorn jobdex.wsgi --log-file -
