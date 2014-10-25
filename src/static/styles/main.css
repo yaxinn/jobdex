@@ -77,17 +77,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #about-page {
-  height: 700px;
   background: #ecf0f1;
 }
-#about-page #about-text {
+
+#generic-text {
+  height: 500px;
+  text-align: center;
   width: 70%;
   margin: 0 auto;
   padding: 1em;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
-#about-page #about-text p {
+#generic-text p {
   font-size: 20px;
 }
 
@@ -138,7 +140,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-input[type=submit] {
+#dashboard input[type=submit] {
   margin-top: 1em;
   margin-bottom: 1em;
   border-radius: 10px;
@@ -150,20 +152,145 @@ input[type=submit] {
   border: none;
   font-size: 20px;
 }
-
-input[type=submit]:hover {
+#dashboard input[type=submit]:hover {
   background: #ecf0f1;
 }
-
-label {
+#dashboard label {
   display: inline-block;
   width: 200px;
   text-align: right;
   margin-right: 1em;
   font-size: 20px;
 }
-
-input[type=text] {
+#dashboard input[type=text] {
   height: 20px;
   width: 200px;
+}
+
+#lean_overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none;
+}
+
+.popupContainer {
+  position: absolute;
+  width: 330px;
+  height: auto;
+  left: 45%;
+  top: 80px;
+  background: #FFF;
+}
+
+.popupHeader {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-family: Lato;
+}
+
+.popupHeader {
+  background: #F4F4F2;
+  position: relative;
+  padding: 10px 20px;
+  border-bottom: 1px solid #DDD;
+  font-weight: bold;
+}
+
+.popupHeader .modal_close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  background: #E4E4E2;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.popupBody {
+  padding: 20px;
+}
+
+.centeredText {
+  text-align: center;
+  margin: 20px 0;
+  clear: both;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.action_btns {
+  clear: both;
+  overflow: hidden;
+}
+
+.action_btns a {
+  display: block;
+}
+
+/*.user_login {display: none;}*/
+.user_login label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #DDD;
+  color: #666;
+}
+
+.user_login .checkbox {
+  margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+}
+
+.forgot_password, .create_account {
+  font-family: Futura_Oblique;
+  display: block;
+  margin: 20px 0 10px;
+  clear: both;
+  overflow: hidden;
+  text-decoration: none;
+  color: #79a9da;
+}
+
+.user_register {
+  display: none;
+}
+
+.user_register label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user_register input[type="text"], .user_register input[type="email"], .user_register input[type="password"] {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #DDD;
+  color: #666;
+}
+
+.user_register input[type="checkbox"] {
+  float: left;
+  margin-right: 5px;
+}
+
+.user_register input[type="checkbox"] + label {
+  float: left;
+}
+
+.user_register .checkbox {
+  margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
 }

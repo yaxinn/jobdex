@@ -18,7 +18,7 @@
     <div id="container"> 
         <div class="grid-container">
             <div class="grid-100 grid-parent" id="navbar">
-                <div class="grid-50" id="logo">
+                <div class="grid-40" id="logo">
                     <a href="/"><img src="/static/images/logo.jpg"></a>
                 </div>
                 {% if user.is_authenticated %}
@@ -27,12 +27,12 @@
                     <a class="grid-10" href="/">Home</a>
                 {% endif %}
                 <a class="grid-10" href="/about/">About</a>
-                <a class="grid-15" href="/dashboard/">Dashboard</a>
+                <a class="grid-15" href="/">Dashboard</a>
+                <a class="grid-10" id="report" href="/report/">Report</a>
                 {% if user.is_authenticated %}
-                    <a class="grid-10" id="report" href="/report/">Report</a>
                     <a class="grid-10" id="logout" href="/logout/">Logout</a>
                 {% else %}
-                    <a class="grid-10" id="login" href="/login/">Login</a>
+                    <a class="grid-10" id="login" href="#modal">Login</a>
                 {% endif %}
             </div>
             {% block content %}
@@ -40,15 +40,67 @@
             <div id="footer">
                 <p>Jobdex Copyright 2014</p>
             </div>
+            <div id="modal" class="popupContainer" style="display:none;">
+                <header class="popupHeader">
+                    <span class="header_title">Login</span>
+                    <span class="modal_close"><i class="fa fa-times"></i></span>
+                </header>
+
+                <section class="popupBody">
+                    <div class="user_login">
+                        <form method="post" action="/login/">
+                            {% csrf_token %}
+                            <label>Username</label>
+                            <input type="text" name="username" />
+                            <br />
+
+                            <label>Password</label>
+                            <input type="password" name="password" />
+                            <br />
+
+                            <input type="submit" class="button" value="Login">
+                        </form>
+
+                        <a href="/reset/" class="forgot_password">Forgot password?</a>
+                        <a href="#" class="create_account">Create Account</a>
+                    </div>
+
+                    <div class="user_register">
+                        <form action="/signup/" method="post">
+                            {% csrf_token %}
+                            <label>Username</label>
+                            <input type="text" name="username">
+                            <br />
+
+                            <label>Email</label>
+                            <input type="email" name="email">
+                            <br />
+
+                            <label>Password</label>
+                            <input type="password" name="password">
+                            <br />
+
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password">
+                            <br>
+
+                            <input type="submit" class="button" value="Create Account">
+
+                        </form>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/scripts/jquery.leanModal.min.js"></script>
     <script src="/static/bower_components/angular/angular.min.js"></script>
     <script src="/static/bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/static/scripts/script.js"></script>
     <script src="/static/scripts/main/main-ctrl.js"></script>
-        {% block additional_scripts %}
-        {% endblock %}
+    {% block additional_scripts %}
+    {% endblock %}
     </body>
-{% block credits %}
-{% endblock %}
-</html>
+    {% block credits %}
+    {% endblock %}
+    </html>

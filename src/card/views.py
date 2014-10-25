@@ -19,6 +19,10 @@ def about(request):
     context = {}
     return render(request, 'about.html', context)
 
+def report(request):
+    context = {}
+    return render(request, 'report.html', context)
+
 def get_all_cards(request):
     cards = Card.objects.all()
     cards_output = serializers.serialize("json", cards)
