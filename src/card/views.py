@@ -60,7 +60,7 @@ def create_card(request):
     new_contact.save()
 
     for tag in tags:
-        new_tag = Tag(tag=tag, tagged_card=new_card)
+        new_tag = Tag(tag=tag.strip(), tagged_card=new_card)
         new_tag.save()
     card_id = str(new_card.unique_id)
     response = {'card_id': card_id, 'error_code': 1}

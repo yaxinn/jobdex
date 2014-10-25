@@ -143,8 +143,6 @@ $scope.user = {};
 //All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
 
-    $scope.cards = {'hi': 'hello'};
-
     $http.get('/api/card/all-cards').
     success(function(data, status, headers, config) {
         console.log("SUCCESS");
@@ -257,6 +255,8 @@ app.controller('CardController', function($scope, $http){
                 else if (data.error_message == 1){
                     id_table.push(data.card_id);
                 }
+
+                location.reload();
 
             }).error(function(data, status, headers, config){
                 console.log(data);

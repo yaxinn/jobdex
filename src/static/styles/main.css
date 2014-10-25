@@ -73,9 +73,43 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #cards {
-  border: 1px solid black;
-  height: 200px;
+  height: 500px;
   color: black;
+}
+
+.banner {
+  background: #79a9da;
+  padding: 1em;
+  height: 50px;
+  color: white;
+}
+
+.card {
+  float: left;
+  width: 200px;
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #79a9da;
+  padding: 1em;
+  margin: 1em;
+}
+.card h1 {
+  font-size: 20px;
+  border-bottom: 1px dotted white;
+  color: #001f3f;
+}
+.card .card-field {
+  padding: 0.5em;
+  background: white;
+  border-radius: 5px;
+  margin-top: 0.5em;
+}
+.card .card-field p {
+  text-align: center;
+}
+.card .card-field .card-label {
+  text-align: center;
 }
 
 input[type=submit] {
