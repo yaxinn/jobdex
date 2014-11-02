@@ -71,8 +71,17 @@ def create_card(request):
         new_tag = Tag(tag=tag.strip(), tagged_card=new_card)
         new_tag.save()
     card_id = str(new_card.unique_id)
-    response = {'card_id': card_id, 'error_code': 1}
+    response = {'card_id': card_id, 'error_message': 1}
     return JsonResponse(response, safe=False)
+
+# Remove card, given a card_id
+def remove_card(request):
+    try:
+        card_id = request.GET.get('card_id')
+        Card.objects.filter(unique_id=card_id).delete()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -6}, safe=False)
 
 # Add contact given card id and contact info
 def add_contact(request):
