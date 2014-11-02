@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^api/card/all-cards', 'card.views.get_all_cards', name='get_all_cards'),
     url(r'^api/user/create-card', 'card.views.create_card', name='create_card'),
     url(r'^api/user/remove-card', 'card.views.remove_card', name='remove_card'),
+    url(r'^api/card/id/remove-tag', 'card.views.remove_tag', name='remove_tag'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
