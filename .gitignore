@@ -1,4 +1,4 @@
-*.xml
+node_modules
 *.log
 *.pot
 *.pyc
