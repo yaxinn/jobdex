@@ -9,7 +9,7 @@ class Card(models.Model):
     status = models.CharField(max_length=20, blank=False, default="begin interviewing")
     job_title = models.CharField(max_length=255, blank=False)
     associated_company = models.ForeignKey(Company)
-    notes = models.TextField()
+    notes = models.TextField(default="")
 
     def __str__(self):
         return "A card for " + self.associated_company.name
@@ -25,7 +25,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=255, blank=False)
     phone = models.CharField(max_length=255, blank=False)
     email = models.EmailField()
-    title = models.CharField(max_length=255, blank=False)
+    title = models.CharField(max_length=255, blank=False, default="")
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):
