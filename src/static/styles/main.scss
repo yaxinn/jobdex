@@ -103,7 +103,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 #dashboard {
-    height: 900px;
+    min-height: 900px;
     background: $clouds;
 }
 
@@ -200,6 +200,17 @@ h1,h2,h3,h4,h5,h6 {
     }
     button {
         @include btn;
+    }
+}
+
+#card-detail {
+    height: 500px;
+    border: 1px solid black;
+    width: 800px;
+    margin: 0 auto;
+    background: $c4;
+    #card-detail-tabs {
+        background: white;
     }
 }
 

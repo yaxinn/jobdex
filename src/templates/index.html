@@ -25,9 +25,6 @@
         </div>
     </div>
     <div id="cards">
-        <div class="banner">
-            <h1>{{user}}'s Cards</h1>
-        </div>
         {% for card in cards %}
             <div class="card">
                 <div class="card-top">
@@ -55,6 +52,21 @@
                 <button class="card-detail-btn">Show More</button>
             </div>
         {% endfor %}
+    </div>
+    <div id="card-detail" ng-hide="detailIsShown">
+        <div id="card-detail-top">
+            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
+        </div>
+        <div id="card-detail-tabs" class="grid-100 grid-parent">
+            <ul>
+                <li class="grid-20">Main</li>
+                <li class="grid-20">Contacts</li>
+                <li class="grid-20">Notes</li>
+                <li class="grid-20">Tasks</li>
+                <li class="grid-20">Documents</li>
+            </ul>
+        </div>
+
     </div>
 </div>
 {% else %}
