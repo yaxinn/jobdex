@@ -117,6 +117,19 @@ def remove_tag(request):
     except Tag.DoesNotExist:
         return JsonResponse({'error_message': -3}, safe=False)
 
+# Get all tags associated with a card id
+def get_tags(request):
+    try:
+        card_id = request.GET.get('card_id')
+        card = Card.objects.filter(unique_id=card_id)
+        tags = Tag.objects.all().filter(tagged_card=card)
+        tags_output = serializers.serialize("json", tags)
+        return JsonResponse(tags_output, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -6}, safe=False)
+    except Tag.DoesNotExist:
+        return JsonResponse({'error_message': -3}, safe=False)
+
 # Modify a tag, given a card id and tag name
 def modify_tag(request):
     try:
