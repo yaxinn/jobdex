@@ -43,6 +43,39 @@ def get_contacts(request):
     contacts_output = serializers.serialize("json", contacts)
     return JsonResponse(contacts_output, safe=False)
 
+# Remove contact, given a card id and contact name
+def remove_contact(request):
+    try:
+        card_id = request.GET.get('card_id')
+        contact_name = request.DELETE.get('contactName')
+        Contact.objects.filter(name=contact_name, tagged_card=card_id).delete()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
+    except Contact.DoesNotExist:
+        return JsonResponse({'error_message': -14}, safe=False)
+
+# Edit a contact, given a card id and contact fields (not all fields may be overridden, depending on what user edits)
+@csrf_exempt
+def edit_contact(request):
+    try:
+        card_id = request.GET.get('card_id')
+        contact_name = request.POST.get('contactName')
+        contact_email = request.POST.get('contactEmail')
+        contact_phone = request.POST.get('contactPhone')
+        contact_title = request.POST.get('contactTitle')
+        contact = Contact.objects.filter(name=contact_name, tagged_card=card_id)
+        contact.name = contact_name
+        contact.email = contact_email
+        contact.phone = contact_phone
+        contact.title = contact_title
+        contact.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
+    except Contact.DoesNotExist:
+        return JsonResponse({'error_message': -14}, safe=False)
+
 # Add card given company name, status, tags, and contact info
 @csrf_exempt
 def create_card(request):
@@ -162,6 +195,7 @@ def modify_card_status(request):
     card = Card.objects.filter(unique_id=card_id)
     if new_status != card.status:
         card.status = new_status
+        card.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
 class UserProfile(models.Model):
