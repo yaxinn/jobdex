@@ -122,6 +122,15 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1em;
   margin: 1em;
 }
+.card .card-top {
+  height: 20px;
+}
+.card .card-top img {
+  float: right;
+}
+.card .card-top img:hover {
+  cursor: pointer;
+}
 .card h1 {
   font-size: 20px;
   border-bottom: 1px dotted white;
@@ -137,23 +146,51 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 .card .card-field .card-label {
+  color: #3b333f !important;
+  font-family: SourceSansBold;
   text-align: center;
+}
+.card button {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+  font-family: SourceSansRegular;
+  border: 1px solid black;
+  background: #ff851b;
+  color: white;
+}
+.card button:hover {
+  cursor: pointer;
+  background: #edaa4e;
 }
 
 #dashboard input[type=submit] {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+  font-family: SourceSansRegular;
+  border: 1px solid black;
+  background: #ff851b;
+  color: white;
   margin-top: 1em;
   margin-bottom: 1em;
-  border-radius: 10px;
   cursor: pointer;
   width: 150px;
   height: 30px;
-  color: black;
   outline: none;
-  border: none;
   font-size: 20px;
 }
 #dashboard input[type=submit]:hover {
-  background: #ecf0f1;
+  cursor: pointer;
+  background: #edaa4e;
 }
 #dashboard label {
   display: inline-block;

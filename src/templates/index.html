@@ -30,6 +30,9 @@
         </div>
         {% for card in cards %}
             <div class="card">
+                <div class="card-top">
+                    <img src="/static/images/close.png" />
+                </div>
                 <div class="card-company">
                     <h1>{{card.associated_company.name}}</h1>
                 </div>
@@ -49,6 +52,7 @@
                     {% endfor %}
                     </p>
                 </div>
+                <button class="card-detail-btn">Show More</button>
             </div>
         {% endfor %}
     </div>
