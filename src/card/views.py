@@ -77,7 +77,7 @@ def create_card(request):
 # Remove card, given a card id
 def remove_card(request):
     try:
-        card_id = request.GET.get('card_id')
+        card_id = request.DELETE.get('card_id')
         Card.objects.filter(unique_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
@@ -117,10 +117,28 @@ def remove_tag(request):
     except Tag.DoesNotExist:
         return JsonResponse({'error_message': -3}, safe=False)
 
+# Modify a tag, given a card id and tag name
+def modify_tag(request):
+    try:
+        card_id = request.GET.get('card_id')
+        old_tag = request.GET.get('old_tag')
+        new_tag = request.POST.get('new_tag')
+        card = Card.objects.filter(unique_id=card_id)
+        tags = Tag.objects.filter(tagged_card=card_id)
+        for tag in tags:
+            if tag == old_tag:
+                tag = new_tag
+                tag.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -6}, safe=False)
+    except Tag.DoesNotExist:
+        return JsonResponse({'error_message': -3}, safe=False)
+
 # Change status based on card id and new status
 def modify_card_status(request):
     card_id = request.GET.get('card_id')
-    new_status = request.GET.get('status')
+    new_status = request.POST.get('status')
     card = Card.objects.filter(unique_id=card_id)
     if new_status != card.status:
         card.status = new_status
