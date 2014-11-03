@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^api/card/id/remove-tag', 'card.views.remove_tag', name='remove_tag'),
     url(r'^api/card/id/modify-tag', 'card.views.modify_tag', name='modify_tag'),
     url(r'^api/card/id/tags', 'card.views.get_tags', name='get_tags'),
+    url(r'^api/card/id/remove-contact', 'card.views.remove_contact', name='remove_contact'),
+    url(r'^/api/card/id/edit-contact', 'card.views.edit_contact', name='edit_contact'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
