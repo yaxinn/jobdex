@@ -50,6 +50,7 @@ def create_card(request):
     company_name = info['companyName']
     status = str(info['status'])
     job_title = info['jobTitle']
+    notes = info['notes']
     tags = str(info['tags']).split(',')
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
@@ -62,10 +63,10 @@ def create_card(request):
         company = Company(name=company_name)
         company.save()
 
-    new_card = Card(associated_company=company, status=status, job_title=job_title)
+    new_card = Card(associated_company=company, status=status, job_title=job_title, notes=notes)
     new_card.save()
 
-    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
+    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, title=contact_title, associated_card=new_card)
     new_contact.save()
 
     for tag in tags:
@@ -82,7 +83,7 @@ def remove_card(request):
         Card.objects.filter(unique_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
-        return JsonResponse({'error_message': -6}, safe=False)
+        return JsonResponse({'error_message': -8}, safe=False)
 
 # Add contact given card id and contact info
 @csrf_exempt
@@ -117,7 +118,7 @@ def remove_tag(request):
             Tag.objects.filter(tag=tag, tagged_card=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
-        return JsonResponse({'error_message': -6}, safe=False)
+        return JsonResponse({'error_message': -8}, safe=False)
     except Tag.DoesNotExist:
         return JsonResponse({'error_message': -3}, safe=False)
 
@@ -130,7 +131,7 @@ def get_tags(request):
         tags_output = serializers.serialize("json", tags)
         return JsonResponse(tags_output, safe=False)
     except Card.DoesNotExist:
-        return JsonResponse({'error_message': -6}, safe=False)
+        return JsonResponse({'error_message': -8}, safe=False)
     except Tag.DoesNotExist:
         return JsonResponse({'error_message': -3}, safe=False)
 
@@ -149,7 +150,7 @@ def modify_tag(request):
                 tag.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
-        return JsonResponse({'error_message': -6}, safe=False)
+        return JsonResponse({'error_message': -8}, safe=False)
     except Tag.DoesNotExist:
         return JsonResponse({'error_message': -3}, safe=False)
 
