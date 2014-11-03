@@ -84,6 +84,7 @@ def remove_card(request):
         return JsonResponse({'error_message': -6}, safe=False)
 
 # Add contact given card id and contact info
+@csrf_exempt
 def add_contact(request):
     card_id = request.GET.get('card_id')
     card = Card.objects.filter(unique_id=card_id)
@@ -95,6 +96,7 @@ def add_contact(request):
     return JsonResponse({'error_message': 1}, safe=False)
 
 # Add tags based on card id and tag names
+@csrf_exempt
 def add_tag(request):
     card_id = request.GET.get('card_id')
     card = Card.objects.filter(unique_id=card_id)
@@ -131,6 +133,7 @@ def get_tags(request):
         return JsonResponse({'error_message': -3}, safe=False)
 
 # Modify a tag, given a card id and tag name
+@csrf_exempt
 def modify_tag(request):
     try:
         card_id = request.GET.get('card_id')
@@ -149,6 +152,7 @@ def modify_tag(request):
         return JsonResponse({'error_message': -3}, safe=False)
 
 # Change status based on card id and new status
+@csrf_exempt
 def modify_card_status(request):
     card_id = request.GET.get('card_id')
     new_status = request.POST.get('status')
