@@ -54,6 +54,7 @@ def create_card(request):
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
+    contact_title = str(info['contactTitle'])
 
     try:
         company = Company.objects.get(name=company_name)
@@ -91,8 +92,9 @@ def add_contact(request):
     contact_name = request.POST.get('contact_name')
     contact_email = request.POST.get('contact_email')
     contact_phone = request.POST.get('contact_phone')
-    new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, associated_card=card)
-    new_company.save()
+    contact_title = request.POST.get('contact_title')
+    new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, title=contact_title, associated_card=card)
+    new_contact.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
 # Add tags based on card id and tag names

@@ -9,6 +9,7 @@ class Card(models.Model):
     status = models.CharField(max_length=20, blank=False, default="begin interviewing")
     job_title = models.CharField(max_length=255, blank=False)
     associated_company = models.ForeignKey(Company)
+    notes = models.TextField()
 
     def __str__(self):
         return "A card for " + self.associated_company.name
@@ -24,8 +25,16 @@ class Contact(models.Model):
     name = models.CharField(max_length=255, blank=False)
     phone = models.CharField(max_length=255, blank=False)
     email = models.EmailField()
+    title = models.CharField(max_length=255, blank=False)
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):
         return "Contact with name " + self.name
 
+class Tasks(models.Model):
+    task = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, blank=False, default="incomplete")
+    associated_card = models.ForeignKey(Card)
+
+    def __str__(self):
+        return "Tasks for " + self.associated_card.name
