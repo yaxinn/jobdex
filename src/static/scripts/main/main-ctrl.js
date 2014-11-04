@@ -116,11 +116,11 @@ $scope.user = {};
             });
     };
 
-
-    var ERR_BAD_CREDENTIALS = -1;
-    var ERR_EXISTING_USER = -2;
-    var ERR_BAD_USERNAME = -3;
-    var ERR_BAD_PASSWORD = -4;
+    var SUCCESS = 1;
+    var ERR_BAD_CREDENTIALS = -18;
+    var ERR_USER_EXISTS = -19;
+    var ERR_USERNAME_INVALID = -20;
+    var ERR_PASSWORD_INVALID = -21;
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_BAD_CREDENTIALS){
@@ -282,13 +282,21 @@ app.controller('CardController', function($scope, $http){
     };
 
 
-
+    var SUCCESS = 1;
     var ERR_TAG_EXISTS = -1;
     var ERR_TAG_INVALID = -2;
     var ERR_TAG_DOES_NOT_EXIST = -3;
-    var ERR_INVALID_COMPANY = -4;
-    var ERR_INVALID_JOB = -5;
-    var ERR_NO_CARDS = -6;
+    var ERR_COMPANY_EXISTS = -4;
+    var ERR_COMPANY_INVALID = -5;
+    var ERR_COMPANY_DOES_NOT_EXIST = -6;
+    var ERR_CARD_EXISTS = -7;
+    var ERR_CARD_DOES_NOT_EXIST = -8;
+    var ERR_CONTACT_EXISTS = -12;
+    var ERR_CONTACT_INVALID = -13;
+    var ERR_CONTACT_DOES_NOT_EXIST = -14;
+    var ERR_TAST_EXISTS = -15;
+    var ERR_TASK_INVALID = -16;
+    var ERR_TASK_DOES_NOT_EXIST = -17;
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_TAG_EXISTS){
@@ -366,8 +374,9 @@ $scope.doc = {};
     // 	});
     // };
 
-    var ERR_DOC_NOTFOUND = -1;
-    var ERR_DOC_EXISTS = -2;
+    var ERR_DOC_EXISTS = -9;
+    var ERR_DOC_INVALID = -10;
+    var ERR_DOC_DOES_NOT_EXIST = -11;
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_DOC_NOTFOUND){
