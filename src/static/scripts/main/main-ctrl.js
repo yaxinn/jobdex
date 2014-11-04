@@ -6,6 +6,31 @@ function error(xhr, ajaxOptions, thrownError) {
     console.log(xhr.responseText);
 }
 
+// error code
+var SUCCESS = 1;
+var ERR_TAG_EXISTS = -1;
+var ERR_TAG_INVALID = -2;
+var ERR_TAG_DOES_NOT_EXIST = -3;
+var ERR_COMPANY_EXISTS = -4;
+var ERR_COMPANY_INVALID = -5;
+var ERR_COMPANY_DOES_NOT_EXIST = -6;
+var ERR_CARD_EXISTS = -7;
+var ERR_CARD_DOES_NOT_EXIST = -8;
+var ERR_DOC_EXISTS = -9;
+var ERR_DOC_INVALID = -10;
+var ERR_DOC_DOES_NOT_EXIST = -11;
+var ERR_CONTACT_EXISTS = -12;
+var ERR_CONTACT_INVALID = -13;
+var ERR_CONTACT_DOES_NOT_EXIST = -14;
+var ERR_TAST_EXISTS = -15;
+var ERR_TASK_INVALID = -16;
+var ERR_TASK_DOES_NOT_EXIST = -17;
+var ERR_BAD_CREDENTIALS = -18;
+var ERR_EXISTING_USER = -19;
+var ERR_BAD_USERNAME = -20;
+var ERR_BAD_PASSWORD = -21;
+
+
 // Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
 
@@ -21,29 +46,32 @@ app.controller('UserController', function($scope, $http) {
 
     // Send information on a new user to the backend and verify information
     $scope.sign_up = function(){
-
+        
         var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password, confirm_password: $scope.user.confirm_password, email: $scope.user.email});
+        
         $http.post('/api/users', req).
-    success(function(data, status, headers, config) {
-        if (data.error_message <= 0) {
-            $scope.errorHandler(data.error_message);
-        }
-        else if (data.error_message == 1){
-            //Store the user id in the table above
-            users.push(data.user_id_output);
+            success(function(data, status, headers, config) {
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    //Store the user id in the table above
+                    users.push(data.user_id_output);
 
-            // direct user to the dashboard in html
-        }
-    }).error(function(data, status, headers, config) {
-        //add error handling function
-    });
-$scope.user = {};
+                    // direct user to the dashboard in html
+                }
+            }).error(function(data, status, headers, config) {
+                //add error handling function
+        });
+
+        $scope.user = {};
     };
 
     //Verify a user's login info
     $scope.login = function(){
 
         var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password});
+        
         $http.post('/api/users', req).
             success(function(data, status, headers, config) {
                 if (data.error_message <= 0) {
@@ -54,7 +82,8 @@ $scope.user = {};
                 }
             }).error(function(data, status, headers, config) {
                 //add error handling function
-            });
+        });
+
         $scope.user = {};
     };
 
@@ -72,7 +101,8 @@ $scope.user = {};
                 }
             }).error(function(data, status, headers, config) {
                 //add error handling function
-            });
+        });
+
         $scope.user = {};
         //Add navigation for HTML
         //Save cookies to the backend
@@ -83,7 +113,6 @@ $scope.user = {};
 
         $http.get('/api/users/' + user.id + '/cards').
             success(function(data, status, headers, config) {
-
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
@@ -91,10 +120,9 @@ $scope.user = {};
                     // in the html, use cardList to display company cards
                     $scope.cardList = data.cards_output;
                 }
-
             }).error(function(data, status, headers, config){
 
-            });
+        });
     };
 
     //Return a List of all of the cards from a certain company, when given the company name
@@ -113,14 +141,8 @@ $scope.user = {};
 
             }).error(function(data, status, headers, config){
 
-            });
+        });
     };
-
-    var SUCCESS = 1;
-    var ERR_BAD_CREDENTIALS = -18;
-    var ERR_USER_EXISTS = -19;
-    var ERR_USERNAME_INVALID = -20;
-    var ERR_PASSWORD_INVALID = -21;
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_BAD_CREDENTIALS){
@@ -143,16 +165,16 @@ $scope.user = {};
 //All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
 
-    $http.get('/api/card/all-cards').
-    success(function(data, status, headers, config) {
-        console.log("SUCCESS");
-        console.log(data);
-        $scope.cards = data;
-    }).
-    error(function(data, status, headers, config) {
-        console.log("ERROR");
-        console.log(data);
-    });
+    // Dont know what this part is.
+    //     $http.get('/api/card/all-cards').
+    //         success(function(data, status, headers, config) {
+    //             console.log("SUCCESS");
+    //             console.log(data);
+    //             $scope.cards = data;
+    //         }).error(function(data, status, headers, config) {
+    //             console.log("ERROR");
+    //             console.log(data);
+    //     });
 
     //This table is needed to store ids on the front end for some of the method calls to cards
     //when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
@@ -162,15 +184,16 @@ app.controller('CardController', function($scope, $http){
     $scope.add_tag = function(id_entry){
 
         var req = JSON.stringify({card_id: id_entry.id, tags: $scope.card.tags});
-        $http.post('/api/card/' + id_entry.id + '/add-tag', req).success(function(data, status, headers, config){
-
-            if (data.error_message <= 0) {
-                $scope.errorHandler(data.error_message);
-            }
-            else if (data.error_message == 1){
-                $scope.tags.push(tagName);
-            }
-        }).error(function(data, status, headers, config){
+        
+        $http.post('/api/card/' + id_entry.id + '/add-tag', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    $scope.tags.push(tagName);
+                }
+            }).error(function(data, status, headers, config){
             //Handle error
         });
         $scope.card = {};
@@ -179,59 +202,59 @@ app.controller('CardController', function($scope, $http){
     // this is for next iteration
     // $scope.modify_tag = function(currentTagName, newTagName){
 
-    // 	$scope.currentTagIndex = $scope.tags.indexOf(currentTagName);
+    //  $scope.currentTagIndex = $scope.tags.indexOf(currentTagName);
 
-    // 	var req = JSON.stringify( {currentTagName: 'currentTagName', newTagName: newTagName});
-    // 	$http.post('/modify-tag.json', req).
-    // 		success(function(data, status, headers, config){
+    //  var req = JSON.stringify( {currentTagName: 'currentTagName', newTagName: newTagName});
+    //  $http.post('/modify-tag.json', req).
+    //      success(function(data, status, headers, config){
 
-    // 			if (data.error_message <= 0) {
-    // 				$scope.errorHandler(data.error_message);
-    // 			}
-    // 			else if (data.error_message == 1){
-    // 				$scope.tags.splice($scope.currentTagIndex, 1);
-    // 			$scope.tags.push(tagName);
-    // 			}
+    //          if (data.error_message <= 0) {
+    //              $scope.errorHandler(data.error_message);
+    //          }
+    //          else if (data.error_message == 1){
+    //              $scope.tags.splice($scope.currentTagIndex, 1);
+    //          $scope.tags.push(tagName);
+    //          }
 
-    // 	}).error(function(data, status, headers, config){
-    // 		//Handle error
-    // 	});
+    //  }).error(function(data, status, headers, config){
+    //      //Handle error
+    //  });
 
     // };
 
     // $scope.get_tags = function(tagName){
 
-    // 	$http.get('/get-tags.json').
-    // 		success(function(data, status, headers, config){
-    // 			if (data.error_message <= 0) {
-    // 					$scope.errorHandler(data.error_message);
-    // 				}
-    // 				else if (data.error_message == 1){
-    // 					return data.tags;
-    // 				}
-    // 		}).error(function(data, status, headers, config){
-    // 			//Handle error
-    // 	});
+    //  $http.get('/get-tags.json').
+    //      success(function(data, status, headers, config){
+    //          if (data.error_message <= 0) {
+    //                  $scope.errorHandler(data.error_message);
+    //              }
+    //              else if (data.error_message == 1){
+    //                  return data.tags;
+    //              }
+    //      }).error(function(data, status, headers, config){
+    //          //Handle error
+    //  });
 
     // };
 
     // $scope.remove_tag = function(cardId, tagName){
 
-    // 	$scope.tagIndex = $scope.tags.indexOf(tagName);
+    //  $scope.tagIndex = $scope.tags.indexOf(tagName);
 
-    // 	$http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).
-    // 		success(function(data, status, headers, config){
+    //  $http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).
+    //      success(function(data, status, headers, config){
 
-    // 			if (data.error_message <= 0) {
-    // 				$scope.errorHandler(data.error_message);
-    // 			}
-    // 			else if (data.error_message == 1){
-    // 				$scope.tags.splice($scope.tagIndex, 1);
-    // 			}
+    //          if (data.error_message <= 0) {
+    //              $scope.errorHandler(data.error_message);
+    //          }
+    //          else if (data.error_message == 1){
+    //              $scope.tags.splice($scope.tagIndex, 1);
+    //          }
 
-    // 		}).error(function(data, status, headers, config){
-    // 		//Handle error
-    // 	});
+    //      }).error(function(data, status, headers, config){
+    //      //Handle error
+    //  });
     // };
 
     //Create a new card with a company name, job title, and initial status. 
@@ -250,7 +273,9 @@ app.controller('CardController', function($scope, $http){
         $scope.detailIsShown = true;
     }
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
     $scope.create_card = function(){
+
         var req = JSON.stringify({companyName: $scope.card.companyName, 
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
@@ -259,6 +284,7 @@ app.controller('CardController', function($scope, $http){
             contactEmail: $scope.card.contactEmail,
             contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
+
         $http.post('/api/user/create-card', req).
             success(function(data, status, headers, config){
                 console.log(data);
@@ -274,7 +300,8 @@ app.controller('CardController', function($scope, $http){
 
             }).error(function(data, status, headers, config){
                 console.log(data);
-            });
+        });
+
         $scope.card = {};
     };
 
@@ -297,7 +324,9 @@ app.controller('CardController', function($scope, $http){
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
     $scope.modify_card_status = function(id_entry){
+
         var req = JSON.stringify({card_id: id_entry.id, status: $scope.card.status});
+
         $http.post('/api/card/' + id_entry.id + '/status', req).
             success(function(data, status, headers, config) {
 
@@ -309,25 +338,9 @@ app.controller('CardController', function($scope, $http){
                 }
 
             }).error(function(data, status, headers, config) {
-            });		
+        
+        });     
     };
-
-
-    var SUCCESS = 1;
-    var ERR_TAG_EXISTS = -1;
-    var ERR_TAG_INVALID = -2;
-    var ERR_TAG_DOES_NOT_EXIST = -3;
-    var ERR_COMPANY_EXISTS = -4;
-    var ERR_COMPANY_INVALID = -5;
-    var ERR_COMPANY_DOES_NOT_EXIST = -6;
-    var ERR_CARD_EXISTS = -7;
-    var ERR_CARD_DOES_NOT_EXIST = -8;
-    var ERR_CONTACT_EXISTS = -12;
-    var ERR_CONTACT_INVALID = -13;
-    var ERR_CONTACT_DOES_NOT_EXIST = -14;
-    var ERR_TAST_EXISTS = -15;
-    var ERR_TASK_INVALID = -16;
-    var ERR_TASK_DOES_NOT_EXIST = -17;
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_TAG_EXISTS){
@@ -356,58 +369,58 @@ app.controller('DocumentController', function($scope, $http) {
 
     //Upload a PDF doc to the backend database for storage
     $scope.upload_document = function(){
+        
         var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.doc.PDFdoc});
+        
         $http.post('/api/user/upload_document/', req).
-    success(function(data, status, headers, config) {
-        if (data.error_message <= 0) {
-            $scope.errorHandler(data.error_message);
-        }
-        else if (data.error_message == 1){
-            // success
-        }
-    }).error(function(data, status, headers, config){
+            success(function(data, status, headers, config) {
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    // success
+                }
+            }).error(function(data, status, headers, config){
 
-    });
-$scope.doc = {};
+        });
+        $scope.doc = {};
     };
 
     // this is for next iteration
     // $scope.remove_document = function(doc_id){
-    // 	var req = JSON.stringify({name: $scope.doc.name});
-    // 	$http.post('/remove_document.json', req).
-    // 		success(function(data, status, headers, config) {
-    // 			if (data.error_message <= 0) {
-    // 				$scope.errorHandler(data.error_message);
-    // 			}
-    // 			else if (data.error_message == 1){
-    // 				// sucess
-    // 			}
-    // 		}).responsePromise.error(function(data, status, headers, config){
+    //  var req = JSON.stringify({name: $scope.doc.name});
+    //  $http.post('/remove_document.json', req).
+    //      success(function(data, status, headers, config) {
+    //          if (data.error_message <= 0) {
+    //              $scope.errorHandler(data.error_message);
+    //          }
+    //          else if (data.error_message == 1){
+    //              // sucess
+    //          }
+    //      }).responsePromise.error(function(data, status, headers, config){
 
 
-    // 	});
+    //  });
     // };
 
     // $scope.get_documents = function(user_id){
 
-    // 	var req = JSON.stringify()
-    // 	$http.get('/get_documents.json', {userId: user_id}).
-    // 		success(function(data, status, headers, config) {
-    // 			if (data.error_message <= 0) {
-    // 				$scope.errorHandler(data.error_message);
-    // 			}
-    // 			else if (data.error_message == 1){
-    // 				// sucess
-    // 			}
-    // 		}).responsePromise.error(function(data, status, headers, config){
+    //  var req = JSON.stringify()
+    //  $http.get('/get_documents.json', {userId: user_id}).
+    //      success(function(data, status, headers, config) {
+    //          if (data.error_message <= 0) {
+    //              $scope.errorHandler(data.error_message);
+    //          }
+    //          else if (data.error_message == 1){
+    //              // sucess
+    //          }
+    //      }).responsePromise.error(function(data, status, headers, config){
 
 
-    // 	});
+    //  });
     // };
 
-    var ERR_DOC_EXISTS = -9;
-    var ERR_DOC_INVALID = -10;
-    var ERR_DOC_DOES_NOT_EXIST = -11;
+
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_DOC_NOTFOUND){
@@ -416,7 +429,7 @@ $scope.doc = {};
         else if (error_message == ERR_DOC_EXISTS){
             console.log("Document Exists");
         }
-    };	
+    };  
 
 });
 
