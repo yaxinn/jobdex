@@ -439,30 +439,30 @@ app.controller('CardController', function($scope, $http){
 });
 
 
-app.service('pdf_upload', ['$http', function ($http) {
+// app.service('pdf_upload', ['$http', function ($http) {
 
-    this.uploadPdf = function(file, uploadUrl){
-        var formdata = new FormData();
-        formdata.append('file', file);
+//     this.uploadPdf = function(file, uploadUrl){
+//         var formdata = new FormData();
+//         formdata.append('file', file);
         
-        $http.post(uploadUrl, formdata, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            }).success(function(){
+//         $http.post(uploadUrl, formdata, {
+//                 transformRequest: angular.identity,
+//                 headers: {'Content-Type': undefined}
+//             }).success(function(){
 
-            }).error(function(){
-        });
-    }
-}]);
+//             }).error(function(){
+            
+//             });
+// }}]);
 
-app.controller('DocumentController', function($scope, $http, $pdf_upload) {
+app.controller('DocumentController', function($scope, $http) {
 
     //Upload a PDF doc to the backend database for storage
     $scope.upload_document = function(){
         
-        var req = JSON.stringify({name: $scope.doc.name, pdf: });
+        var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.file});
         
-        pdf_upload.uploadPdf($scope.doc.PDFdoc, '/api/user/upload_document/')
+        //pdf_upload.uploadPdf($scope.doc.PDFdoc, '/api/user/upload_document/')
 
         $http.post('/api/user/upload_document/', req).
             success(function(data, status, headers, config) {
@@ -470,20 +470,21 @@ app.controller('DocumentController', function($scope, $http, $pdf_upload) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    // success
+                    location.reload(true);
                 }
             }).error(function(data, status, headers, config){
 
         });
+
         $scope.doc = {};
     };
 
-    $scope.uploadFile = function(){
-        var file = $scope.myFile;
-        console.log('file is ' + JSON.stringify(file));
-        var uploadUrl = "/fileUpload";
-        fileUpload.uploadFileToUrl(file, uploadUrl);
-    };
+    // $scope.uploadFile = function(){
+    //     var file = $scope.myFile;
+    //     console.log('file is ' + JSON.stringify(file));
+    //     var uploadUrl = "/fileUpload";
+    //     fileUpload.uploadFileToUrl(file, uploadUrl);
+    // };
 
     //remove a PDF document given the doc_id
     $scope.remove_document = function(){
@@ -496,13 +497,11 @@ app.controller('DocumentController', function($scope, $http, $pdf_upload) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    // sucess
                     location.reload();
                 }
-         }).error(function(data, status, headers, config){
+            }).error(function(data, status, headers, config){
 
-
-     });
+        });
     };
 
     $scope.get_documents = function(userID){
@@ -521,7 +520,6 @@ app.controller('DocumentController', function($scope, $http, $pdf_upload) {
 
          });
     };
-
 
 
     $scope.errorHandler = function(error_message) {
