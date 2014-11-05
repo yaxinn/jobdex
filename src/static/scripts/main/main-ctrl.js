@@ -180,18 +180,20 @@ app.controller('CardController', function($scope, $http){
     //when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
     var id_table = [];
 
+// Tag
     //add a tag to the tag given
-    $scope.add_tag = function(id_entry){
+    $scope.add_tag = function(cardID){
 
-        var req = JSON.stringify({card_id: id_entry.id, tags: $scope.card.tags});
+        var req = JSON.stringify({card_id: cardID, tags: $scope.card.tags});
         
-        $http.post('/api/card/' + id_entry.id + '/add-tag', req).
+        $http.post('/api/card/' + cardID + '/add-tag', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
                     $scope.tags.push(tagName);
+                    location.reload();
                 }
             }).error(function(data, status, headers, config){
             //Handle error
@@ -199,64 +201,68 @@ app.controller('CardController', function($scope, $http){
         $scope.card = {};
     };
 
-    // this is for next iteration
-    // $scope.modify_tag = function(currentTagName, newTagName){
+    $scope.modify_tag = function(cardID, currentTagName, newTagName){
 
-    //  $scope.currentTagIndex = $scope.tags.indexOf(currentTagName);
+        $scope.currentTagIndex = $scope.tags.indexOf(currentTagName);
 
-    //  var req = JSON.stringify( {currentTagName: 'currentTagName', newTagName: newTagName});
-    //  $http.post('/modify-tag.json', req).
-    //      success(function(data, status, headers, config){
+        var req = JSON.stringify({card_id: cardID, old_tag: currentTagName, new_tag: newTagName});
+        
+        $http.post('/api/card/' + cardID + '/modify-tag', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    $scope.tags.splice($scope.currentTagIndex, 1);
+                    $scope.tags.push(tagName);
+                    location.reload(true);
+                }
 
-    //          if (data.error_message <= 0) {
-    //              $scope.errorHandler(data.error_message);
-    //          }
-    //          else if (data.error_message == 1){
-    //              $scope.tags.splice($scope.currentTagIndex, 1);
-    //          $scope.tags.push(tagName);
-    //          }
+            }).error(function(data, status, headers, config){
+                //Handle error
+        });
 
-    //  }).error(function(data, status, headers, config){
-    //      //Handle error
-    //  });
+    };
 
-    // };
+    $scope.get_tags = function(cardID){
 
-    // $scope.get_tags = function(tagName){
+        $http.get('/api/card/' + card_ID + '/tags').
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    $scope.tags = data.tags;
+                    // in html, inside the CardController, use 'tags' to refer to the return tags
+                    location.reload();
+                }
+            }).error(function(data, status, headers, config){
+             //Handle error
+        });
 
-    //  $http.get('/get-tags.json').
-    //      success(function(data, status, headers, config){
-    //          if (data.error_message <= 0) {
-    //                  $scope.errorHandler(data.error_message);
-    //              }
-    //              else if (data.error_message == 1){
-    //                  return data.tags;
-    //              }
-    //      }).error(function(data, status, headers, config){
-    //          //Handle error
-    //  });
+    };
 
-    // };
+    // remove the tag given cardID and tagName
+    $scope.remove_tag = function(cardID, tagName){
+        //$scope.tagIndex = $scope.tags.indexOf(tagName);
+        var req = JSON.stringify({card_id: cardID, tags: tagName});
 
-    // $scope.remove_tag = function(cardId, tagName){
+        $http.post('/api/card/' + cardID + '/remove-tag', req).
+            
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    location.reload(true);
+                }
+            }).error(function(data, status, headers, config){
+                //Handle error
+        });
+    };
 
-    //  $scope.tagIndex = $scope.tags.indexOf(tagName);
 
-    //  $http.post('/modify-tag.json', {currentTagName: currentTagName, newTagName: newTagName}).
-    //      success(function(data, status, headers, config){
-
-    //          if (data.error_message <= 0) {
-    //              $scope.errorHandler(data.error_message);
-    //          }
-    //          else if (data.error_message == 1){
-    //              $scope.tags.splice($scope.tagIndex, 1);
-    //          }
-
-    //      }).error(function(data, status, headers, config){
-    //      //Handle error
-    //  });
-    // };
-
+// Card
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -276,7 +282,7 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
 
                 if (data.error_message <= 0) {
-                    $scope.errorHandler(data.error_code);
+                    $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
                     id_table.push(data.card_id);
@@ -291,12 +297,30 @@ app.controller('CardController', function($scope, $http){
         $scope.card = {};
     };
 
+    //remove card given user and card_id
+    $scope.remove_card = function(user,cardID){
+
+        var req = JSON.stringify({card_id: cardID});
+
+        $http.delete('/api/' + user + '/remove-card', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message)
+                }
+                else if (data.error_message == 1) {
+                    location.reload(true);
+                }
+            }).error(funcion(data, status, headers, config){
+
+        });
+    }
+
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.modify_card_status = function(id_entry){
+    $scope.modify_card_status = function(cardID, new_status){
 
-        var req = JSON.stringify({card_id: id_entry.id, status: $scope.card.status});
+        var req = JSON.stringify({card_id: cardID, status: new_status});
 
-        $http.post('/api/card/' + id_entry.id + '/status', req).
+        $http.post('/api/card/' + cardID + '/change-status', req).
             success(function(data, status, headers, config) {
 
                 if (data.error_message <= 0) {
@@ -304,12 +328,78 @@ app.controller('CardController', function($scope, $http){
                 }
                 else if (data.error_message == 1){
                     // change the card status in the html
+                    location.reload(true);
                 }
 
             }).error(function(data, status, headers, config) {
         
         });     
     };
+
+//contact
+    //add contact for the given card_id
+    $scope.add_contact = function(cardID){
+
+        var req = JSON.stringify({card_id: cardID, 
+            contact_name: $scope.contact.name, 
+            contact_email: $scope.contact.email,
+            contact_phone: $scope.contact.phone,
+            contact_title: $scope.card.title,});
+
+        $http.post('/api/card/' + cardID + '/add-contact', req).
+            success(function(data, status, headers, config){
+
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    console.log(data);
+                    location.reload();
+                }
+
+
+            }).error(function(data, status, headers, config){
+                console.log(data);
+        });
+
+        $scope.card = {};
+    };  
+
+    //remove a contact given card_id and contact.name
+    $scope.remove_contact = function(cardID){
+
+        var req = JSON.stringify({card_id: cardID, contactName: $scope.contact.name});
+
+        $http.delete('/api/card/' + cardID + '/remove-contact', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message)
+                }
+                else if (data.error_message == 1) {
+                    location.reload(true);
+                }
+            }).error(funcion(data, status, headers, config){
+
+        });
+    }
+
+    $scope.get_contacts = function(cardID){
+
+        $http.get('/api/card/' + card_ID + '/contacts').
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    $scope.contacts = data.contacts_output;
+                    // in html, inside the CardController, use 'contacts' to refer to the return contacts
+                }
+         }).error(function(data, status, headers, config){
+             //Handle error
+     });
+
+    };
+
 
     $scope.errorHandler = function(error_message) {
         if (error_message == ERR_TAG_EXISTS){
@@ -334,13 +424,32 @@ app.controller('CardController', function($scope, $http){
 
 });
 
-app.controller('DocumentController', function($scope, $http) {
+
+app.service('pdf_upload', ['$http', function ($http) {
+
+    this.uploadPdf = function(file, uploadUrl){
+        var formdata = new FormData();
+        formdata.append('file', file);
+        
+        $http.post(uploadUrl, formdata, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).success(function(){
+
+            }).error(function(){
+        });
+    }
+}]);
+
+app.controller('DocumentController', function($scope, $http, $pdf_upload) {
 
     //Upload a PDF doc to the backend database for storage
     $scope.upload_document = function(){
         
-        var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.doc.PDFdoc});
+        var req = JSON.stringify({name: $scope.doc.name, pdf: });
         
+        pdf_upload.uploadPdf($scope.doc.PDFdoc, '/api/user/upload_document/')
+
         $http.post('/api/user/upload_document/', req).
             success(function(data, status, headers, config) {
                 if (data.error_message <= 0) {
@@ -355,39 +464,49 @@ app.controller('DocumentController', function($scope, $http) {
         $scope.doc = {};
     };
 
-    // this is for next iteration
-    // $scope.remove_document = function(doc_id){
-    //  var req = JSON.stringify({name: $scope.doc.name});
-    //  $http.post('/remove_document.json', req).
-    //      success(function(data, status, headers, config) {
-    //          if (data.error_message <= 0) {
-    //              $scope.errorHandler(data.error_message);
-    //          }
-    //          else if (data.error_message == 1){
-    //              // sucess
-    //          }
-    //      }).responsePromise.error(function(data, status, headers, config){
+    $scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' + JSON.stringify(file));
+        var uploadUrl = "/fileUpload";
+        fileUpload.uploadFileToUrl(file, uploadUrl);
+    };
+
+    //remove a PDF document given the doc_id
+    $scope.remove_document = function(){
+
+        var req = JSON.stringify({doc_id: $scope.doc.id});
+        
+        $http.delete('/api/user/remove-document/', req).
+            success(function(data, status, headers, config) {
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    // sucess
+                    location.reload();
+                }
+         }).error(function(data, status, headers, config){
 
 
-    //  });
-    // };
+     });
+    };
 
-    // $scope.get_documents = function(user_id){
+    $scope.get_documents = function(userID){
 
-    //  var req = JSON.stringify()
-    //  $http.get('/get_documents.json', {userId: user_id}).
-    //      success(function(data, status, headers, config) {
-    //          if (data.error_message <= 0) {
-    //              $scope.errorHandler(data.error_message);
-    //          }
-    //          else if (data.error_message == 1){
-    //              // sucess
-    //          }
-    //      }).responsePromise.error(function(data, status, headers, config){
+        var req = JSON.stringify()
+        
+        $http.get('/api/users/' + userID + '/documents', {user_id: userID}).
+            success(function(data, status, headers, config) {
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    $scope.documents = data.documents_output;
+                }
+            }).error(function(data, status, headers, config){
 
-
-    //  });
-    // };
+         });
+    };
 
 
 
