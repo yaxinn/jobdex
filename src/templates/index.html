@@ -49,54 +49,58 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button ng-click="detailIsShown=true">Show More</button>
+                <a class="grid-10" id="card_view" href="#modal">Login</a>
             </div>
         {% endfor %}
     </div>
-    <div id="card-detail" ng-hide="detailIsShown">
-        <div id="card-detail-top">
+    <div id="modal" class="popupContainer" style="display:none;">
+        <header class="popupHeader">
+            <span class="header_title">Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</span>
+            <span class="modal_close"><i class="fa fa-times"></i></span>
+        </header>
+        <!--<div id="card-detail-top">
             <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
-        </div>
-    </div>
-    <div id="card-detail-tabs" class="grid-100 grid-parent" ng-show="detailIsShown">
-        <ul id="tab-links">
-            <li class="grid-20" class="active"><a href="#main">Main</a></li>
-            <li class="grid-20"><a href="#contacts">Contacts</a></li>
-            <li class="grid-20"><a href="#notes">Notes</a></li>
-            <li class="grid-20"><a href="#tasks">Tasks</a></li>
+        </div>-->
+        <section class="popupBody">
+            <div id="card-detail-tabs">
+                <ul id="tab-links">
+                    <li><a href="#main">Main</a></li>
+                    <li><a href="#contacts">Contacts</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#tasks">Tasks</a></li>
                <!-- <li class="grid-20"><a href="#documents">Documents</a></li> --> <!--Documents are not unique to cards-->
-        </ul>
+                </ul>
 
-        <div id ="tab-content">
-            <div id="main" class="active-tab">
-                <h1>I am at the {{displayedCard.status}} stage</h1>
-                <p>{{displayedCard.tags}}</p>
-            </div>
+                <div id ="tab-content">
+                    <div id="main" class="active-tab">
+                    <h1>I am at the {{displayedCard.status}} stage</h1>
+                    <p>{{displayedCard.tags}}</p>
+                    </div>
 
-            <div id="contacts" class="tab">
-                <h1>Contacts:</h1>
-                <p>{{displayedCard.contacts}}</p>
-            </div>
+                    <div id="contacts" class="tab">
+                        <h1>Contacts:</h1>
+                        <p>{{displayedCard.contacts}}</p>
+                    </div>
 
-            <div id="notes" class="tab">
-                <h1>Notes:</h1>
-                <p>Not yet implemented.</p>
-            </div>
+                    <div id="notes" class="tab">
+                        <h1>Notes:</h1>
+                        <p>Not yet implemented.</p>
+                    </div>
 
-            <div id="tasks" class="tab">
-                <h1>Tasks:</h1>
-                <p>{{displayedCard.task}}</p>
-            </div>
+                    <div id="tasks" class="tab">
+                        <h1>Tasks:</h1>
+                        <p>{{displayedCard.task}}</p>
+                    </div>
 
           <!--  <div id="documents" class="tab">
                 <p>Documents:</p>
                 <p>Not yet implemented.</p>
             </div> -->
-        </div>
+                </div>
 
+        </div>
     </div>
 </div>
-
 {% else %}
 <div id="generic-text">
     <p>Please login to see your dashboard!</p>

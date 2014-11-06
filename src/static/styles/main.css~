@@ -168,7 +168,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #edaa4e;
 }
 
-/*#card-detail {
+#card-detail {
   height: 500px;
   border: 1px solid black;
   width: 800px;
@@ -224,7 +224,7 @@ li.active a, li.active a:hover {
  
 #tab.active {
   display:block
-}*/
+}
 
 #dashboard input[type=submit] {
   width: 100px;
