@@ -3,6 +3,7 @@
 var app = angular.module('jobdex_app', ['ngCookies']);
 
 $("#login").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
+$("#card_view").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
 
 // Calling Register Form
 $(".create_account").click(function(){
