@@ -328,7 +328,7 @@ app.controller('CardController', function($scope, $http){
             }).error(funcion(data, status, headers, config){
 
         });
-    }
+    };
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
     $scope.modify_card_status = function(cardID, new_status){
@@ -396,7 +396,7 @@ app.controller('CardController', function($scope, $http){
             }).error(funcion(data, status, headers, config){
 
         });
-    }
+    };
 
     $scope.get_contacts = function(cardID){
 
@@ -448,7 +448,7 @@ app.controller('CardController', function($scope, $http){
             console.log("Please make sure the contact you create is valid.");
         }
         else if (error_message == ERR_CONTACT_DOES_NOT_EXIST){
-            console.log("The contact does not exist.")
+            console.log("The contact does not exist.");
         }
         else if (error_message == ERR_TASK_EXISTS){
             console.log("The task already exist.");
@@ -548,14 +548,17 @@ app.controller('DocumentController', function($scope, $http) {
 
 
     $scope.errorHandler = function(error_message) {
-        if (error_message == ERR_DOC_NOTFOUND){
-            console.log("Document Not Found");
+
+        if (error_message == ERR_DOC_EXISTS){
+            console.log("Document already exist");
         }
-        else if (error_message == ERR_DOC_EXISTS){
-            console.log("Document Exists");
+        else if (error_message == ERR_DOC_INVALID){
+            console.log("Please make sure the document is valid.");
+        }
+        else if (error_message == ERR_DOC_DOES_NOT_EXIST) {
+            console.log("The document does not exist.");
         }
     };  
-
 });
 
 
