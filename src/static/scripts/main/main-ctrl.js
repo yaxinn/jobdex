@@ -311,7 +311,7 @@ app.controller('CardController', function($scope, $http){
                 else if (data.error_message == 1) {
                     location.reload(true);
                 }
-            }).error(funcion(data, status, headers, config){
+            }).error(function(data, status, headers, config){
 
         });
     };
@@ -379,7 +379,7 @@ app.controller('CardController', function($scope, $http){
                 else if (data.error_message == 1) {
                     location.reload(true);
                 }
-            }).error(funcion(data, status, headers, config){
+            }).error(function(data, status, headers, config){
 
         });
     };
@@ -395,9 +395,9 @@ app.controller('CardController', function($scope, $http){
                     $scope.contacts = data.contacts_output;
                     // in html, inside the CardController, use 'contacts' to refer to the return contacts
                 }
-         }).error(function(data, status, headers, config){
+            }).error(function(data, status, headers, config){
              //Handle error
-     });
+        });
 
     };
 
@@ -517,9 +517,9 @@ app.controller('DocumentController', function($scope, $http) {
 
     $scope.get_documents = function(userID){
 
-        var req = JSON.stringify()
+        var req = JSON.stringify({user_id: userID});
         
-        $http.get('/api/users/' + userID + '/documents', {user_id: userID}).
+        $http.get('/api/users/' + userID + '/documents', req).
             success(function(data, status, headers, config) {
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
