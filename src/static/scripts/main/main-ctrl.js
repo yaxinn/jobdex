@@ -25,6 +25,7 @@ var ERR_CONTACT_DOES_NOT_EXIST = -14;
 var ERR_TAST_EXISTS = -15;
 var ERR_TASK_INVALID = -16;
 var ERR_TASK_DOES_NOT_EXIST = -17;
+
 var ERR_BAD_CREDENTIALS = -18;
 var ERR_EXISTING_USER = -19;
 var ERR_BAD_USERNAME = -20;
@@ -411,14 +412,38 @@ app.controller('CardController', function($scope, $http){
         else if (error_message == ERR_TAG_DOES_NOT_EXIST){
             console.log("The tag you are searching for does not extist.");
         } 
-        else if (error_message == ERR_INVALID_COMPANY){
+        else if (error_message == ERR_COMPANY_EXISTS){
+            console.log("The company you are trying to create already exists.");
+        }
+        else if (error_message == ERR_COMPANY_INVALID){
             console.log("Please make sure your Company name is valid and under 128 characters.");
         }
-        else if (error_message == ERR_INVALID_JOB){
-            console.log("Please make sure your Job title is valid and under 128 characters.");
+        else if (error_message == ERR_COMPANY_DOES_NOT_EXIST){
+            console.log("The company does not exist.");
         }
-        else if (error_message == ERR_NO_CARDS){
-            console.log("There are currently no cards for $scope user.");
+        else if (error_message == ERR_CARD_EXISTS){
+            console.log("The card already exist.");
+        }
+        else if (error_message == ERR_CARD_DOES_NOT_EXIST){
+            console.log("The card does not exist.");
+        }
+        else if (error_message == ERR_CONTACT_EXISTS){
+            console.log("The contact already exist.");
+        }
+        else if (error_message == ERR_CONTACT_INVALID){
+            console.log("Please make sure the contact you create is valid.");
+        }
+        else if (error_message == ERR_CONTACT_DOES_NOT_EXIST){
+            console.log("The contact does not exist.")
+        }
+        else if (error_message == ERR_TASK_EXISTS){
+            console.log("The task already exist.");
+        }
+        else if(error_message == ERR_TASK_INVALID){
+            console.log("Please make sure the task you create is valid.");
+        }
+        else if (error_message == ERR_TASK_DOES_NOT_EXIST) {
+            console.log("The task does not exist.");
         }
     };
 
