@@ -9,7 +9,16 @@
         <div id="add-card">
             <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
             <br>
-            <label for="status">Status:</label><input type="text" name="status" ng-model="card.status">
+            <label for="status">Status:</label>
+                <form action="" >
+                    <select name="status" ng-model="card.status">
+                        <option value="Interested">Interested</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Complete">Complete</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Recieved Offer">Recieved Offer</option>
+                    </select>
+                </form>
             <br>
             <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
             <br>
@@ -78,7 +87,7 @@
                 </div>
                 <div id="contacts" class="tab">
                     <h1>Contacts:</h1>
-                    <p>{{displayedCard.contacts}}</p>
+                    <p>{{displayedCard.contactName}}</p>
                 </div>
 
                 <div id="notes" class="tab">
