@@ -2,8 +2,24 @@
 
 var app = angular.module('jobdex_app', ['ngCookies']);
 
+
 $("#login").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
-$("#card_view").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
+
+$("a[rel*=card_button]").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
+
+
+
+
+/*$("#card_button").click(function(){
+    $("#card_view").modal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
+    return false;
+});
+
+$(".modal_close").click(function(){
+    $("#card_view").hide();
+    return false;
+});*/
+
 
 // Calling Register Form
 $(".create_account").click(function(){
@@ -20,7 +36,7 @@ $("#login").click(function() {
     return false;
 })
 
-$("#card_view").click(function(){
+/*$("#card_view").click(function(){
     $("#card-detail-tabs").show()
     return false;
 })
@@ -55,18 +71,21 @@ $("#tasks").click(function(){
     $("#notes").hide()
     $("#main").hide()
     return false;
-})  
+})  */
+
+
 
 jQuery(document).ready(function() {
     jQuery('#card-detail-tabs #tab-links a').on('click', function(e)  {
         var currentAttrValue = jQuery(this).attr('href');
  
         // Show/Hide Tabs
-        jQuery('#card-detail-tabs ' + currentAttrValue).show().siblings().hide();
+        jQuery('#card-detail-tabs ' + currentAttrValue).siblings().hide();
+        jQuery('#card-detail-tabs ' + currentAttrValue).show();
  
         // Change/remove current tab to active
         jQuery(this).parent('li').addClass('active-tab').siblings().removeClass('active-tab');
  
         e.preventDefault();
     });
-})
+});

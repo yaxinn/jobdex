@@ -150,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: SourceSansBold;
   text-align: center;
 }
-.card button {
+.card button #detail_button{
   width: 100px;
   height: 30px;
   border-radius: 5px;
@@ -163,6 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #ff851b;
   color: white;
 }
+
 .card button:hover {
   cursor: pointer;
   background: #edaa4e;
@@ -275,7 +276,7 @@ li.active a, li.active a:hover {
 
 .popupContainer {
   position: absolute;
-  width: 330px;
+  width: 400px;
   height: auto;
   left: 45%;
   top: 80px;
