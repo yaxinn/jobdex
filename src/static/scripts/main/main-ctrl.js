@@ -240,10 +240,17 @@ app.controller('CardController', function($scope, $http){
     $scope.detailIsShown = false;
     $scope.showDetails = function(card) {
         //console.log($(angular.element(card)[0]).data('company'));
-        $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
-        $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
+        $scope.displayedCard.company = $(angular.element(card)).data('company');
+        $scope.displayedCard.position = $(angular.element(card)).data('position');
+        $scope.displayedCard.notes = $(angular.element(card)).data('notes');
+        //$scope.displayedCard.contactName = $(angular.element(card)[0]).data('contactName');
+        //$scope.displayedCard.contactEmail = $(angular.element(card)[0]).data('contactEmail');
+        //$scope.displayedCard.contactPhone = $(angular.element(card)[0]).data('contactPhone');
+        $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.detailIsShown = true;
     }
+    
+
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.create_card = function(){
         var req = JSON.stringify({companyName: $scope.card.companyName, 

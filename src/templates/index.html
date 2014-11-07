@@ -51,26 +51,53 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} data-notes={{card.notes}} data-status={{card.status}} ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
     <div id="card-detail" ng-show="detailIsShown">
+    {% verbatim %}
         <div id="card-detail-top">
-            {% verbatim %}
-                <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
-            {% endverbatim %}
+            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
         </div>
         <div id="card-detail-tabs" class="grid-100 grid-parent">
-            <ul>
-                <li class="grid-20">Main</li>
-                <li class="grid-20">Contacts</li>
-                <li class="grid-20">Notes</li>
-                <li class="grid-20">Tasks</li>
-                <li class="grid-20">Documents</li>
-            </ul>
-        </div>
 
+            <ul id="tab-links">
+                <li class="grid-20"><a href="#main" class="active-tab">Main</a></li>
+                <li class="grid-20"><a href="#contacts" >Contacts</a></li>
+                <li class="grid-20"><a href="#notes" >Notes</a></li>
+                <li class="grid-20"><a href="#tasks" >Tasks</a></li>
+                <li class="grid-20"><a href="#documents">Documents</a></li> 
+            </ul>
+
+                <div id ="tab-content">
+                    <div id="main" class="active-tab">
+                        <h1>I am at stage {{displayedCard.status}}</h1>
+                    </div>
+
+                    <div id="contacts" class="tab">
+                        <h1>Contacts:</h1>
+                        <p>{{displayedCard.contacts}}</p>
+                    </div>
+
+                    <div id="notes" class="tab">
+                        <h1>Notes:</h1>
+                        <p>{{displayedCard.notes}}</p>
+                    </div>
+
+                    <div id="tasks" class="tab">
+                        <h1>Tasks:</h1>
+                        <p>{{displayedCard.task}}</p>
+                    </div>
+
+                    <div id="documents" class="tab">
+                        <p>Documents:</p>
+                        <p>Not yet implemented.</p>
+                    </div> 
+                </div>
+
+        </div>
+    {% endverbatim %}
     </div>
 </div>
 {% else %}
