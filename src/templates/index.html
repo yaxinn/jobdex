@@ -13,6 +13,8 @@
             <br>
             <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
             <br>
+            <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
+            <br>
             <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
             <br>
             <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
@@ -49,13 +51,15 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn">Show More</button>
+                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
-    <div id="card-detail" ng-hide="detailIsShown">
+    <div id="card-detail" ng-show="detailIsShown">
         <div id="card-detail-top">
-            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
+            {% verbatim %}
+                <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
+            {% endverbatim %}
         </div>
         <div id="card-detail-tabs" class="grid-100 grid-parent">
             <ul>

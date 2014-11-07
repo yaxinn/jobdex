@@ -38,6 +38,7 @@ def signup_view(request):
     context = {'error_message': error_message}
     return render(request, 'signup.html', context)
 
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']

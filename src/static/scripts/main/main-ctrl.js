@@ -236,11 +236,20 @@ app.controller('CardController', function($scope, $http){
 
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
+    $scope.displayedCard = {};
+    $scope.detailIsShown = false;
+    $scope.showDetails = function(card) {
+        //console.log($(angular.element(card)[0]).data('company'));
+        $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
+        $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
+        $scope.detailIsShown = true;
+    }
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.create_card = function(){
         var req = JSON.stringify({companyName: $scope.card.companyName, 
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
+            notes: $scope.card.notes,
             contactName: $scope.card.contactName,
             contactEmail: $scope.card.contactEmail,
             contactPhone: $scope.card.contactPhone,
