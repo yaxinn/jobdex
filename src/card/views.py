@@ -83,7 +83,7 @@ def create_card(request):
     company_name = info['companyName']
     status = str(info['status'])
     job_title = info['jobTitle']
-    notes = info['notes']
+    notes = str(info['notes'])
     tags = str(info['tags']).split(',')
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
