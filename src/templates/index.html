@@ -56,6 +56,7 @@
         {% endfor %}
     </div>
     <div id="card-detail" ng-show="detailIsShown">
+
     {% verbatim %}
         <div id="card-detail-top">
             <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
@@ -70,34 +71,36 @@
                 <li class="grid-20"><a href="#documents">Documents</a></li> 
             </ul>
 
-                <div id ="tab-content">
-                    <div id="main" class="active-tab">
-                        <h1>I am at stage {{displayedCard.status}}</h1>
-                    </div>
 
-                    <div id="contacts" class="tab">
-                        <h1>Contacts:</h1>
-                        <p>{{displayedCard.contacts}}</p>
-                    </div>
-
-                    <div id="notes" class="tab">
-                        <h1>Notes:</h1>
-                        <p>{{displayedCard.notes}}</p>
-                    </div>
-
-                    <div id="tasks" class="tab">
-                        <h1>Tasks:</h1>
-                        <p>{{displayedCard.task}}</p>
-                    </div>
-
-                    <div id="documents" class="tab">
-                        <p>Documents:</p>
-                        <p>Not yet implemented.</p>
-                    </div> 
+            <div id ="tab-content">
+                <div id="main" class="active-tab">
+                    <h1>I am at stage {{displayedCard.status}}</h1>
                 </div>
+                <div id="contacts" class="tab">
+                    <h1>Contacts:</h1>
+                    <p>{{displayedCard.contacts}}</p>
+                </div>
+
+                <div id="notes" class="tab">
+                    <h1>Notes:</h1>
+                    <p>{{displayedCard.notes}}</p>
+                </div>
+
+                <div id="tasks" class="tab">
+                    <h1>Tasks:</h1>
+                    <p>{{displayedCard.task}}</p>
+                </div>
+
+                <div id="documents" class="tab">
+                    <p>Documents:</p>
+                    <p>Not yet implemented.</p>
+                </div> 
+            </div>
 
         </div>
     {% endverbatim %}
+
+
     </div>
 </div>
 {% else %}

@@ -240,6 +240,7 @@ app.controller('CardController', function($scope, $http){
     $scope.detailIsShown = false;
     $scope.showDetails = function(card) {
         //console.log($(angular.element(card)[0]).data('company'));
+
         $scope.displayedCard.company = $(angular.element(card)).data('company');
         $scope.displayedCard.position = $(angular.element(card)).data('position');
         $scope.displayedCard.notes = $(angular.element(card)).data('notes');
