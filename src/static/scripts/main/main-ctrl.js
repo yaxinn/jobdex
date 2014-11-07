@@ -242,6 +242,11 @@ app.controller('CardController', function($scope, $http){
         //console.log($(angular.element(card)[0]).data('company'));
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
+        $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
+        //$scope.displayedCard.contactName = $(angular.element(card)[0]).data('contactName');
+        //$scope.displayedCard.contactEmail = $(angular.element(card)[0]).data('contactEmail');
+        //$scope.displayedCard.contactPhone = $(angular.element(card)[0]).data('contactPhone');
+        $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.detailIsShown = true;
     }
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";

@@ -51,15 +51,14 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} data-notes={{card.notes}} data-status={{card.status}} ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
     <div id="card-detail" ng-show="detailIsShown">
+        {% verbatim %}
         <div id="card-detail-top">
-            {% verbatim %}
-                <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>
-            {% endverbatim %}
+                <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1> 
         </div>
         <div id="card-detail-tabs" class="grid-100 grid-parent">
             <ul>
@@ -70,7 +69,7 @@
                 <li class="grid-20">Documents</li>
             </ul>
         </div>
-
+        {% endverbatim %}
     </div>
 </div>
 {% else %}
