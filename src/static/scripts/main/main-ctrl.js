@@ -236,11 +236,25 @@ app.controller('CardController', function($scope, $http){
 
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
+    $scope.displayedCard = {};
+    $scope.detailIsShown = false;
+    $scope.showDetails = function(card) {
+        //console.log($(angular.element(card)[0]).data('company'));
+        $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
+        $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
+        $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
+        //$scope.displayedCard.contactName = $(angular.element(card)[0]).data('contactName');
+        //$scope.displayedCard.contactEmail = $(angular.element(card)[0]).data('contactEmail');
+        //$scope.displayedCard.contactPhone = $(angular.element(card)[0]).data('contactPhone');
+        $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
+        $scope.detailIsShown = true;
+    }
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.create_card = function(){
         var req = JSON.stringify({companyName: $scope.card.companyName, 
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
+            notes: $scope.card.notes,
             contactName: $scope.card.contactName,
             contactEmail: $scope.card.contactEmail,
             contactPhone: $scope.card.contactPhone,
@@ -262,6 +276,23 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
             });
         $scope.card = {};
+    };
+
+    $scope.remove_card = function(card){
+
+        var req = JSON.stringify({card_id: $(angular.element(card)).unique_id});
+
+        $http.delete('/api/user/remove-card', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message)
+                }
+                else if (data.error_message == 1) {
+                    location.reload(true);
+                }
+            }).error(function(data, status, headers, config){
+
+        });
     };
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)

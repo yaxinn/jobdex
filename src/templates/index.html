@@ -9,9 +9,18 @@
         <div id="add-card">
             <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
             <br>
-            <label for="status">Status:</label><input type="text" name="status" ng-model="card.status">
+            <label for="status">Status:</label>
+                    <select name="status" ng-model="card.status">
+                        <option value="Interested" selected>Interested</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Complete">Complete</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Recieved Offer">Recieved Offer</option>
+                    </select>
             <br>
             <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
+            <br>
+            <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
             <br>
             <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
             <br>
@@ -25,11 +34,11 @@
         </div>
     </div>
     <div id="cards">
-        <div class="banner">
-            <h1>{{user}}'s Cards</h1>
-        </div>
         {% for card in cards %}
             <div class="card">
+                <div class="card-top">
+                    <input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>
+                </div>
                 <div class="card-company">
                     <h1>{{card.associated_company.name}}</h1>
                 </div>
@@ -49,8 +58,56 @@
                     {% endfor %}
                     </p>
                 </div>
+                <button class="card-detail-btn" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
+    </div>
+    <div id="card-detail" ng-show="detailIsShown">
+
+    {% verbatim %}
+        <div id="card-detail-top">
+            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
+        </div>
+        <div id="card-detail-tabs" class="grid-100 grid-parent">
+
+            <ul id="tab-links">
+                <li class="grid-20"><a href="#main" class="active-tab">Main</a></li>
+                <li class="grid-20"><a href="#contacts" >Contacts</a></li>
+                <li class="grid-20"><a href="#notes" >Notes</a></li>
+                <li class="grid-20"><a href="#tasks" >Tasks</a></li>
+                <li class="grid-20"><a href="#documents">Documents</a></li> 
+            </ul>
+
+
+            <div id ="tab-content">
+                <div id="main" class="active-tab">
+                    <h1>Stage: {{displayedCard.status}}</h1>
+                </div>
+                <div id="contacts" class="tab">
+                    <h1>Contacts:</h1>
+                    <p>{{displayedCard.contactName}}</p>
+                </div>
+
+                <div id="notes" class="tab">
+                    <h1>Notes:</h1>
+                    <p>{{displayedCard.notes}}</p>
+                </div>
+
+                <div id="tasks" class="tab">
+                    <h1>Tasks:</h1>
+                    <p>{{displayedCard.task}}</p>
+                </div>
+
+                <div id="documents" class="tab">
+                    <h1>Documents:</h1>
+                    <p>Not yet implemented.</p>
+                </div> 
+            </div>
+
+        </div>
+    {% endverbatim %}
+
+
     </div>
 </div>
 {% else %}

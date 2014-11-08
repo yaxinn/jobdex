@@ -103,7 +103,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 #dashboard {
-    height: 900px;
+    min-height: 900px;
     background: $clouds;
 }
 
@@ -142,6 +142,25 @@ h1,h2,h3,h4,h5,h6 {
     color: white;
 }
 
+@mixin btn {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    float: none;
+    margin: 0 auto;
+    display: block;
+    margin-top: 1em;
+    font-family: SourceSansRegular;
+    border: 1px solid black;
+    background: $orange;
+    color: white;
+    &:hover {
+        cursor: pointer;
+        background: $lite-orange;
+    }
+}
+
+
 .card {
     float: left;
     width: 200px;
@@ -151,6 +170,15 @@ h1,h2,h3,h4,h5,h6 {
     background: $lite-blue;
     padding: 1em;
     margin: 1em;
+    .card-top {
+        height: 20px;
+        img {
+            float: right;
+        }
+        img:hover {
+            cursor: pointer;
+        }
+    }
     h1 {
         font-size: 20px;
         border-bottom: 1px dotted white;
@@ -165,28 +193,39 @@ h1,h2,h3,h4,h5,h6 {
             text-align: center;
         }
         .card-label {
+            color: $paulina-purp !important;
+            font-family: SourceSansBold;
             text-align: center;
         }
+    }
+    button {
+        @include btn;
+    }
+}
+
+#card-detail {
+    height: 500px;
+    border: 1px solid black;
+    width: 800px;
+    margin: 0 auto;
+    background: $c4;
+    #card-detail-tabs {
+        background: white;
     }
 }
 
 #dashboard {
     input[type=submit] {
+        @include btn;
         margin-top: 1em;
         margin-bottom: 1em;
-        border-radius: 10px;
         cursor: pointer;
         width: 150px;
         height: 30px;
-        color: black;
         outline: none;
-        border: none;
         font-size: 20px;
     }
 
-    input[type=submit]:hover {
-        background: $clouds;
-    }
     label {
         display: inline-block;
         width: 200px;

@@ -6,7 +6,7 @@ class Company(models.Model):
 
 class Card(models.Model):
     unique_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
-    status = models.CharField(max_length=20, blank=False, default="begin interviewing")
+    status = models.CharField(max_length=20, blank=False, default="Interested")
     job_title = models.CharField(max_length=255, blank=False)
     associated_company = models.ForeignKey(Company)
     notes = models.TextField(default="")
@@ -25,7 +25,6 @@ class Contact(models.Model):
     name = models.CharField(max_length=255, blank=False)
     phone = models.CharField(max_length=255, blank=False)
     email = models.EmailField()
-    title = models.CharField(max_length=255, blank=False, default="")
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):

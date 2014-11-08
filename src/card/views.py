@@ -83,12 +83,11 @@ def create_card(request):
     company_name = info['companyName']
     status = str(info['status'])
     job_title = info['jobTitle']
-    notes = info['notes']
+    notes = str(info['notes'])
     tags = str(info['tags']).split(',')
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
-    contact_title = str(info['contactTitle'])
 
     try:
         company = Company.objects.get(name=company_name)
@@ -99,7 +98,7 @@ def create_card(request):
     new_card = Card(associated_company=company, status=status, job_title=job_title, notes=notes)
     new_card.save()
 
-    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, title=contact_title, associated_card=new_card)
+    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
     new_contact.save()
 
     for tag in tags:
@@ -112,7 +111,7 @@ def create_card(request):
 # Remove card, given a card id
 def remove_card(request):
     try:
-        card_id = request.DELETE.get('card_id')
+        card_id = request.POST.get('card_id')
         Card.objects.filter(unique_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
