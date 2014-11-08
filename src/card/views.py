@@ -111,7 +111,7 @@ def create_card(request):
 # Remove card, given a card id
 def remove_card(request):
     try:
-        card_id = request.DELETE.get('card_id')
+        card_id = request.POST.get('card_id')
         Card.objects.filter(unique_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:

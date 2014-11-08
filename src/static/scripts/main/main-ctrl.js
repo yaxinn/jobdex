@@ -278,9 +278,9 @@ app.controller('CardController', function($scope, $http){
         $scope.card = {};
     };
 
-    $scope.remove_card = function(){
+    $scope.remove_card = function(card){
 
-        var req = JSON.stringify({card_id: $scope.card.unique_id});
+        var req = JSON.stringify({card_id: $(angular.element(card)).unique_id});
 
         $http.delete('/api/user/remove-card', req).
             success(function(data, status, headers, config){

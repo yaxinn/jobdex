@@ -39,7 +39,7 @@
         {% for card in cards %}
             <div class="card">
                 <div class="card-top">
-                    <input src="/static/images/close.png" type="image" ng-click="remove_card()"/>
+                    <input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>
                 </div>
                 <div class="card-company">
                     <h1>{{card.associated_company.name}}</h1>
