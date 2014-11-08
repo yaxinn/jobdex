@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, HttpResponseServerError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -46,9 +46,9 @@ def login_view(request):
         user = authenticate(username = username, password = password)
         if user is not None and user.is_active:
             login(request, user)
-        return redirect('home')
-    else:
-        return redirect('home')
+            return redirect('home')
+        else:
+            return HttpResponseServerError()
 
 @login_required
 def logout_view(request):

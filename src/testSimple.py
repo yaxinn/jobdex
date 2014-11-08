@@ -49,11 +49,28 @@ class TestAddUser(testLib.RestTestCase):
 		csrf = self.client.cookies['csrftoken'].value
 		response = self.client.post('/signup/', 
 			{ 'csrfmiddlewaretoken' : csrf, 
-			'username' : 'usernumber1', 
+			'username' : 'usernumber1',
 			'password' : 'password', 
 			'confirm_password' : 'password',
 			'email' : 'usernumber1@gmail.com' })
 		self.assertEqual(response.status_code, 200)
+
+class TestLogout(testLib.RestTestCase):
+	def test_signup(self):
+		self.client = Client()
+		response = self.client.get("/logout/")
+		self.assertEqual(response.status_code, 302)
+
+class TestLogin(testLib.RestTestCase):
+	def test_login(self):
+		self.client = Client(enforce_csrf_checks=True)
+		self.client.get("/")
+		csrf = self.client.cookies['csrftoken'].value
+		response = self.client.post('/login/', 
+			{ 'csrfmiddlewaretoken' : csrf, 
+			'username' : 'usernumber1',
+			'password' : 'password' })
+		self.assertIsNot(response.status_code, 500)
 
 
 ##################
