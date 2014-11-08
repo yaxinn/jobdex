@@ -58,7 +58,7 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
@@ -85,7 +85,12 @@
                 </div>
                 <div id="contacts" class="tab">
                     <h1>Contacts:</h1>
-                    <p>{{displayedCard.contactName}}</p>
+                    <h2>Name:</h2>
+                        <p>{{displayedCard.contactName}}</p>
+                    <h2>Email:</h2>
+                        <p>{{displayedCard.contactEmail}}</p>
+                    <h2>Phone:</h2>
+                        <p>{{displayedCard.contactPhone}}</p>
                 </div>
 
                 <div id="notes" class="tab">

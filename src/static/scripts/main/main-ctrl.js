@@ -274,9 +274,11 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
-        //$scope.displayedCard.contactName = $(angular.element(card)[0]).data('contactName');
-        //$scope.displayedCard.contactEmail = $(angular.element(card)[0]).data('contactEmail');
-        //$scope.displayedCard.contactPhone = $(angular.element(card)[0]).data('contactPhone');
+        $scope.displayedCard.contacts = $(angular.element(card)[0]).data('contacts').split(",");
+        console.log($scope.displayedCard.contacts);
+        $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];
+        $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
+        $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.detailIsShown = true;
     }
