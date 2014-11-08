@@ -10,15 +10,13 @@
             <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
             <br>
             <label for="status">Status:</label>
-                <form action="" >
                     <select name="status" ng-model="card.status">
-                        <option value="Interested">Interested</option>
+                        <option value="Interested" selected>Interested</option>
                         <option value="In Progress">In Progress</option>
                         <option value="Complete">Complete</option>
                         <option value="Rejected">Rejected</option>
                         <option value="Recieved Offer">Recieved Offer</option>
                     </select>
-                </form>
             <br>
             <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
             <br>
@@ -60,7 +58,7 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-company={{card.associated_company.name}} data-position={{card.job_title}} data-notes={{card.notes}} data-status={{card.status}} ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
