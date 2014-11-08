@@ -207,8 +207,13 @@ h1,h2,h3,h4,h5,h6 {
     height: 500px;
     border: 1px solid black;
     width: 800px;
-    margin: 0 auto;
-    background: $c4;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #79a9da;
     #card-detail-tabs {
         background: white;
     }
