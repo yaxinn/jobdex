@@ -166,6 +166,7 @@ app.controller('UserController', function($scope, $http) {
 //All methods dealing with cards are in this controller
 app.controller('CardController', function($scope, $http){
 
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     // Dont know what this part is.
     //     $http.get('/api/card/all-cards').
     //         success(function(data, status, headers, config) {
@@ -279,7 +280,6 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.detailIsShown = true;
     }
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     $scope.create_card = function(){
 
@@ -313,20 +313,20 @@ app.controller('CardController', function($scope, $http){
     };
 
     //remove card given user and card_id
-    $scope.remove_card = function(user,cardID){
+    $scope.remove_card = function(card){
+        var cardID = $(angular.element(card)[0]).data('unique_id');
+        var req = {card_id: cardID};
 
-        var req = JSON.stringify({card_id: cardID});
-
-        $http.delete('/api/' + user + '/remove-card', req).
+        $http.post('/api/user/remove-card/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
-                    $scope.errorHandler(data.error_message)
+                    error(data)
                 }
                 else if (data.error_message == 1) {
                     location.reload(true);
                 }
             }).error(function(data, status, headers, config){
-
+                console.log(data);
         });
     };
 

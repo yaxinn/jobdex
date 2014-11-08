@@ -109,9 +109,11 @@ def create_card(request):
     return JsonResponse(response, safe=False)
 
 # Remove card, given a card id
+@csrf_exempt
 def remove_card(request):
     try:
-        card_id = request.POST.get('card_id')
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
         Card.objects.filter(unique_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
