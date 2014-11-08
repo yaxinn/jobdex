@@ -12,7 +12,7 @@ class Card(models.Model):
     notes = models.TextField(default="")
 
     def __str__(self):
-        return "A card for " + self.associated_company.name
+        return "A card for " + self.status
 
 class Tag(models.Model):
     tag = models.CharField(max_length=100)
