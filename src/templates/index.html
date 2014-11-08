@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div id="dashboard" ng-controller="CardController">
+    <div class="banner">
+        <h1>{{user}}'s Dashboard</h1>
+    </div>
+    <div id="menu-items">
+        <div id="add-card">
+            <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
+            <br>
+            <label for="status">Status:</label>
+                    <select name="status" ng-model="card.status">
+                        <option value="Interested" selected>Interested</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Complete">Complete</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Recieved Offer">Recieved Offer</option>
+                    </select>
+            <br>
+            <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
+            <br>
+            <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
+            <br>
+            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
+            <br>
+            <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
+            <br>
+            <label for="contact-email">Contact Email:</label><input type="text" name="contact-email" ng-model="card.contactEmail">
+            <br>
+            <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
+            <br>
+            <input type="submit" value="Add Card" ng-click="create_card()">
+        </div>
+    </div>
+    <div id="cards">
+        {% for card in cards %}
+            <div class="card">
+                <div class="card-top">
+                    <input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>
+                </div>
+                <div class="card-company">
+                    <h1>{{card.associated_company.name}}</h1>
+                </div>
+                <div class="card-position card-field">
+                    <div class="card-label">Job Title:</div>
+                    <p>{{card.job_title}}</p>
+                </div>
+                <div class="card-status card-field">
+                    <div class="card-label">Status:</div>
+                    <p>{{card.status}}</p>
+                </div>
+                <div class="card-tags card-field">
+                    <div class="card-label">Tags:</div>
+                    <p>
+                    {% for tag in card.tag_set.all %}
+                        #{{tag}}
+                    {% endfor %}
+                    </p>
+                </div>
+                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="card-detail" ng-show="detailIsShown">
+
+    {% verbatim %}
+        <div id="card-detail-top">
+            <input src="/static/images/close.png" type="image" id="closer"/>
+            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
+        </div>
+        
+            <ul id="tab-links">
+                <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
+                <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
+                <li class="grid-20"><a class="tLink" href="#notes" >Notes</a></li>
+                <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
+                <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
+            </ul>
+
+        <div id="card-detail-tabs" class="grid-100 grid-parent">
+
+            <div id ="tab-content">
+                <div id="main" class="active-tab">
+                    <h1>Stage: {{displayedCard.status}}</h1>
+                </div>
+                <div id="contacts" class="tab">
+                    <h1>Contacts:</h1>
+                    <h2>Name:</h2>
+                        <p style="text-align: center">{{displayedCard.contactName}}</p>
+                    <h2>Email:</h2>
+                        <p style="text-align: center">{{displayedCard.contactEmail}}</p>
+                    <h2>Phone:</h2>
+                        <p style="text-align: center">{{displayedCard.contactPhone}}</p>
+                </div>
+
+                <div id="notes" class="tab">
+                    <h1>Notes:</h1>
+                    <p style="text-align: center">{{displayedCard.notes}}</p>
+                </div>
+
+                <div id="tasks" class="tab">
+                    <h1>Tasks:</h1>
+                    <p style="text-align: center">{{displayedCard.task}}</p>
+                </div>
+
+                <div id="documents" class="tab">
+                    <h1>Documents:</h1>
+                    <p style="text-align: center">Not yet implemented.</p>
+                </div> 
+            </div>
+
+        </div>
+    {% endverbatim %}
+
+
+    </div>
+</div>
+{% else %}
+<div id="generic-text">
+    <p>Please login to see your dashboard!</p>
+</div>
+{% endif %}
+{% endblock %}
