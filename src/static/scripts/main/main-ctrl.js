@@ -292,7 +292,7 @@ app.controller('CardController', function($scope, $http){
             contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
 
-        $http.post('/api/user/create-card', req).
+        $http.post('/api/user/create-card/', req).
             success(function(data, status, headers, config){
                 console.log(data);
 
