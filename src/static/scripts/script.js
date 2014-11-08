@@ -17,10 +17,20 @@ $("#login").click(function() {
     $(".user_register").hide();
     $(".header_title").text('Login');
     return false;
-})
+});
+
+$("#closer").click(function(){
+    $("#card-detail").hide();
+    return false;
+});
+
+$(".card-detail-btn").click(function(){
+    $("#card-detail").show();
+    return false;
+});
 
 jQuery(document).ready(function() {
-    jQuery('#card-detail-tabs #tab-links a').on('click', function(e)  {
+    jQuery('#tab-links a').on('click', function(e)  {
         var currentAttrValue = jQuery(this).attr('href');
  
         // Show/Hide Tabs

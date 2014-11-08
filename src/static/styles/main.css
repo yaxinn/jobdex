@@ -172,9 +172,26 @@ h1, h2, h3, h4, h5, h6 {
   height: 500px;
   border: 1px solid black;
   width: 800px;
-  margin: 0 auto;
-  background: #d1d2d5;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #79a9da;
 }
+
+.tLink {
+  padding:9px 15px;
+  display:inline-block;
+  border-radius:3px 3px 0px 0px;
+  background:#7FB5DA;
+  font-size:16px;
+  font-weight:600;
+  color:#4c4c4c;
+  transition:all linear 0.15s;
+}
+
 #card-detail #card-detail-tabs {
   background: white;
 }

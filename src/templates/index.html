@@ -66,18 +66,19 @@
 
     {% verbatim %}
         <div id="card-detail-top">
+            <input src="/static/images/close.png" type="image" id="closer"/>
             <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
         </div>
-        <div id="card-detail-tabs" class="grid-100 grid-parent">
-
+        
             <ul id="tab-links">
-                <li class="grid-20"><a href="#main" class="active-tab">Main</a></li>
-                <li class="grid-20"><a href="#contacts" >Contacts</a></li>
-                <li class="grid-20"><a href="#notes" >Notes</a></li>
-                <li class="grid-20"><a href="#tasks" >Tasks</a></li>
-                <li class="grid-20"><a href="#documents">Documents</a></li> 
+                <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
+                <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
+                <li class="grid-20"><a class="tLink" href="#notes" >Notes</a></li>
+                <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
+                <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
             </ul>
 
+        <div id="card-detail-tabs" class="grid-100 grid-parent">
 
             <div id ="tab-content">
                 <div id="main" class="active-tab">
@@ -86,26 +87,26 @@
                 <div id="contacts" class="tab">
                     <h1>Contacts:</h1>
                     <h2>Name:</h2>
-                        <p>{{displayedCard.contactName}}</p>
+                        <p style="text-align: center">{{displayedCard.contactName}}</p>
                     <h2>Email:</h2>
-                        <p>{{displayedCard.contactEmail}}</p>
+                        <p style="text-align: center">{{displayedCard.contactEmail}}</p>
                     <h2>Phone:</h2>
-                        <p>{{displayedCard.contactPhone}}</p>
+                        <p style="text-align: center">{{displayedCard.contactPhone}}</p>
                 </div>
 
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
-                    <p>{{displayedCard.notes}}</p>
+                    <p style="text-align: center">{{displayedCard.notes}}</p>
                 </div>
 
                 <div id="tasks" class="tab">
                     <h1>Tasks:</h1>
-                    <p>{{displayedCard.task}}</p>
+                    <p style="text-align: center">{{displayedCard.task}}</p>
                 </div>
 
                 <div id="documents" class="tab">
                     <h1>Documents:</h1>
-                    <p>Not yet implemented.</p>
+                    <p style="text-align: center">Not yet implemented.</p>
                 </div> 
             </div>
 
