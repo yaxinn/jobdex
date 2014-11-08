@@ -39,7 +39,7 @@
         {% for card in cards %}
             <div class="card">
                 <div class="card-top">
-                    <img src="/static/images/close.png" />
+                    <input src="/static/images/close.png" type="image" ng-click="remove_card()"/>
                 </div>
                 <div class="card-company">
                     <h1>{{card.associated_company.name}}</h1>

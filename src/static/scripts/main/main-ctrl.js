@@ -278,6 +278,23 @@ app.controller('CardController', function($scope, $http){
         $scope.card = {};
     };
 
+    $scope.remove_card = function(){
+
+        var req = JSON.stringify({card_id: $scope.card.unique_id});
+
+        $http.delete('/api/user/remove-card', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message)
+                }
+                else if (data.error_message == 1) {
+                    location.reload(true);
+                }
+            }).error(function(data, status, headers, config){
+
+        });
+    };
+
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
     $scope.modify_card_status = function(id_entry){
         var req = JSON.stringify({card_id: id_entry.id, status: $scope.card.status});
