@@ -12,8 +12,11 @@ from django.views.decorators.http import require_http_methods
 
 # Home page view
 def home(request):
-    cards = Card.objects.all()
-    return render(request, 'index.html', {"cards": cards})
+    #print request.user.username
+    if request.user.is_active and request.user.is_authenticated:
+        cards = Card.objects.filter(owner=request.user)
+        return render(request, 'index.html', {"cards": cards})
+    return render(request, 'index.html', {})
 
 def about(request):
     context = {}
@@ -88,6 +91,7 @@ def create_card(request):
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
+    user = UserProfile.objects.get(username=request.user)
 
     try:
         company = Company.objects.get(name=company_name)
@@ -95,7 +99,7 @@ def create_card(request):
         company = Company(name=company_name)
         company.save()
 
-    new_card = Card(associated_company=company, status=status, job_title=job_title, notes=notes)
+    new_card = Card(associated_company=company, status=status, job_title=job_title, notes=notes, owner=user)
     new_card.save()
 
     new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
@@ -199,14 +203,14 @@ def modify_card_status(request):
         card.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="profile")
-
-    def __str__(self):
-        return "%s's profile" % self.user
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        profile, created = user.models.UserProfile.objects.get_or_create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
+#class UserProfile(models.Model):
+#    user = models.OneToOneField(User, related_name="profile")
+#
+#    def __str__(self):
+#        return "%s's profile" % self.user
+#
+#def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        profile, created = user.models.UserProfile.objects.get_or_create(user=instance)
+#
+#post_save.connect(create_user_profile, sender=User)

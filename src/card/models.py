@@ -10,6 +10,7 @@ class Card(models.Model):
     job_title = models.CharField(max_length=255, blank=False)
     associated_company = models.ForeignKey(Company)
     notes = models.TextField(default="")
+    owner = models.ForeignKey('user.UserProfile')
 
     def __str__(self):
         return "A card for " + self.status
