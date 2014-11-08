@@ -6,12 +6,14 @@ class Company(models.Model):
 
 class Card(models.Model):
     unique_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
-    status = models.CharField(max_length=20, blank=False, default="begin interviewing")
+    status = models.CharField(max_length=20, blank=False, default="Interested")
     job_title = models.CharField(max_length=255, blank=False)
     associated_company = models.ForeignKey(Company)
+    notes = models.TextField(default="")
+    owner = models.ForeignKey('user.UserProfile')
 
     def __str__(self):
-        return "A card for " + self.associated_company.name
+        return "A card for " + self.status
 
 class Tag(models.Model):
     tag = models.CharField(max_length=100)
@@ -29,3 +31,10 @@ class Contact(models.Model):
     def __str__(self):
         return "Contact with name " + self.name
 
+class Task(models.Model):
+    task = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, blank=False, default="incomplete")
+    associated_card = models.ForeignKey(Card)
+
+    def __str__(self):
+        return "Tasks for " + self.associated_card.name
