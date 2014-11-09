@@ -249,6 +249,8 @@ a {
     }
     #card-detail-tabs {
         height: 443px;
+        background: $paulina-purp;
+        color: white;
     }
     #card-detail-company {
         color: crimson;
@@ -257,6 +259,9 @@ a {
     #card-detail-position {
         color: $blue;
         text-decoration: underline;
+    }
+    #card-detail-close:hover {
+        cursor: pointer;
     }
 }
 

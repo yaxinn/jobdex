@@ -19,15 +19,6 @@ $("#login").click(function() {
     return false;
 });
 
-$("#closer").click(function(){
-    $("#card-detail").hide();
-    return false;
-});
-
-$(".card-detail-btn").click(function(){
-    $("#card-detail").show();
-    return false;
-});
 
 jQuery(document).ready(function() {
     jQuery('#tab-links a').on('click', function(e)  {
