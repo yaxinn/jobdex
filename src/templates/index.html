@@ -58,7 +58,7 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-id="{{card.unique_id}}" ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
@@ -84,7 +84,12 @@
 
             <div id ="tab-content">
                 <div id="main" class="active-tab">
-                    <h1>Stage: {{displayedCard.status}}</h1>
+                    <h1>Status: {{displayedCard.status}}</h1>
+                    <button class="card-edit" ng-click="edit()">Edit</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                        <label for="new-status">New Status:</label><input type="text" name="new-status" ng-model="newStatus">
+                        <button class="card-edit" ng-click="changeStatus()">Save new status</button>
+                    </div>
                 </div>
                 <div id="contacts" class="tab">
                     <h1>Contacts:</h1>

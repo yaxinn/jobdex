@@ -196,22 +196,14 @@ def modify_tag(request):
 # Change status based on card id and new status
 @csrf_exempt
 def modify_card_status(request):
-    card_id = request.GET.get('card_id')
-    new_status = request.POST.get('status')
-    card = Card.objects.filter(unique_id=card_id)
-    if new_status != card.status:
+    try:
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        new_status = info['new_status']
+        card = Card.objects.get(unique_id=card_id)
         card.status = new_status
         card.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
     return JsonResponse({'error_message': 1}, safe=False)
-
-#class UserProfile(models.Model):
-#    user = models.OneToOneField(User, related_name="profile")
-#
-#    def __str__(self):
-#        return "%s's profile" % self.user
-#
-#def create_user_profile(sender, instance, created, **kwargs):
-#    if created:
-#        profile, created = user.models.UserProfile.objects.get_or_create(user=instance)
-#
-#post_save.connect(create_user_profile, sender=User)
