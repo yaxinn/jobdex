@@ -269,6 +269,9 @@ app.controller('CardController', function($scope, $http){
     //The card's id should be returned and stored in the database.
     $scope.displayedCard = {};
     $scope.detailIsShown = false;
+    $scope.closeDetails = function() {
+        $scope.detailIsShown = false;
+    }
     $scope.showDetails = function(card) {
         //console.log($(angular.element(card)[0]).data('company'));
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');

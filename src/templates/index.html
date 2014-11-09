@@ -66,7 +66,7 @@
 
     {% verbatim %}
         <div id="card-detail-top">
-            <input src="/static/images/close.png" type="image" id="closer"/>
+            <img src="/static/images/close.png" id="card-detail-close" ng-click="closeDetails()"/>
             <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>            
         </div>
         

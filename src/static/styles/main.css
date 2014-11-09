@@ -215,6 +215,8 @@ a {
 }
 #card-detail #card-detail-tabs {
   height: 443px;
+  background: #3b333f;
+  color: white;
 }
 #card-detail #card-detail-company {
   color: crimson;
@@ -223,6 +225,9 @@ a {
 #card-detail #card-detail-position {
   color: #0074d9;
   text-decoration: underline;
+}
+#card-detail #card-detail-close:hover {
+  cursor: pointer;
 }
 
 #dashboard input[type=submit] {
