@@ -151,6 +151,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 .card button {
+  outline: none;
   width: 100px;
   height: 30px;
   border-radius: 5px;
@@ -229,8 +230,32 @@ a {
 #card-detail #card-detail-close:hover {
   cursor: pointer;
 }
+#card-detail .edit-fields {
+  padding: 1em;
+  text-align: center;
+}
+
+.card-edit {
+  outline: none;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+  font-family: SourceSansRegular;
+  border: 1px solid black;
+  background: #ff851b;
+  color: white;
+}
+.card-edit:hover {
+  cursor: pointer;
+  background: #edaa4e;
+}
 
 #dashboard input[type=submit] {
+  outline: none;
   width: 100px;
   height: 30px;
   border-radius: 5px;
