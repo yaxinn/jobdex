@@ -168,32 +168,61 @@ h1, h2, h3, h4, h5, h6 {
   background: #edaa4e;
 }
 
+a {
+  text-decoration: none;
+}
+
 #card-detail {
-  height: 500px;
+  height: 600px;
   border: 1px solid black;
-  width: 800px;
+  border-radius: 5px;
+  width: 900px;
   margin: auto;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #79a9da;
+  background: #d1d2d5;
 }
-
-.tLink {
-  padding:9px 15px;
-  display:inline-block;
-  border-radius:3px 3px 0px 0px;
-  background:#7FB5DA;
-  font-size:16px;
-  font-weight:600;
-  color:#4c4c4c;
-  transition:all linear 0.15s;
+#card-detail #card-detail-top {
+  font-family: Futura_Oblique;
+  padding: 1em;
 }
-
+#card-detail #card-detail-navbar {
+  height: 40px;
+  border-top: 5px solid #ff851b;
+  border-bottom: 5px solid #ff851b;
+}
+#card-detail #card-detail-navbar li {
+  background: #ecf0f1;
+  text-align: center;
+  border-right: 1px solid black;
+  height: 40px;
+  padding-top: 10px;
+  display: block;
+}
+#card-detail #card-detail-navbar a {
+  display: block;
+  font-family: SourceSansBold;
+  color: #001f3f;
+}
+#card-detail #card-detail-navbar li:hover {
+  background: #003973;
+}
+#card-detail #card-detail-navbar li:hover a {
+  color: white;
+}
 #card-detail #card-detail-tabs {
-  background: white;
+  height: 443px;
+}
+#card-detail #card-detail-company {
+  color: crimson;
+  text-decoration: underline;
+}
+#card-detail #card-detail-position {
+  color: #0074d9;
+  text-decoration: underline;
 }
 
 #dashboard input[type=submit] {

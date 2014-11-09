@@ -67,9 +67,10 @@
     {% verbatim %}
         <div id="card-detail-top">
             <input src="/static/images/close.png" type="image" id="closer"/>
-            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
+            <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>            
         </div>
         
+        <div id="card-detail-navbar">
             <ul id="tab-links">
                 <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
                 <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
@@ -77,6 +78,7 @@
                 <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
                 <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
             </ul>
+        </div>
 
         <div id="card-detail-tabs" class="grid-100 grid-parent">
 
