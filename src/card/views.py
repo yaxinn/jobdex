@@ -178,20 +178,32 @@ def get_tags(request):
 @csrf_exempt
 def modify_tag(request):
     try:
-        card_id = request.GET.get('card_id')
-        old_tag = request.GET.get('old_tag')
-        new_tag = request.POST.get('new_tag')
-        card = Card.objects.filter(unique_id=card_id)
-        tags = Tag.objects.filter(tagged_card=card_id)
-        for tag in tags:
-            if tag == old_tag:
-                tag = new_tag
-                tag.save()
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        new_tag = info['new_tag']
+        card = Card.objects.get(unique_id=card_id)
+        card.tag = new_tag
+        card.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
-    except Tag.DoesNotExist:
-        return JsonResponse({'error_message': -3}, safe=False)
+    return JsonResponse({'error_message': 1}, safe=False)
+
+
+       # card_id = info('card_id')
+        #old_tag = request.GET.get('old_tag')
+        #new_tag = request.POST.get('new_tag')
+        #card = Card.objects.filter(unique_id=card_id)
+        #tags = Tag.objects.filter(tagged_card=card_id)
+        #for tag in tags:
+        #    if tag == old_tag:
+        #        tag = new_tag
+         #       tag.save()
+        #return JsonResponse({'error_message': 1}, safe=False)
+    #except Card.DoesNotExist:
+     #   return JsonResponse({'error_message': -8}, safe=False)
+    #except Tag.DoesNotExist:
+     #   return JsonResponse({'error_message': -3}, safe=False)
 
 # Change status based on card id and new status
 @csrf_exempt
