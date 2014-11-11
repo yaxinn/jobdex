@@ -58,7 +58,7 @@
                     {% endfor %}
                     </p>
                 </div>
-                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-id="{{card.unique_id}}" ng-click="showDetails($event.target)">Show More</button>
+                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-tags="{{card.tag_set.all}}" data-status="{{card.status}}" data-id="{{card.unique_id}}" ng-click="showDetails($event.target)">Show More</button>
             </div>
         {% endfor %}
     </div>
@@ -74,7 +74,7 @@
             <ul id="tab-links">
                 <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
                 <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
-                <li class="grid-20"><a class="tLink" href="#notes" >Notes</a></li>
+                <li class="grid-20"><a class="tLink" href="#notes" >Notes and Tags</a></li>
                 <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
                 <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
             </ul>
@@ -87,7 +87,15 @@
                     <h1>Status: {{displayedCard.status}}</h1>
                     <button class="card-edit" ng-click="edit()">Edit</button>
                     <div class="edit-fields" ng-show="isEditing">
-                        <label for="new-status">New Status:</label><input type="text" name="new-status" ng-model="newStatus">
+                        <label for="new-status">New Status:</label>
+                            <select name="new-status" ng-model="newStatus">
+                                <option value="Interested" selected>Interested</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Recieved Offer">Recieved Offer</option>
+                            </select>
+                            <br>
                         <button class="card-edit" ng-click="changeStatus()">Save new status</button>
                     </div>
                 </div>
@@ -104,6 +112,17 @@
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
                     <p style="text-align: center">{{displayedCard.notes}}</p>
+                    <h1>Tags:</h1>                    
+                    <p style="text-align: center">
+                        {% for tag in {{displayedCard.tags}} %}
+                            #{{tag}}
+                        {% endfor %}
+                    </p>
+                    <button class="card-edit" ng-click="edit()">Edit Tags</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                           <label for="new-tag">New Tags:</label><input type="text" name="new-tag" ng-model="newTag">
+                         <button class="card-edit" ng-click="changeTag()">Save new tags</button>
+                    </div>
                 </div>
 
                 <div id="tasks" class="tab">
