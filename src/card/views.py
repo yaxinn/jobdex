@@ -83,6 +83,7 @@ def edit_contact(request):
 @csrf_exempt
 def create_card(request):
     info = json.loads(request.POST.keys()[0])
+    #info = request.POST
     company_name = info['companyName']
     status = str(info['status'])
     job_title = info['jobTitle']
