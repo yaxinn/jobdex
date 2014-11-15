@@ -21,3 +21,4 @@ pip-delete-this-directory.txt
 *.css.map
 .DS_Store
 src/db.sqlite3
+src/db.sqlite3
