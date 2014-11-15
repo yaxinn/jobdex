@@ -107,6 +107,22 @@
                         <p style="text-align: center">{{displayedCard.contactEmail}}</p>
                     <h2>Phone:</h2>
                         <p style="text-align: center">{{displayedCard.contactPhone}}</p>
+
+
+                    <button class="card-edit" ng-click="edit()">Edit</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                        <label for="new-name">New Name:</label>
+                            <input type="text" name="new-name" ng-model="newName">
+                        <br>
+                        <label for="new-email">New Email:</label>
+                            <input type="text" name="new-email" ng-model="newEmail">
+                        <br>
+                        <label for="new-name">New Phone:</label>
+                            <input type="text" name="new-phone" ng-model="newPhone">
+                        <br>
+                        <button class="card-edit" ng-click="editContact()">Save new contact</button>
+                    </div>
+
                 </div>
 
                 <div id="notes" class="tab">

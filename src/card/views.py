@@ -62,16 +62,16 @@ def remove_contact(request):
 @csrf_exempt
 def edit_contact(request):
     try:
-        card_id = request.GET.get('card_id')
-        contact_name = request.POST.get('contactName')
-        contact_email = request.POST.get('contactEmail')
-        contact_phone = request.POST.get('contactPhone')
-        contact_title = request.POST.get('contactTitle')
-        contact = Contact.objects.filter(name=contact_name, tagged_card=card_id)
-        contact.name = contact_name
-        contact.email = contact_email
-        contact.phone = contact_phone
-        contact.title = contact_title
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        contact_name = info['new_name']
+        contact_email = info['new_email']
+        contact_phone = info['new_phone']
+        current_name = info['current_name']
+        contact = Contact.objects.filter(name=current_name, tagged_card=card_id)
+        contact.name = new_name
+        contact.email = new_email
+        contact.phone = new_phone
         contact.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:

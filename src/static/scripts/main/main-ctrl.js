@@ -393,6 +393,32 @@ app.controller('CardController', function($scope, $http){
         });
 
         $scope.card = {};
+    };
+
+    //Change the status of a card (In Progress, Complete, Failed, or Interested)
+    $scope.edit_contact = function(){
+        var cardId = $scope.displayedCard.id;
+        var newName = $scope.newName;
+        var newEmail = $scope.newEmail;
+        var newPhone = $scope.newPhone;
+        var currentName = $scope.displayedCard.contactName;
+
+        var req = {card_id: cardId, new_name: newName, new_email: newEmail, new_phone: newPhone, current_name: currentName};
+
+        $http.post('/api/card/edit-contact/', req).
+            success(function(data, status, headers, config) {
+
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    // change the card status in the html
+                    location.reload(true);
+                }
+
+            }).error(function(data, status, headers, config) {
+                console.log(data); 
+        });     
     };  
 
     //remove a contact given card_id and contact.name
