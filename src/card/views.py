@@ -64,15 +64,13 @@ def edit_contact(request):
     try:
         info = json.loads(request.POST.keys()[0])
         card_id = info['card_id']
-        contact_name = info['new_name']
-        contact_email = info['new_email']
-        contact_phone = info['new_phone']
+        new_name = info['new_name']
+        new_email = info['new_email']
+        new_phone = info['new_phone']
         current_name = info['current_name']
-        contact = Contact.objects.filter(name=current_name, tagged_card=card_id)
-        contact.name = new_name
-        contact.email = new_email
-        contact.phone = new_phone
-        contact.save()
+        card = Card.objects.get(unique_id=card_id)
+        contact = Contact.objects.filter(name=current_name, associated_card=card)
+        contact.update(name=new_name, email=new_email, phone=new_phone)
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)

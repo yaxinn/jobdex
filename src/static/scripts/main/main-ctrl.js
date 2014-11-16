@@ -397,13 +397,13 @@ app.controller('CardController', function($scope, $http){
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
     $scope.edit_contact = function(){
-        var cardId = $scope.displayedCard.id;
-        var newName = $scope.newName;
-        var newEmail = $scope.newEmail;
-        var newPhone = $scope.newPhone;
-        var currentName = $scope.displayedCard.contactName;
+        var card_id = $scope.displayedCard.id;
+        var new_name = $scope.new_name;
+        var new_email = $scope.new_email;
+        var new_phone = $scope.new_phone;
+        var current_name = $scope.displayedCard.contactName;
 
-        var req = {card_id: cardId, new_name: newName, new_email: newEmail, new_phone: newPhone, current_name: currentName};
+        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: current_name};
 
         $http.post('/api/card/edit-contact/', req).
             success(function(data, status, headers, config) {
