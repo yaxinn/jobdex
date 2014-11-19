@@ -6,37 +6,18 @@ Unit tests UserApp, CardApp, and DocumentApp.
 from django.test import TestCase, Client
 from card.models import *
 from card.views import *
-import simplejson
 import string
 import random
 
-class LoginLogoutTestCase(TestCase):
+class GoodAddTestCase(TestCase):
     def setUp(self):
-        self.client = Client()
-        self.response = self.client.post('/signup/', {
-            "username": "eminem",
-            "password": "asdf",
-            "confirm_password": "asdf",
-            "email": "eminem@eminem.com",
-            }
-        )
-        self.assertEqual(302, self.response.status_code)
+        client = Client()
+        self.response = client.get('/api/card/all-cards/', {})
 
-    def test_add_card(self):
-        add_card_response = self.client.post('/api/user/create-card/', {
-            "companyName": "Adobe",
-            "status": "Interviewing",
-            "jobTitle": "Software Engineer",
-            "notes": "Cool folks",
-            "tags": "image processing, red, huge office",
-            "contactName": "Matt Damon",
-            "contactEmail": "hello@mattdamon.com",
-            "contactPhone": "93487212315"
-            }
-        )
-        err = json.loads(add_card_response.content)
-        self.assertEqual(1, err["error_message"])
-
+    def test_analyze_response(self):
+        print(self.response.content)
+        #error_code = simplejson.loads(self.response.content)['errCode']
+        #self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
 
 #class TestCard(unittest.TestCase):
 #    """
