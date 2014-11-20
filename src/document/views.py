@@ -8,13 +8,13 @@ from card.models import *
 from django.http import JsonResponse
 from django.core import serializers
 from django.db.models.signals import post_save
+import json
 
 
 def report(request):
     context = {"documents": Document.objects.all()}
     return render(request, 'report.html', context)
 
-# Create your views here.
 @csrf_exempt
 @require_http_methods(["POST"])
 def upload_document(request):
@@ -25,12 +25,18 @@ def upload_document(request):
     new_document.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
-def remove_document(request):
+@csrf_exempt
+@require_http_methods(["POST"])
+def delete_document(request):
     try:
-        doc_id = request.DELETE.get('doc_id')
-        user = request.user.profile
-        user.documents.filter(unique_id=doc_id).delete()
-        user.save()
+        info = json.loads(request.POST.keys()[0])
+        doc_id = info['doc_id']
+        #user = request.user.user_profile
+        #user.documents.filter(unique_id=doc_id).delete()
+        #user.save()
+        print info
+        doc = Document.objects.get(unique_id=doc_id)
+        doc.delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Document.DoesNotExist:
         return JsonResponse({'error_message': -11}, safe=False)

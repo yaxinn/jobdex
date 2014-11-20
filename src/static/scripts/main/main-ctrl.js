@@ -496,6 +496,7 @@ app.controller('CardController', function($scope, $http){
 // }}]);
 
 app.controller('DocumentController', function($scope, $http) {
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     //Upload a PDF doc to the backend database for storage
     $scope.upload_document = function(){
@@ -527,11 +528,11 @@ app.controller('DocumentController', function($scope, $http) {
     // };
 
     //remove a PDF document given the doc_id
-    $scope.remove_document = function(){
+    $scope.deleteDocument = function(doc){
 
-        var req = JSON.stringify({doc_id: $scope.doc.id});
+        var req = JSON.stringify({doc_id: $(angular.element(doc)[0]).data('id')});
         
-        $http.delete('/api/user/remove-document/', req).
+        $http.post('/api/document/delete/', req).
             success(function(data, status, headers, config) {
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
@@ -540,7 +541,7 @@ app.controller('DocumentController', function($scope, $http) {
                     location.reload();
                 }
             }).error(function(data, status, headers, config){
-
+                console.log(data);
         });
     };
 

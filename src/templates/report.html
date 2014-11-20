@@ -6,14 +6,15 @@
     </div>
     <div id="generic-text">
         <p>Not yet implemented</p>
-        <div id="documents">
+        <div id="documents" ng-controller="DocumentController">
             <div class="document">
             {% for document in documents %}
                 <h3>Document Name:</h3><br>
                 <p>{{document}}</p>
                 <h3>Date Uploaded:</h3><br>
                 <p>{{document.date_uploaded}}</p>
-                <a href="/assets/{{document.pdf}}" id="document-url"><img src="/static/images/pdf.png"/></a>
+                <a href="/assets/{{document.pdf}}" class="document-url"><img src="/static/images/pdf.png"/></a>
+                <button data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)">Delete Document</button>
             {% endfor %}
         </div>
         </div>
