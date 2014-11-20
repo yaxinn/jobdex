@@ -110,6 +110,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 700px;
 }
 
+
+#new-card-btn {
+  margin: -12px auto;
+  width: auto;
+}
+
 #cards {
   height: 500px;
   color: black;
@@ -125,12 +131,13 @@ h1, h2, h3, h4, h5, h6 {
 .card {
   float: left;
   width: 200px;
-  height: 300px;
+  height: auto;
   border: 1px solid black;
   border-radius: 5px;
   background: #758CA6;
   padding: 1em;
-  margin: 1em;
+  margin-left: 1em;
+  margin-top: 3em;
 }
 .card .card-top {
   height: 20px;
@@ -154,19 +161,21 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.5em;
 }
 .card .card-field p {
-  text-align: center;
+  /*text-align: center;*/
 }
 .card .card-field .card-label {
   color: #3b333f !important;
   font-family: SourceSansBold;
   text-align: center;
 }
+
 .card button {
   padding: 0;
   background: white;
   border-radius: 5px;
-  width: 100%;
-  margin-top: 0;
+  width: 55%;
+  height: 20px;
+  margin-top: 1em;
   border: None;
   font-size: 17px;
   font-family: GravityLight;
@@ -211,7 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   display: block;
   margin-top: 1em;
-  font-family: SourceSansRegular;
+  font-family: GravityLight;
   border: 1px solid black;
   background: #ff851b;
   color: white;
@@ -397,6 +406,7 @@ input[type=search] {
   border: solid 1px #ccc;
   padding: 9px 10px 9px 32px;
   width: 95px;
+  /*margin-left: 50px;*/
   
   -webkit-border-radius: 10em;
   -moz-border-radius: 10em;
