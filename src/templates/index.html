@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="card-position card-field">
-                    {{card.job_title}}
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
 
                 <div class="card-tags card-field">
@@ -75,9 +75,9 @@
                     </p>
                 </div>
                 
-                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
+                   
             
-                    <!--<button class="add-card-detail-btn" ng-click="showDetailsForm=true">Add Details</button>-->
+                    <button class="add-card-detail-btn" ng-click="addPositionForm=true">+ Add Position...</button>
          
 
             </div>

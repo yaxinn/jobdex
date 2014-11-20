@@ -46,7 +46,6 @@
   background: #ecf0f1;
   margin: 0 auto;
   font-family: GravityLight;
-  max-width: 1200px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -169,16 +168,30 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.card button {
+.card .card-detail-btn {
   padding: 0;
   background: white;
   border-radius: 5px;
-  width: 55%;
+  width: 100%;
+  height: 20px;
+  margin-top: 0em;
+  border: None;
+  font-size: 17px;
+  font-family: GravityLight;
+  text-align: left;
+}
+
+.card .add-card-detail-btn {
+  padding: 0;
+  background: white;
+  border-radius: 5px;
+  width: 60%;
   height: 20px;
   margin-top: 1em;
   border: None;
   font-size: 17px;
   font-family: GravityLight;
+  text-align: left;
 }
 .card button:hover {
   cursor: pointer;
