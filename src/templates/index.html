@@ -3,35 +3,36 @@
 {% if user.is_authenticated %}
 <div id="dashboard" ng-controller="CardController">
     <div class="banner">
-
-        <span class="icon-plus"></span>
+        <button class="icon-plus" ng-click="showInitialForm=true"></button>
+            <!--<span class="icon-plus"></span>-->
 
         <form>
             <input id="search-bar" type="search" placeholder="search">
         </form>
+        <h1>{{user}}'s Dashboard</h1>
 
-        <div class="user-dashboard-title"><h1>{{user}}'s Dashboard</h1></div>
-
+       
         <!--<input src="/static/images/new_card.png" type="image" id="new-card-btn" ng-click="showDetailsForm=true"/>-->
     </div>
-    <!--<div class="new-initial-card" ng-show="showInitialForm">
+    <div class="new-initial-card" ng-show="showInitialForm">
               
-                    <div class="initial-card-company">
-                        <form>
-                            <label for="company-name"></label>Company Name:<input type="text" placeholder="Comapny name" name="company-name" ng-model="card.companyName"/>
-                            <br/>
-                            <label for="company-details"></label>Comapny Details:<input type="text" placeholder="Company Details" name="company-details" ng-model="card.companyDetails"/>
-                            <br/>
-                            <input type="submit" value="Create" ng-click="create_card()"/>
-                        </form>
-                    </div>
+        <div class="initial-card-company">
+            <form>
+                <label for="company-name"></label>Company Name:<input type="text" name="company-name" ng-model="card.companyName"/>
+                <br/>
+                <label for="company-description"></label>Comapny Description:<input type="text" name="company-details" ng-model="card.companyDetails"/>
+                <br/>
+                <input type="submit" value="Create" ng-click="create_card()"/>
+                <input type="submit" value="Cancel" ng-click="showInitialForm=false">
+            </form>
+        </div>
                
-    </div>-->
-    <div id="menu-items" ng-show="showDetailsForm">
+    </div>
+    <div id="menu-items" ng-show="addPositionForm">
         <div id="add-card">
             <form>
            <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
-           <span class="icon-info"></span>
+          
             <br>
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
@@ -55,7 +56,7 @@
             <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
             <br>
             <input type="submit" value="Add Card" ng-click="create_card()">
-            <input type="submit" value="Cancel" ng-click="showDetailsForm=false">
+            <input type="submit" value="Cancel" ng-click="addPositionForm=false">
         </form>
         </div>
     </div>
@@ -73,14 +74,6 @@
 
                 <div class="card-position card-field">
                     <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
-                </div>
-
-                <div class="card-tags card-field">
-                    <p>
-                    {% for tag in card.tag_set.all %}
-                        #{{tag}}
-                    {% endfor %}
-                    </p>
                 </div>
                 
                    

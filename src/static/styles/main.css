@@ -58,11 +58,14 @@
   font-family: GravityLight;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-family: GravityLight;
   text-transform: uppercase;
-  font-size: 19px;
+  font-size: 25px;
+  width: 100%;
+  line-height: 30px;
 }
 
 #navbar {
@@ -93,6 +96,10 @@ h1, h2, h3, h4, h5, h6 {
 #dashboard {
   min-height: 900px;
   background: #D5DDE6;
+}
+
+#dashboard button:hover {
+  cursor: pointer
 }
 
 #about-page {
@@ -402,9 +409,6 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-.user-dashboard-title {
-
-}
 
 /* search */
 a {
@@ -434,7 +438,7 @@ input::-webkit-search-cancel-button {
 input[type=search] {
   background: #ededed url(http://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
   border: solid 1px #ccc;
-  padding: 9px 10px 9px 32px;
+  padding: 7px 10px 7px 32px;
   width: 95px;
   /*margin-left: 50px;*/
   
@@ -469,7 +473,11 @@ input::-webkit-input-placeholder {
   color: #D15B47;
   font-family: Plus;
   font-size: 32px;
+  padding-right: 10px;
+  border: none;
+  background: transparent;
 }
+
 
 .icon-info {
   color: black;
@@ -484,14 +492,3 @@ input::-webkit-input-placeholder {
 .icon-plus:before {
   content: "\e600";
 }
-
-/*@font-face {
-  font-family: 'icomoon';
-  src:url('fonts/icomoon.eot?lk8lls');
-  src:url('fonts/icomoon.eot?#iefixlk8lls') format('embedded-opentype'),
-    url('fonts/icomoon.woff?lk8lls') format('woff'),
-    url('fonts/icomoon.ttf?lk8lls') format('truetype'),
-    url('fonts/icomoon.svg?lk8lls#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}*/
