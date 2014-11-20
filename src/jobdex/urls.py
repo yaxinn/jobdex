@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+import settings
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,6 +17,8 @@ urlpatterns = patterns('',
     url(r'^api/card/modify-card-status/$', 'card.views.modify_card_status', name="modify_card_status"),
     url(r'^api/user/modify-tag/$', 'card.views.modify_tag', name='modify_tag'),
     # url(r'^blog/', include('blog.urls')),
+    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {
+		'document_root': settings.MEDIA_ROOT}),
 
     url(r'^admin/', include(admin.site.urls)),
 )
