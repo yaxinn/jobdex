@@ -390,7 +390,31 @@ app.controller('CardController', function($scope, $http){
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    console.log("helllooooo");
+                    location.reload();
+                }
+
+
+            }).error(function(data, status, headers, config){
+                console.log(data);
+        });
+    };
+
+    //Add task for a given card_id
+    $scope.add_task = function(cardID){
+
+        var card_id = $scope.displayedCard.id;
+        var new_task = $scope.new_task;
+
+        var req = JSON.stringify({card_id: card_id, 
+            new_task: new_task});
+
+        $http.post('/api/card/add-task/', req).
+            success(function(data, status, headers, config){
+
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
                     location.reload();
                 }
 

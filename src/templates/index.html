@@ -166,8 +166,17 @@
                 </div>
 
                 <div id="tasks" class="tab">
+
+
                     <h1>Tasks:</h1>
                     <p style="text-align: center">{{displayedCard.task}}</p>
+                    <button class="card-edit" ng-click="edit()">Add New Task</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                        <label for="new-task">New task:</label>
+                        <input type="text" name="new-task" ng-model="new_task">
+                        <button class="card-edit" ng-click="add_task()">Save New Task</button>
+                    </div>
+
                 </div>
 
                 <div id="documents" class="tab">

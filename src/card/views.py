@@ -239,3 +239,18 @@ def edit_notes(request):
         return JsonResponse({'error_message': -8}, safe=False)
     except Contact.DoesNotExist:
         return JsonResponse({'error_message': -14}, safe=False)
+
+@csrf_exempt
+def add_task(request):
+    try:
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        new_task = info['new_task']
+        card = Card.objects.get(unique_id=card_id)
+        add_task = Task(new_task, associated_card=card)
+        add_task.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
+    except Contact.DoesNotExist:
+        return JsonResponse({'error_message': -14}, safe=False)
