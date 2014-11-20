@@ -10,9 +10,6 @@
             <input id="search-bar" type="search" placeholder="search">
         </form>
         <h1>{{user}}'s Dashboard</h1>
-
-       
-        <!--<input src="/static/images/new_card.png" type="image" id="new-card-btn" ng-click="showDetailsForm=true"/>-->
     </div>
     <div class="new-initial-card" ng-show="showInitialForm">
               
@@ -31,8 +28,7 @@
     <div id="menu-items" ng-show="addPositionForm">
         <div id="add-card">
             <form>
-           <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
-          
+            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
             <br>
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
@@ -47,15 +43,14 @@
             <br>
             <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
             <br>
-            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
-            <br>
+            
             <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
             <br>
             <label for="contact-email">Contact Email:</label><input type="text" name="contact-email" ng-model="card.contactEmail">
             <br>
             <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
             <br>
-            <input type="submit" value="Add Card" ng-click="create_card()">
+            <input type="submit" value="Add Position" ng-click="create_card()">
             <input type="submit" value="Cancel" ng-click="addPositionForm=false">
         </form>
         </div>
@@ -74,9 +69,7 @@
 
                 <div class="card-position card-field">
                     <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
-                </div>
-                
-                   
+                </div>   
             
                     <button class="add-card-detail-btn" ng-click="addPositionForm=true">+ Add Position...</button>
          

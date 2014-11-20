@@ -112,6 +112,9 @@ def create_card(request):
     response = {'card_id': card_id, 'error_message': 1}
     return JsonResponse(response, safe=False)
 
+
+
+
 # Remove card, given a card id
 @csrf_exempt
 def remove_card(request):
