@@ -147,12 +147,13 @@ def add_tag(request):
     return JsonResponse({'error_message': 1}, safe=False)
 
 # Remove tag or set of tags, given a card id and tag name(s)
+@csrf_exempt
 def remove_tag(request):
     try:
-        card_id = request.GET.get('card_id')
-        tags = request.DELETE.get('tags').split(',')
-        for tag in tags:
-            Tag.objects.filter(tag=tag, tagged_card=card_id).delete()
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        card = Card.objects.get(unique_id=card_id)
+        Tag.objects.filter(tagged_card=card, tag=info['old_tag']).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)

@@ -348,19 +348,21 @@ app.controller('CardController', function($scope, $http){
     // remove the tag given cardID and tagName
     $scope.remove_tag = function(cardID, tagName){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
-        var req = JSON.stringify({card_id: cardID, tags: tagName});
+        var card_id = $scope.displayedCard.id;
+        var old_tag = $scope.old_tag;
 
-        $http.post('/api/user/remove-tag', req).
-            
+        var req = JSON.stringify({card_id: card_id, old_tag: old_tag});
+        
+        $http.post('/api/user/remove-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    location.reload(true);
+                    location.reload();
                 }
             }).error(function(data, status, headers, config){
-                //Handle error
+            //Handle error
         });
     };
 
