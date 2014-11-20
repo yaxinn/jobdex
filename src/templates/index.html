@@ -143,9 +143,11 @@
 
                     <h1>Tags:</h1>                    
                     <p style="text-align: center">
-                        {% for tag in {{displayedCard.tags}} %}
-                            #{{tag}}
-                        {% endfor %}
+                        {% endverbatim %}
+                            {% for tag in {{displayedCard.tags}} %}
+                                #{{tag}}
+                            {% endfor %}
+                        {% verbatim %}
                     </p>
                     <button class="card-edit" ng-click="edit()">Edit Tags</button>
                     <div class="edit-fields" ng-show="isEditing">
