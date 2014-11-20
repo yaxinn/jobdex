@@ -499,35 +499,32 @@ app.controller('DocumentController', function($scope, $http) {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     //Upload a PDF doc to the backend database for storage
-    $scope.upload_document = function(){
-        
-        var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.file});
-        
-        //pdf_upload.uploadPdf($scope.doc.PDFdoc, '/api/user/upload_document/')
+    //$scope.upload_document = function(){
+    //    
+    //    var req = JSON.stringify({name: $scope.doc.name, pdf: $scope.file});
+    //    
+    //    //pdf_upload.uploadPdf($scope.doc.PDFdoc, '/api/user/upload_document/')
 
-        $http.post('/api/user/upload_document/', req).
-            success(function(data, status, headers, config) {
-                if (data.error_message <= 0) {
-                    $scope.errorHandler(data.error_message);
-                }
-                else if (data.error_message == 1){
-                    location.reload(true);
-                }
-            }).error(function(data, status, headers, config){
+    //    $http.post('/api/user/upload_document/', req).
+    //        success(function(data, status, headers, config) {
+    //            if (data.error_message <= 0) {
+    //                $scope.errorHandler(data.error_message);
+    //            }
+    //            else if (data.error_message == 1){
+    //                location.reload(true);
+    //            }
+    //        }).error(function(data, status, headers, config){
 
-        });
+    //    });
 
-        $scope.doc = {};
-    };
+    //    $scope.doc = {};
+    //};
 
-    // $scope.uploadFile = function(){
-    //     var file = $scope.myFile;
-    //     console.log('file is ' + JSON.stringify(file));
-    //     var uploadUrl = "/fileUpload";
-    //     fileUpload.uploadFileToUrl(file, uploadUrl);
-    // };
+    $scope.showDocument = function(doc) {
+        var docURL = $(angular.element(doc)[0]).data('url');
+        window.location.href = "/static/web/viewer.html?file=" + docURL;
+    }
 
-    //remove a PDF document given the doc_id
     $scope.deleteDocument = function(doc){
 
         var req = JSON.stringify({doc_id: $(angular.element(doc)[0]).data('id')});

@@ -6,7 +6,7 @@ $("#login").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
 
 //var documentURL = document.getElementById('document-url').getAttribute("href");
 //console.log(documentURL);
-//PDFJS.workerSrc = "/static/bower_components/pdf.worker.js";
+PDFJS.workerSrc = "/static/bower_components/pdf.worker.js";
 //PDFJS.getDocument(documentURL).then(function(pdf) {
 //  // Using promise to fetch the page
 //  pdf.getPage(1).then(function(page) {
