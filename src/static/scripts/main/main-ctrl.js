@@ -346,7 +346,7 @@ app.controller('CardController', function($scope, $http){
     };
 
     // remove the tag given cardID and tagName
-    $scope.remove_tag = function(cardID, tagName){
+    $scope.remove_tag = function(){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
         var card_id = $scope.displayedCard.id;
         var old_tag = $scope.old_tag;
@@ -372,20 +372,25 @@ app.controller('CardController', function($scope, $http){
     //add contact for the given card_id
     $scope.add_contact = function(cardID){
 
-        var req = JSON.stringify({card_id: cardID, 
-            contact_name: $scope.contact.name, 
-            contact_email: $scope.contact.email,
-            contact_phone: $scope.contact.phone,
-            contact_title: $scope.card.title,});
+        var card_id = $scope.displayedCard.id;
+        var add_name = $scope.add_name;
+        var add_email = $scope.add_email;
+        var add_phone = $scope.add_phone;
 
-        $http.post('/api/card/' + cardID + '/add-contact', req).
+        var req = JSON.stringify({card_id: card_id, 
+            add_name: add_name, 
+            add_email: add_email,
+            add_phone: add_phone,
+        });
+
+        $http.post('/api/card/add-contact/', req).
             success(function(data, status, headers, config){
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    console.log(data);
+                    console.log("helllooooo");
                     location.reload();
                 }
 
@@ -393,8 +398,6 @@ app.controller('CardController', function($scope, $http){
             }).error(function(data, status, headers, config){
                 console.log(data);
         });
-
-        $scope.card = {};
     };
 
     // Edit notes.

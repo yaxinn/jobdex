@@ -124,15 +124,20 @@ def remove_card(request):
 # Add contact given card id and contact info
 @csrf_exempt
 def add_contact(request):
-    card_id = request.GET.get('card_id')
-    card = Card.objects.filter(unique_id=card_id)
-    contact_name = request.POST.get('contact_name')
-    contact_email = request.POST.get('contact_email')
-    contact_phone = request.POST.get('contact_phone')
-    contact_title = request.POST.get('contact_title')
-    new_contact = Company(name=contact_name, phone=contact_phone, email=contact_email, title=contact_title, associated_card=card)
-    new_contact.save()
-    return JsonResponse({'error_message': 1}, safe=False)
+    try:
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        add_name = info['add_name']
+        add_email = info['add_email']
+        add_phone = info['add_phone']
+        card = Card.objects.get(unique_id=card_id)
+        add_contact = Contact(name= "," + add_name, email=add_email, phone=add_phone, associated_card=card)
+        add_contact.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
+    except Contact.DoesNotExist:
+        return JsonResponse({'error_message': -14}, safe=False)
 
 # Add tags based on card id and tag names
 @csrf_exempt
