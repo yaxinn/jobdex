@@ -7,14 +7,15 @@
     <div id="generic-text">
         <p>Not yet implemented</p>
         <div id="documents" ng-controller="DocumentController">
-            <div class="document">
             {% for document in documents %}
-                <h3>Document Name:</h3><br>
-                <p>{{document}}</p>
-                <h3>Date Uploaded:</h3><br>
-                <p>{{document.date_uploaded}}</p>
+            <div class="document">
+                <input src="/static/images/close.png" type="image" data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)"/>
                 <img src="/static/images/pdf.png" data-url="/assets/{{document.pdf}}" class="document-url" ng-click="showDocument($event.target)">
-                <button data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)">Delete Document</button>
+                <h3>Document Name:</h3>
+                <p>{{document}}</p>
+                <h3>Date Uploaded:</h3>
+                <p>{{document.date_uploaded}}</p>
+
             {% endfor %}
         </div>
         </div>

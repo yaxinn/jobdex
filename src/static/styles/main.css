@@ -418,3 +418,45 @@ a {
   clear: both;
   overflow: hidden;
 }
+
+#reports-page form {
+  text-align: center;
+}
+
+#reports-page  label {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 1em;
+  font-size: 20px;
+  }
+
+.document {
+  float: left;
+  width: 230px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #79a9da;
+  padding: 1em;
+  margin: 1em;
+}
+
+.document input[type="image"] {
+  float: left;
+}
+.document .document-url img {
+  float: right;
+}
+.document h3 {
+  font-size: 15px;
+  text-align: left;
+  border-bottom: 1px dotted white;
+  color: #001F3F;
+  padding-top: 10px;
+}
+.document p {
+  font-size: 15px;
+  text-align: right;
+  color: black;
+}
