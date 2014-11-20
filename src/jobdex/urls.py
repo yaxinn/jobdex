@@ -5,7 +5,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'card.views.home', name='home'),
     url(r'^about/$', 'card.views.about', name='about'),
-    url(r'^report/$', 'card.views.report', name='report'),
+    url(r'^report/$', 'document.views.report', name='report'),
     url(r'^login/$', 'user.views.login_view', name='login'),
     url(r'^logout/$', 'user.views.logout_view', name='logout'),
     url(r'^signup/$', 'user.views.signup_view', name='signup'),

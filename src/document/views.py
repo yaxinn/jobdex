@@ -9,14 +9,19 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.db.models.signals import post_save
 
+
+def report(request):
+    context = {"documents": Document.objects.all()}
+    return render(request, 'report.html', context)
+
 # Create your views here.
 @csrf_exempt
 @require_http_methods(["POST"])
 def upload_document(request):
     name = request.POST['name']
     pdf = request.FILES['pdf']
-    user = request.user.profile
-    new_document = Document(name=name, pdf=pdf, uploaded_by=request.user.user_profile)
+    user = request.user.user_profile
+    new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
     new_document.save()
     return JsonResponse({'error_message': 1}, safe=False)
 

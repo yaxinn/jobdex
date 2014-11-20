@@ -6,12 +6,23 @@
     </div>
     <div id="generic-text">
         <p>Not yet implemented</p>
+        <div id="documents">
+            {% for document in documents %}
+                <h3>Document Name:</h3><br>
+                    <p>{{document}}</p>
+                <h3>Date Uploaded:</h3><br>
+                    <p>{{document.date_uploaded}}</p>
+                <h3>URL:</h3><br>
+                    <p>{{document.pdf}}</p>
+            {% endfor %}
+        </div>
     </div>
 
-    <form id="document_upload" method="post" action="/api/document/upload_document/" enctype="multipart/form-data">
-    	<input type="text" name="name"/>
-    	<input type="file" name="pdf"/>
-    	<button> Submit </submit>
+    <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">
+        <label for="name">Name:</label><input type="text" name="name"/>
+        <br>
+        <label for="pdf">Document:</label><input type="file" name="pdf"/>
+    	<input type="submit">
     </form>
 </div>
 {% endblock %}
