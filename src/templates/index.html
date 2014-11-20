@@ -3,6 +3,9 @@
 {% if user.is_authenticated %}
 <div id="dashboard" ng-controller="CardController">
     <div class="banner">
+        <form>
+            <input type="search" placeholder="search">
+        </form>
         <h1>{{user}}'s Dashboard</h1>
     </div>
     <div id="menu-items">
@@ -37,28 +40,16 @@
         {% for card in cards %}
             <div class="card">
                 <div class="card-top">
-                    <input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>
+                    <!--<input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>-->
+
+                     {{card.associated_company.name}}
+
                 </div>
-                <div class="card-company">
-                    <h1>{{card.associated_company.name}}</h1>
-                </div>
+
                 <div class="card-position card-field">
-                    <div class="card-label">Job Title:</div>
-                    <p>{{card.job_title}}</p>
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
-                <div class="card-status card-field">
-                    <div class="card-label">Status:</div>
-                    <p>{{card.status}}</p>
-                </div>
-                <div class="card-tags card-field">
-                    <div class="card-label">Tags:</div>
-                    <p>
-                    {% for tag in card.tag_set.all %}
-                        #{{tag}}
-                    {% endfor %}
-                    </p>
-                </div>
-                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">Show More</button>
+
             </div>
         {% endfor %}
     </div>
