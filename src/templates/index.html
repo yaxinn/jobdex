@@ -132,14 +132,8 @@
                         <div class="edit-fields" ng-show="isEditing">
                             <label for="new-notes">New notes:</label>
                                 <input type="text" name="new-notes" ng-model="new_notes">
-                            <button class="notes-edit" ng-click="edit_notes()">Save New Note</button>
+                            <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
                         </div>
-
-
-
-
-
-
 
                     <h1>Tags:</h1>                    
                     <p style="text-align: center">
@@ -147,10 +141,14 @@
                             #{{tag}}
                         {% endfor %}
                     </p>
-                    <button class="card-edit" ng-click="edit()">Edit Tags</button>
+                        <button id="add-tag" class="card-edit" ng-click="edit()">Add Tag(s)</button>
+                        <button id="remove-tag" class="card-edit" ng-click="edit()">Remove Tag</button>
                     <div class="edit-fields" ng-show="isEditing">
-                           <label for="new-tag">New Tags:</label><input type="text" name="new-tag" ng-model="newTag">
-                         <button class="card-edit" ng-click="changeTag()">Save new tags</button>
+                           <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
+                         <button class="card-edit" ng-click="add_tag()">Save new tags</button>
+
+                         <label for="old-tag">Remove a Tag</label><input type="text" name="old-tag" ng-model="old_tag">
+                         <button class="card-edit" ng-click="remove_tag()">Remove tag</button>
                     </div>
                 </div>
 

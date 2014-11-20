@@ -284,26 +284,26 @@ app.controller('CardController', function($scope, $http){
 
 // Tag
     //add a tag to the tag given
-    $scope.add_tag = function(cardID){
+    $scope.add_tag = function(){
+        var card_id = $scope.displayedCard.id;
+        var tags = $scope.new_tags
 
-        var req = JSON.stringify({card_id: cardID, tags: $scope.card.tags});
+        var req = JSON.stringify({card_id: card_id, tags: tags});
         
-        $http.post('/api/card/' + cardID + '/add-tag', req).
+        $http.post('/api/user/add-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    $scope.tags.push(tagName);
                     location.reload();
                 }
             }).error(function(data, status, headers, config){
             //Handle error
         });
-        $scope.card = {};
     };
 
-    $scope.changeTag = function(){
+    /*$scope.changeTag = function(){
         var cardId = $scope.displayedCard.id;
         var newTag = $scope.newTag;
 
@@ -325,7 +325,7 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
         });
 
-    };
+    };*/
 
     $scope.get_tags = function(cardID){
 
@@ -350,7 +350,7 @@ app.controller('CardController', function($scope, $http){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
         var req = JSON.stringify({card_id: cardID, tags: tagName});
 
-        $http.post('/api/card/' + cardID + '/remove-tag', req).
+        $http.post('/api/user/remove-tag', req).
             
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {

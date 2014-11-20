@@ -137,9 +137,10 @@ def add_contact(request):
 # Add tags based on card id and tag names
 @csrf_exempt
 def add_tag(request):
-    card_id = request.GET.get('card_id')
-    card = Card.objects.filter(unique_id=card_id)
-    tags = request.POST.get('tags').split(',')
+    info = json.loads(request.POST.keys()[0])
+    card_id = info['card_id']
+    card = Card.objects.get(unique_id=card_id)
+    tags = info['tags'].split(',')
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=card)
         new_tag.save()
