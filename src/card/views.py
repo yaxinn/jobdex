@@ -216,3 +216,19 @@ def modify_card_status(request):
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
     return JsonResponse({'error_message': 1}, safe=False)
+
+# Edit the notes for a company.
+@csrf_exempt
+def edit_notes(request):
+    try:
+        info = json.loads(request.POST.keys()[0])
+        card_id = info['card_id']
+        new_notes = info['new_notes']
+        card = Card.objects.get(unique_id=card_id)
+        card.notes = new_notes
+        card.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
+    except Contact.DoesNotExist:
+        return JsonResponse({'error_message': -14}, safe=False)

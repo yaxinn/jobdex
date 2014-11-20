@@ -128,6 +128,19 @@
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
                     <p style="text-align: center">{{displayedCard.notes}}</p>
+                        <button class="card-edit" ng-click="edit()">Edit</button>
+                        <div class="edit-fields" ng-show="isEditing">
+                            <label for="new-notes">New notes:</label>
+                                <input type="text" name="new-notes" ng-model="new_notes">
+                            <button class="notes-edit" ng-click="edit_notes()">Save New Note</button>
+                        </div>
+
+
+
+
+
+
+
                     <h1>Tags:</h1>                    
                     <p style="text-align: center">
                         {% for tag in {{displayedCard.tags}} %}

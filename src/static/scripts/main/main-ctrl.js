@@ -395,8 +395,30 @@ app.controller('CardController', function($scope, $http){
         $scope.card = {};
     };
 
+    // Edit notes.
+    $scope.edit_notes = function() {
+        var card_id = $scope.displayedCard.id;
+        var new_notes = $scope.new_notes;
+        var req = {card_id: card_id, new_notes: new_notes}
+
+        $http.post('/api/card/edit-notes/', req).
+            success(function(data, status, headers, config) {
+
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    // change the card status in the html
+                    location.reload(true);
+                }
+
+            }).error(function(data, status, headers, config) {
+                console.log(data); 
+        });  
+    }
+
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.edit_contact = function(){
+    $scope.edit_contact = function() {
         var card_id = $scope.displayedCard.id;
         var new_name = $scope.new_name;
         var new_email = $scope.new_email;
@@ -419,7 +441,7 @@ app.controller('CardController', function($scope, $http){
             }).error(function(data, status, headers, config) {
                 console.log(data); 
         });     
-    };  
+    };
 
     //remove a contact given card_id and contact.name
     $scope.remove_contact = function(cardID){
