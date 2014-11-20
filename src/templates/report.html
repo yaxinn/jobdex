@@ -7,5 +7,11 @@
     <div id="generic-text">
         <p>Not yet implemented</p>
     </div>
+
+    <form id="document_upload" method="post" action="/api/document/upload_document/" enctype="multipart/form-data">
+    	<input type="text" name="name"/>
+    	<input type="file" name="pdf"/>
+    	<button> Submit </submit>
+    </form>
 </div>
 {% endblock %}
