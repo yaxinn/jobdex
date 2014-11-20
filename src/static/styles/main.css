@@ -30,6 +30,16 @@
   src: url(../fonts/Gravity-Light.ttf);
 }
 
+@font-face {
+  font-family: Plus;
+  src: url(../fonts/plus.ttf);
+}
+
+@font-face {
+  font-family: Info;
+  src: url(../fonts/info.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -125,6 +135,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1em;
   height: 30px;
   color: black;
+  display: inline-flex;
+  width: 100%;
 }
 
 .card {
@@ -142,6 +154,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 20px;
   color: white;
   font-size: 19px;
+  display: inline;
 }
 .card .card-top img {
   float: right;
@@ -389,6 +402,10 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+.user-dashboard-title {
+
+}
+
 /* search */
 a {
   color: #69C;
@@ -446,3 +463,35 @@ input:-moz-placeholder {
 input::-webkit-input-placeholder {
   color: #999;
 }
+
+/* custom icons */
+.icon-plus {
+  color: #D15B47;
+  font-family: Plus;
+  font-size: 32px;
+}
+
+.icon-info {
+  color: black;
+  font-family: Info;
+  font-size: 22px;
+}
+
+.icon-info:before {
+  float: right;
+  content: "\e601";
+}
+.icon-plus:before {
+  content: "\e600";
+}
+
+/*@font-face {
+  font-family: 'icomoon';
+  src:url('fonts/icomoon.eot?lk8lls');
+  src:url('fonts/icomoon.eot?#iefixlk8lls') format('embedded-opentype'),
+    url('fonts/icomoon.woff?lk8lls') format('woff'),
+    url('fonts/icomoon.ttf?lk8lls') format('truetype'),
+    url('fonts/icomoon.svg?lk8lls#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}*/
