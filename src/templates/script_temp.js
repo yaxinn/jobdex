@@ -182,7 +182,6 @@ app.controller('CardController', function($scope, $http){
     //This table is needed to store ids on the front end for some of the method calls to cards
     //when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
     var id_table = [];
-    var deck_id_table = [];
 
 //Deck
     $scope.create_deck = function(){
@@ -312,10 +311,9 @@ app.controller('CardController', function($scope, $http){
     }
 
 
-    $scope.add_card = function(deckID){
+    $scope.add_card = function(){
 
-        var req = JSON.stringify({deck_id: deckID,
-            jobTitle: $scope.card.position,
+        var req = JSON.stringify({jobTitle: $scope.card.position,
             tags: $scope.card.tags,
             notes: $scope.card.notes,
             contactName: $scope.card.contactName,
@@ -323,7 +321,7 @@ app.controller('CardController', function($scope, $http){
             contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
 
-        $http.post('/api/card/' + deckID + '/add-card/', req).
+        $http.post('/api/user/add-card/', req).
             success(function(data, status, headers, config){
                 console.log(data);
 

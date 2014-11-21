@@ -14,8 +14,8 @@ from django.views.decorators.http import require_http_methods
 def home(request):
     #print request.user.username
     if request.user.is_active and request.user.is_authenticated:
-        decks = Deck.objects.filter(owner=request.user)
-        return render(request, 'index.html', {"decks": decks})
+        cards = Card.objects.filter(owner=request.user)
+        return render(request, 'index.html', {"cards": cards})
     return render(request, 'index.html', {})
 
 def about(request):
@@ -90,7 +90,7 @@ def create_deck(request):
     try:
         company = Company.objects.get(name=company_name)
     except Company.DoesNotExist:
-        company = Company(name=company_name, description=company_description)
+        company = Company(name=company_name, decription=company_description)
         company.save()
 
     new_deck = Deck(associated_company=company, owner=user)
@@ -119,7 +119,6 @@ def add_card(request):
     for tag in tags:
         new_tag = Tag(tag=tag.strip(), tagged_card=new_card)
         new_tag.save()
-    card_id = str(new_card.card_id)
     response = {'card_id': card_id, 'error_message': 1}
     return JsonResponse(response, safe=False)
 
@@ -217,15 +216,14 @@ def modify_card_status(request):
         card.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile")
 
-#class UserProfile(models.Model):
-#    user = models.OneToOneField(User, related_name="profile")
-#
-#    def __str__(self):
-#        return "%s's profile" % self.user
-#
-#def create_user_profile(sender, instance, created, **kwargs):
-#    if created:
-#        profile, created = user.models.UserProfile.objects.get_or_create(user=instance)
-#
-#post_save.connect(create_user_profile, sender=User)
+    def __str__(self):
+        return "%s's profile" % self.user
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        profile, created = user.models.UserProfile.objects.get_or_create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
