@@ -312,16 +312,16 @@ app.controller('CardController', function($scope, $http){
     };
 
     $scope.showCardForm = false;
-    $scope.deck_id = 0;
+    $scope.displayedDeck = {};
     $scope.add_card_helper = function(deck) {
-        $scope.deck_id = $(angular.element(deck)[0]).data('deck-id');
+        $scope.displayedDeck.deckID = $(angular.element(deck)[0]).data('deck-id');
         $scope.showCardForm = true;
     };
 
-    $scope.add_card = function(){
+    $scope.add_card = function() {
         $scope.showCardForm = false;
-
-        var req = JSON.stringify({deck_id: $scope.deck_id,
+        console.log($scope.displayedDeck.deckID);
+        var req = JSON.stringify({deck_id: $scope.displayedDeck.deckID,
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
             notes: $scope.card.notes,
@@ -329,6 +329,8 @@ app.controller('CardController', function($scope, $http){
             contactEmail: $scope.card.contactEmail,
             contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
+
+        console.log(req);
 
         $http.post('/api/card/add-card/', req).
             success(function(data, status, headers, config){

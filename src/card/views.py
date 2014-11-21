@@ -103,9 +103,9 @@ def create_deck(request):
  #Adding a position to the deck
 @csrf_exempt
 def add_card(request):
-    deck_id = request.GET.get('deck_id')
-    deck = Deck.objects.filter(unique_id=deck_id)
     info = json.loads(request.POST.keys()[0])
+    deck_id = info['deck_id']
+    deck = Deck.objects.get(unique_id=deck_id) 
     job_title = info['jobTitle']
     status = str(info['status'])
     notes = str(info['notes'])
@@ -114,6 +114,7 @@ def add_card(request):
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
     new_card = Card(job_title=job_title, status=status, notes=notes, card_deck=deck)
+    new_card.save()
     new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
     new_contact.save()
     for tag in tags:
