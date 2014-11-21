@@ -188,8 +188,35 @@ app.controller('CardController', function($scope, $http){
     $scope.displayedCard = {};
     $scope.detailIsShown = false;
     $scope.isEditing = false;
+    $scope.isContactEditing = false;
+    $scope.isContactAdding = false;
     $scope.edit = function() {
-       $scope.isEditing = true; 
+       if ($scope.isEditing){
+            $scope.isEditing = false;
+        }
+        else{
+           $scope.isEditing = true; 
+        } 
+    }
+    $scope.editContact = function() {
+       if ($scope.isContactEditing){
+            $scope.isContactEditing = false;
+        }
+        else{
+           $scope.isContactEditing = true; 
+        } 
+    }
+    $scope.editAddContact = function() {
+       if ($scope.isContactAdding){
+            $scope.isContactAdding = false;
+        }
+        else{
+           $scope.isContactAdding = true; 
+        } 
+    }
+    $scope.closeEdit = function() {
+       $scope.isEditing = false;
+       $scope.isContactEditing = false; 
     }
     $scope.closeDetails = function() {
         $scope.detailIsShown = false;

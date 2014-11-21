@@ -66,7 +66,7 @@
 
     {% verbatim %}
         <div id="card-detail-top">
-            <img src="/static/images/close.png" id="card-detail-close" ng-click="closeDetails()"/>
+            <img src="/static/images/close.png" id="card-detail-close" ng-click="closeDetails(); closeEdit()"/>
             <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>            
         </div>
         
@@ -109,9 +109,9 @@
                         <p style="text-align: center">{{displayedCard.contactPhone}}</p>
 
 
-                    <button class="card-edit" ng-click="edit()">Edit</button>
-                    <button class="card-edit" ng-click="edit()">Add</button>
-                    <div class="edit-fields" ng-show="isEditing">
+                    <button class="card-edit" ng-click="editContact()">Edit</button>
+                    <button class="card-edit" ng-click="editAddContact()">Add</button>
+                    <div class="edit-fields" ng-show="isContactEditing">
                         <label for="new-name">New Name:</label>
                             <input type="text" placeholder="{{displayedCard.contactName}}" name="new-name" ng-model="new_name">
                         <br>
@@ -123,7 +123,7 @@
                         <br>
                         <button class="card-edit" ng-click="edit_contact()">Save new contact</button>
                     </div>
-                    <div class="edit-fields" ng-show="isEditing">
+                    <div class="edit-fields" ng-show="isContactAdding">
                         <label for="new-name">New Name:</label>
                             <input type="text" name="add-name" ng-model="add_name">
                         <br>
