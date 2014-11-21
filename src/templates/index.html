@@ -85,8 +85,8 @@
             <div id ="tab-content">
                 <div id="main" class="active-tab">
                     <h1>Status: {{displayedCard.status}}</h1>
-                    <button class="card-edit" ng-click="edit()">Edit</button>
-                    <div class="edit-fields" ng-show="isEditing">
+                    <button class="card-edit" ng-click="editStatus()">Edit</button>
+                    <div class="edit-fields" ng-show="isStatusEditing">
                         <label for="new-status">New Status:</label>
                             <select name="new-status" ng-model="newStatus">
                                 <option value="Interested" selected>Interested</option>
@@ -141,8 +141,8 @@
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
                     <p style="text-align: center">{{displayedCard.notes}}</p>
-                        <button class="card-edit" ng-click="edit()">Edit</button>
-                        <div class="edit-fields" ng-show="isEditing">
+                        <button class="card-edit" ng-click="editNotes()">Edit</button>
+                        <div class="edit-fields" ng-show="isNotesEditing">
                             <label for="new-notes">New notes:</label>
                                 <input type="text" name="new-notes" ng-model="new_notes">
                             <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
@@ -154,12 +154,13 @@
                             #{{tag}}
                         {% endfor %}
                     </p>
-                        <button id="add-tag" class="card-edit" ng-click="edit()">Add Tag(s)</button>
-                        <button id="remove-tag" class="card-edit" ng-click="edit()">Remove Tag</button>
-                    <div class="edit-fields" ng-show="isEditing">
+                        <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
+                        <button class="card-edit" ng-click="editRemoveTags()">Remove Tag</button>
+                    <div class="edit-fields" ng-show="isTagAdding">
                            <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
                          <button class="card-edit" ng-click="add_tag()">Save new tags</button>
-
+                    </div>
+                    <div class="edit-fields" ng-show="isTagRemoving">
                          <label for="old-tag">Remove a Tag</label><input type="text" name="old-tag" ng-model="old_tag">
                          <button class="card-edit" ng-click="remove_tag()">Remove tag</button>
                     </div>

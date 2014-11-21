@@ -190,14 +190,26 @@ app.controller('CardController', function($scope, $http){
     $scope.displayedCard = {};
     $scope.detailIsShown = false;
     $scope.isEditing = false;
+    $scope.isStatusEditing = false;
     $scope.isContactEditing = false;
     $scope.isContactAdding = false;
+    $scope.isNotesEditing= false;
+    $scope.isTagAdding= false;
+    $scope.isTagRemoving= false;
     $scope.edit = function() {
        if ($scope.isEditing){
             $scope.isEditing = false;
         }
         else{
            $scope.isEditing = true; 
+        } 
+    }
+    $scope.editStatus = function() {
+       if ($scope.isStatusEditing){
+            $scope.isStatusEditing = false;
+        }
+        else{
+           $scope.isStatusEditing = true; 
         } 
     }
     $scope.editContact = function() {
@@ -216,9 +228,37 @@ app.controller('CardController', function($scope, $http){
            $scope.isContactAdding = true; 
         } 
     }
+    $scope.editNotes = function() {
+       if ($scope.isNotesEditing){
+            $scope.isNotesEditing= false;
+        }
+        else{
+           $scope.isNotesEditing = true; 
+        } 
+    }
+    $scope.editAddTags = function() {
+       if ($scope.isTagAdding){
+            $scope.isTagAdding= false;
+        }
+        else{
+           $scope.isTagAdding = true; 
+        } 
+    }
+    $scope.editRemoveTags = function() {
+       if ($scope.isTagRemoving){
+            $scope.isTagRemoving= false;
+        }
+        else{
+           $scope.isTagRemoving = true; 
+        } 
+    }
     $scope.closeEdit = function() {
        $scope.isEditing = false;
-       $scope.isContactEditing = false; 
+       $scope.isContactEditing = false;
+       $scope.isNotesEditing= false;
+       $scope.isTagAdding= false;
+       $scope.isTagRemoving= false;
+       $scope.isStatusEditing = false; 
     }
     $scope.closeDetails = function() {
         $scope.detailIsShown = false;
