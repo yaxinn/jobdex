@@ -31,6 +31,8 @@ var ERR_EXISTING_USER = -19;
 var ERR_BAD_USERNAME = -20;
 var ERR_BAD_PASSWORD = -21;
 
+var ERR_NOTE_INVALID = -22;
+
 
 // Controller with all of the methods for the User Model
 app.controller('UserController', function($scope, $http) {
