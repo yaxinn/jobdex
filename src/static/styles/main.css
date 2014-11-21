@@ -184,7 +184,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .deck .card-field .card-label {
   color: #3b333f !important;
-  font-family: SourceSansBold;
+  font-family: GravityLight;
   text-align: center;
 }
 
@@ -218,16 +218,84 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #card-detail {
-  height: 500px;
+  height: 600px;
   border: 1px solid black;
-  width: 800px;
+  border-radius: 5px;
+  width: 900px;
   margin: auto;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #79a9da;
+  background: #d1d2d5;
+}
+
+#card-detail #card-detail-top {
+  font-family: GravityLight;
+  padding: 1em;
+}
+#card-detail #card-detail-navbar {
+  height: 40px;
+  border-top: 5px solid #ff851b;
+  border-bottom: 5px solid #ff851b;
+}
+#card-detail #card-detail-navbar li {
+  background: #ecf0f1;
+  text-align: center;
+  border-right: 1px solid black;
+  height: 40px;
+  padding-top: 10px;
+  display: block;
+}
+#card-detail #card-detail-navbar a {
+  display: block;
+  font-family: GravityLight;
+  color: #001f3f;
+}
+#card-detail #card-detail-navbar li:hover {
+  background: #003973;
+}
+#card-detail #card-detail-navbar li:hover a {
+  color: white;
+}
+#card-detail #card-detail-tabs {
+  height: 443px;
+  background: #3b333f;
+  color: white;
+}
+#card-detail #card-detail-company {
+  color: crimson;
+  text-decoration: underline;
+}
+#card-detail #card-detail-position {
+  color: #0074d9;
+  text-decoration: underline;
+}
+#card-detail #card-detail-close:hover {
+  cursor: pointer;
+}
+#card-detail .edit-fields {
+  padding: 1em;
+  text-align: center;
+}
+.card-edit {
+  outline: none;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+  font-family: GravityLight;
+  border: 1px solid black;
+  background: #ff851b;
+  color: white;
+}
+.card-edit:hover {
+  cursor: pointer;
+  background: #edaa4e;
 }
 
 .tLink {
@@ -241,9 +309,6 @@ h1, h2, h3, h4, h5, h6 {
   transition:all linear 0.15s;
 }
 
-#card-detail #card-detail-tabs {
-  background: white;
-}
 
 #dashboard input[type=submit] {
   width: 100px;
