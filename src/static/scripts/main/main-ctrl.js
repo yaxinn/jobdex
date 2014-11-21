@@ -309,12 +309,19 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.detailIsShown = true;
-    }
+    };
 
+    $scope.showCardForm = false;
+    $scope.deck_id = 0;
+    $scope.add_card_helper = function(deck) {
+        $scope.deck_id = $(angular.element(deck)[0]).data('deck-id');
+        $scope.showCardForm = true;
+    };
 
-    $scope.add_card = function(deckID){
+    $scope.add_card = function(){
+        $scope.showCardForm = false;
 
-        var req = JSON.stringify({deck_id: deckID,
+        var req = JSON.stringify({deck_id: $scope.deck_id,
             jobTitle: $scope.card.position,
             tags: $scope.card.tags,
             notes: $scope.card.notes,
@@ -323,24 +330,23 @@ app.controller('CardController', function($scope, $http){
             contactPhone: $scope.card.contactPhone,
             status: $scope.card.status});
 
-        $http.post('/api/card/' + deckID + '/add-card/', req).
+        $http.post('/api/card/add-card/', req).
             success(function(data, status, headers, config){
-                console.log(data);
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    id_table.push(data.card_id);
+                    location.reload();
                 }
 
-                location.reload();
 
             }).error(function(data, status, headers, config){
                 console.log(data);
         });
 
         $scope.card = {};
+
     };
 
     //remove card given user and card_id

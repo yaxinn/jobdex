@@ -17,7 +17,7 @@
                         <form>
                             <label for="company-name"></label>Company Name:<input type="text" name="company-name" ng-model="deck.companyName"/>
                             <br/>
-                            <label for="company-description"></label>Comapny Description:<input type="text" name="company-description" ng-model="deck.companyDescription"/>
+                            <label for="company-description"></label>Company Description:<input type="text" name="company-description" ng-model="deck.companyDescription"/>
                             <br/>
                             <input type="submit" value="Create" ng-click="create_deck()"/>
                             <input type="submit" value="Cancel" ng-click="showDeckForm=false">
@@ -43,8 +43,6 @@
             <br>
             <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
             <br>
-            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
-            <br>
             <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
             <br>
             <label for="contact-email">Contact Email:</label><input type="text" name="contact-email" ng-model="card.contactEmail">
@@ -53,6 +51,7 @@
             <br>
             <input type="submit" value="Add Card" ng-click="add_card()">
             <input type="submit" value="Cancel" ng-click="showCardForm=false">
+
         </form>
         </div>
     </div>
@@ -71,7 +70,7 @@
                 </div>
                 {% endfor %}
                 
-                <button class="add-card-detail-btn" ng-click="showCardForm=true">+ Add Position...</button>         
+                <button class="add-card-detail-btn" data-deck-id="{{deck.unique_id}}" ng-click="add_card_helper($event.target)">+ Add Position...</button>         
 
             </div>
         {% endfor %}

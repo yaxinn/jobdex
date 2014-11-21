@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^signup/$', 'user.views.signup_view', name='signup'),
     url(r'^api/card/all-cards/$', 'card.views.get_all_cards', name='get_all_cards'),
     url(r'^api/user/create-deck/$', 'card.views.create_deck', name='create_deck'),
-    #url(r'^api/card/add-card/$', 'card.views.add_card', name='add_card'),
+    url(r'^api/card/add-card/$', 'card.views.add_card', name='add_card'),
     url(r'^api/user/remove-card/$', 'card.views.remove_card', name='remove_card'),
     # url(r'^blog/', include('blog.urls')),
 
