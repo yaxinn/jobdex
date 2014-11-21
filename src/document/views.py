@@ -21,20 +21,31 @@ def upload_document(request):
     name = request.POST['name']
     pdf = request.FILES['pdf']
     user = request.user.user_profile
-    new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
-    new_document.save()
-    return JsonResponse({'error_message': 1}, safe=False)
+    try:
+        Document.objects.get(doc_name=name)
+        return JsonResponse({'error_message': -9}, safe=False)
+    except Document.DoesNotExist:
+        new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
+        new_document.save()
+        return JsonResponse({'error_message': 1}, safe=False)
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def delete_document(request):
     try:
-        info = json.loads(request.POST.keys()[0])
-        doc_id = info['doc_id']
+        # uncomment the following two lines when not testing 
+        # info = json.loads(request.POST.keys()[0])
+        # doc_id = info['doc_id']
+        ########################
+
         #user = request.user.user_profile
         #user.documents.filter(unique_id=doc_id).delete()
         #user.save()
-        print info
+
+        # for testing purpose, use the following line, comment it out when done with testing
+        doc_id = request.POST['doc_id']
+        ########################
+
         doc = Document.objects.get(unique_id=doc_id)
         doc.delete()
         return JsonResponse({'error_message': 1}, safe=False)
@@ -42,8 +53,14 @@ def delete_document(request):
         return JsonResponse({'error_message': -11}, safe=False)
 
 def get_documents(request):
-    user = request.user.profile
-    documents = user.documents.all()
-    documents_output = serializers.serialize("json", documents)
-    user.save()
+    user = request.user.user_profile
+    documents = Document.objects.all().filter(uploaded_by=user)
+    documents_output = {}
+    for document in documents:
+        doc = {}
+        doc['date_uploaded'] = document.date_uploaded
+        doc['url'] = document.pdf.url
+        doc['unique_id'] = document.unique_id
+        documents_output[document.doc_name] = doc
     return JsonResponse(documents_output, safe=False)
+

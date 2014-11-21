@@ -5,7 +5,8 @@ import string
 import random
 
 ERROR_CODES = {
-        "SUCCESS": 1
+        "SUCCESS": 1,
+        "DOCEXIST": -9
         }
 
 class DocAddTestCase(TestCase):
@@ -19,7 +20,7 @@ class DocAddTestCase(TestCase):
         }
         client.post('/signup/', user_info)
         data = {
-            "name":"test_file",
+            "name": "test_file",
             "pdf": open('document/test.pdf')
         }
         self.response = client.post('/api/document/upload/', data)
@@ -28,3 +29,56 @@ class DocAddTestCase(TestCase):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
 
+class DocAddExistTestCase(TestCase):
+	def setUp(self):
+		client = Client()
+		user_info = {
+			"username": "seth",
+			"password": "tawfik",
+			"confirm_password": "tawfik",
+			"email": "paulina@bev.com", 
+		}
+		client.post('/signup/', user_info)
+		data = {
+			"name": "test_file",
+			"pdf": open('document/test.pdf')
+		}
+		client.post('/api/document/upload/', data)
+		self.response = client.post('/api/document/upload/', data)
+
+	def test_analyze_response(self):
+		error_code = json.loads(self.response.content)['error_message']
+		self.assertEqual(error_code, ERROR_CODES['DOCEXIST'])
+
+class DocDeleteTestCase(TestCase):
+	def setUp(self):
+		self.client = Client()
+		user_info = {
+			"username": "seth",
+			"password": "tawfik",
+			"confirm_password": "tawfik",
+			"email": "paulina@bev.com", 
+		}
+		self.client.post('/signup/', user_info)
+
+	def test_analyze_response(self):
+		upload_data = {"name": "test_file",
+					   "pdf": open('document/test.pdf')}
+
+		# send a request to upload doc and a request to get doc list
+		self.client.post('/api/document/upload/', upload_data)
+		self.get_response = self.client.get('/api/document/get/', {})
+		content = json.loads(self.get_response.content)
+ 		l1 = len(content)
+
+  	    # send a request to delete doc and a request to get doc list
+		delete_data = {"doc_id": content["test_file"]["unique_id"]}
+		
+		self.response = self.client.post('/api/document/delete/', delete_data)
+		self.get_response = self.client.get('/api/document/get/', {})
+		content = json.loads(self.get_response.content)
+		l2 = len(content)
+
+		error_code = json.loads(self.response.content)['error_message']
+		self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+		self.assertEqual(1, l1-l2)
