@@ -131,7 +131,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: -12px auto;
   width: auto;
 }
-
+#new-deck {
+  text-align: center;
+}
 #decks {
   height: 500px;
   color: black;
@@ -205,13 +207,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   background: white;
   border-radius: 5px;
-  width: 60%;
+  width: 90px;
   height: 20px;
   margin-top: 1em;
   border: None;
-  font-size: 17px;
+  font-size: 12px;
   font-family: GravityLight;
-  text-align: left;
+  text-align: center;
 }
 .deck button:hover {
   cursor: pointer;
@@ -232,6 +234,25 @@ a {
   left: 0;
   right: 0;
   background: #d1d2d5;
+}
+#card-detail-top button {
+  padding: 0;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 75px;
+  height: 25px;
+  margin-top: 1em;
+  font-size: 12px;
+  font-family: GravityLight;
+  text-align: center;
+  position: relative;
+  bottom: 17px;
+  left: 740px;
+}
+
+#card-detail-top button:hover {
+  cursor: pointer;
 }
 
 #card-detail #card-detail-top {
