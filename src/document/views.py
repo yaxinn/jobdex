@@ -21,6 +21,8 @@ def upload_document(request):
     name = request.POST['name']
     pdf = request.FILES['pdf']
     user = request.user.user_profile
+    if str(pdf).split(".")[-1] != "pdf":
+        return JsonResponse({'error_message': -10}, safe=False)
     try:
         Document.objects.get(doc_name=name)
         return JsonResponse({'error_message': -9}, safe=False)
