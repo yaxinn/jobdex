@@ -107,3 +107,21 @@ class DocDelDNETestCase(TestCase):
 		error_code = json.loads(self.response.content)['error_message']
 		self.assertEqual(error_code, ERROR_CODES['DOCDNEXIST'])
 
+# add .doc format document test
+class DocTypeTestCase(TestCase):
+	def setUp(self):
+		self.client = Client()
+		user_info = {
+			"username": "seth",
+			"password": "tawfik",
+			"confirm_password": "tawfik",
+			"email": "paulina@bev.com", 
+		}
+		self.client.post('/signup/', user_info)
+
+	def test_analyze_response(self):
+		data = {"name": "test_doc", 
+				"pdf": open('document/test.doc')}
+		self.response = self.client.post('/api/document/upload/', data)
+		error_code = json.loads(self.response.content)['error_message']
+		self.assertEqual(error_code, ERROR_CODES['DOCINVALID'])
