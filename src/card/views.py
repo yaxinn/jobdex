@@ -123,8 +123,8 @@ def get_contacts(request):
 def remove_contact(request):
     try:
         card_id = request.GET.get('card_id')
-        contact_name = request.DELETE.get('contactName')
-        Contact.objects.filter(name=contact_name, tagged_card=card_id).delete()
+        contact_name = request.GET.get('contactName')
+        Contact.objects.get(name=contact_name, associated_card=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
@@ -154,11 +154,10 @@ def edit_contact(request):
 @csrf_exempt
 def add_contact(request):
     try:
-        info = json.loads(request.POST.keys()[0])
-        card_id = info['card_id']
-        add_name = info['add_name']
-        add_email = info['add_email']
-        add_phone = info['add_phone']
+        card_id = request.POST['card_id']
+        add_name = request.POST['add_name']
+        add_email = request.POST['add_email']
+        add_phone = request.POST['add_phone']
         card = Card.objects.get(card_id=card_id)
         add_contact = Contact(name= "," + add_name, email=add_email, phone=add_phone, associated_card=card)
         add_contact.save()
@@ -173,10 +172,9 @@ def add_contact(request):
 # Add tags based on card id and tag names
 @csrf_exempt
 def add_tag(request):
-    info = json.loads(request.POST.keys()[0])
-    card_id = info['card_id']
+    card_id = request.POST['card_id']
     card = Card.objects.get(card_id=card_id)
-    tags = info['tags'].split(',')
+    tags = request.POST['tags'].split(',')
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=card)
         new_tag.save()
@@ -186,10 +184,9 @@ def add_tag(request):
 @csrf_exempt
 def remove_tag(request):
     try:
-        info = json.loads(request.POST.keys()[0])
-        card_id = info['card_id']
+        card_id = request.POST['card_id']
         card = Card.objects.get(card_id=card_id)
-        Tag.objects.filter(tagged_card=card, tag=info['old_tag']).delete()
+        Tag.objects.get(tagged_card=card, tag=request.POST['target_tag']).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
@@ -200,7 +197,7 @@ def remove_tag(request):
 def get_tags(request):
     try:
         card_id = request.GET.get('card_id')
-        card = Card.objects.filter(card_id=card_id)
+        card = Card.objects.get(card_id=card_id)
         tags = Tag.objects.all().filter(tagged_card=card)
         tags_output = serializers.serialize("json", tags)
         return JsonResponse(tags_output, safe=False)
