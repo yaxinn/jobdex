@@ -122,71 +122,69 @@ class AddCard(TestCase):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
 
-# class RemoveExistingCard(TestCase):
-#     def setUp(self):
-#         client = Client()
-#         user_info = {
-#             "username": "userC",
-#             "password": "password",
-#             "confirm_password": "password",
-#             "email": "paulina@cool.com",
-#         }
-#         client.post('/signup/', user_info)
-#
-#         deck_data = {
-#             "companyName": "Google",
-#             "companyDescription": "tech"
-#         }
-#         self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
-#         deck_id = json.loads(self.create_deck_response.content)['deck_id']
-#
-#         card_data = {
-#             "deck_id": deck_id,
-#             "jobTitle": "Software Engineer",
-#             "status": "interested",
-#             "notes": "hello",
-#             "tags": "tech",
-#             "contactName": "personA",
-#             "contactEmail": "poop@gmail.com",
-#             "contactPhone": "123456"
-#         }
-#
-#
-#         self.add_card_response = client.post('/api/card/add-card/', card_data)
-#         card_id = json.loads(self.add_card_response.content)['card_id']
-#         data = {
-#             "card_id": card_id
-#         }
-#
-#         self.response = client.post('/api/user/remove-card/', data)
-#
-#
-#     def test_analyze_response(self):
-#         error_code = json.loads(self.response.content)['error_message']
-#         self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
-#
-# class RemoveNonexistentCard(TestCase):
-#     def setUp(self):
-#         client = Client()
-#         user_info = {
-#             "username": "userBBB",
-#             "password": "password",
-#             "confirm_password": "password",
-#             "email": "paulina@cool.com",
-#         }
-#         client.post('/signup/', user_info)
-#
-#         # fake card_id
-#         data = {
-#             "card_id": "123"
-#         }
-#
-#         self.response = client.post('/api/user/remove-card/', data)
-#
-#
-#     def test_analyze_response(self):
-#         error_code = json.loads(self.response.content)['error_message']
-#         self.assertEqual(error_code, ERROR_CODES['CARD_DOESNT_EXIST'])
+class RemoveExistingCard(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userBB",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "personA",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+        data = {
+            "card_id": card_id
+        }
+
+        self.response = client.post('/api/user/remove-card/', data)
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+
+class RemoveNonexistentCard(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userBBB",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        # fake card_id
+        data = {
+            "card_id": "123"
+        }
+
+        self.response = client.post('/api/user/remove-card/', data)
+
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['CARD_DOESNT_EXIST'])
 
 ################
 #   CONTACTS   #
@@ -237,11 +235,54 @@ class AddContact(TestCase):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
 
-class RemoveNonexistentContact(TestCase):
+class RemoveExistingContact(TestCase):
     def setUp(self):
         client = Client()
         user_info = {
             "username": "userCC",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "personA",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        data = {
+            "card_id": card_id,
+            "contactName": "personA"
+        }
+
+        self.response = client.post('/api/card/remove-contact/', data)
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+
+class RemoveNonexistentContact(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userCCC",
             "password": "password",
             "confirm_password": "password",
             "email": "paulina@cool.com",
@@ -279,6 +320,93 @@ class RemoveNonexistentContact(TestCase):
     def test_analyze_response(self):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['CONTACT_DOESNT_EXIST'])
+
+class EditContact(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userCCCC",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "Bob",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        data = {
+            "card_id": card_id,
+            "current_name": "Bob",
+            "new_name": "Alice",
+            "new_email": "alice@gmail.com",
+            "new_phone": "111111"
+        }
+
+        self.response = client.post('/api/card/edit-contact/', data)
+
+        self.contacts = client.get('/api/card/get-contacts/', {"card_id": card_id})
+        if "Alice" not in self.contacts.content:
+            print "edit_contact was unsuccessful"
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+
+class GetContacts(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userCCCCC",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "Bob",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        self.contacts = client.get('/api/card/get-contacts/', {"card_id": card_id})
+
+    def test_analyze_response(self):
+        self.assertTrue("Bob" in self.contacts.content)
 
 ################
 #   TAGS   #

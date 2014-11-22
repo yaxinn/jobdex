@@ -153,9 +153,16 @@ def get_contacts(request):
 # Remove contact, given a card id and contact name
 def remove_contact(request):
     try:
-        card_id = request.GET.get('card_id')
-        contact_name = request.GET.get('contactName')
-        Contact.objects.get(name=contact_name, associated_card=card_id).delete()
+        if unit_tests:
+            card_id = request.POST['card_id']
+            contact_name = request.POST['contactName']
+        else:
+            info = json.loads(request.POST.keys()[0])
+            card_id = info['card_id']
+            contact_name = info['contact_name']
+
+        card = Card.objects.get(card_id=card_id)
+        Contact.objects.get(name=contact_name, associated_card=card).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
@@ -180,8 +187,11 @@ def edit_contact(request):
             new_phone = info['new_phone']
             current_name = info['current_name']
         card = Card.objects.get(card_id=card_id)
-        contact = Contact.objects.filter(name=current_name, associated_card=card)
-        contact.update(name=new_name, email=new_email, phone=new_phone)
+        contact = Contact.objects.get(name=current_name, associated_card=card)
+        contact.name = new_name
+        contact.email = new_email
+        contact.phone = new_phone
+        contact.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
@@ -238,13 +248,14 @@ def remove_tag(request):
     try:
         if unit_tests:
             card_id = request.POST['card_id']
-            card = Card.objects.get(card_id=card_id)
+            target_tag = request.POST['target_tag']
         else:
             info = json.loads(request.POST.keys()[0])
             card_id = info['card_id']
-            card = Card.objects.get(card_id=card_id)
+            target_tag = info['target_tag']
 
-        Tag.objects.get(tagged_card=card, tag=request.POST['target_tag']).delete()
+        card = Card.objects.get(card_id=card_id)
+        Tag.objects.get(tagged_card=card, tag=target_tag).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
