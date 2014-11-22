@@ -59,14 +59,14 @@
         {% for deck in decks %}
             <div class="deck">
                 <div class="deck-top">
-                    <!--<input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>-->
+                    <input src="/static/images/close.png" type="image" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"/>
 
                      {{deck.associated_company.name}}
 
                 </div>
                 {% for card in deck.card_set.all %}
                 <div class="card-position card-field">
-                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
                 {% endfor %}
                 
@@ -75,14 +75,20 @@
             </div>
         {% endfor %}
     </div>
+    <!--<div class="confirmation" ng-show"deleteConfirm">
+
+    </div>-->
     <div id="card-detail" ng-show="detailIsShown">
 
     {% verbatim %}
         <div id="card-detail-top">
             <input src="/static/images/close.png" type="image" id="closer"/>
-            <h1>Your application for {{displayedCard.company}}'s {{displayedCard.position}} position</h1>            
+            <button calss="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
+
+            <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
         </div>
-        
+        <div id="card-detail-navbar">
+
             <ul id="tab-links">
                 <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
                 <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
@@ -90,6 +96,7 @@
                 <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
                 <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
             </ul>
+        </div>
 
         <div id="card-detail-tabs" class="grid-100 grid-parent">
 
