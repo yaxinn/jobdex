@@ -23,7 +23,9 @@ urlpatterns = patterns('',
 
     url(r'^api/card/edit-notes/$', 'card.views.edit_notes', name="edit_notes"),
     url(r'^api/card/add-task/$', 'card.views.add_task', name="add_task"),
+
     url(r'^api/card/add-tag/$', 'card.views.add_tag', name='add_tag'),
+    url(r'^api/card/edit-tag/$', 'card.views.edit_tag', name='edit_tag'),
     url(r'^api/card/remove-tag/$', 'card.views.remove_tag', name='remove_tag'),
     url(r'^api/card/get-tags/$', 'card.views.get_tags', name='get_tags'),
 

@@ -277,22 +277,24 @@ def get_tags(request):
 
 # Modify a tag, given a card id and tag name
 @csrf_exempt
-def modify_tag(request):
+def edit_tag(request):
     try:
         if unit_tests:
             card_id = request.POST['card_id']
+            tag_to_replace = request.POST['tag_to_replace']
             new_tag = request.POST['new_tag']
         else:
             info = json.loads(request.POST.keys()[0])
             card_id = info['card_id']
+            tag_to_replace = info['tag_to_replace']
             new_tag = info['new_tag']
         card = Card.objects.get(card_id=card_id)
-        card.tag = new_tag
-        card.save()
+        target = Tag.objects.get(tagged_card=card, tag=tag_to_replace)
+        target.tag = new_tag
+        target.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
-    return JsonResponse({'error_message': 1}, safe=False)
 
 #######################################################################
 
@@ -334,8 +336,8 @@ def edit_notes(request):
         card.notes = new_notes
         card.save()
         return JsonResponse({'error_message': 1}, safe=False)
-    except Card.Exception:
-        return JsonResponse({'error_message': -22}, safe=False)
+    except Card.DoesNotExist:
+        return JsonResponse({'error_message': -8}, safe=False)
 
 #######################################################################
 
