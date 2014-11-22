@@ -261,8 +261,6 @@ a {
 }
 #card-detail #card-detail-navbar {
   height: 40px;
-  border-top: 5px solid #ff851b;
-  border-bottom: 5px solid #ff851b;
 }
 #card-detail #card-detail-navbar li {
   background: #758CA6;
@@ -315,7 +313,7 @@ a {
   margin-top: 1em;
   font-family: GravityLight;
   border: 1px solid black;
-  background: #ff851b;
+  background: #CF5946;
   color: white;
 }
 .card-edit:hover {

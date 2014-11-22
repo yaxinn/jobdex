@@ -392,6 +392,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
+        $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
         $scope.detailIsShown = true;
     };
 
