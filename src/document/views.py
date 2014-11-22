@@ -36,8 +36,8 @@ def upload_document(request):
 def delete_document(request):
     try:
         # uncomment the following two lines when not testing 
-        # info = json.loads(request.POST.keys()[0])
-        # doc_id = info['doc_id']
+        info = json.loads(request.POST.keys()[0])
+        doc_id = info['doc_id']
         ########################
 
         #user = request.user.user_profile
@@ -45,7 +45,7 @@ def delete_document(request):
         #user.save()
 
         # for testing purpose, use the following line, comment it out when done with testing
-        doc_id = request.POST['doc_id']
+        # doc_id = request.POST['doc_id']
         ########################
 
         doc = Document.objects.get(unique_id=doc_id)

@@ -420,7 +420,8 @@ a {
 }
 
 #reports-page form {
-  text-align: center;
+  text-align: left;
+  position: fixed;
 }
 
 #reports-page  label {
@@ -429,34 +430,31 @@ a {
   text-align: right;
   margin-right: 1em;
   font-size: 20px;
-  }
+}
 
-.document {
-  float: left;
-  width: 230px;
-  height: 150px;
+table {
+  width: 100%;
+}
+
+table, th, td {
   border: 1px solid black;
-  border-radius: 5px;
-  background: #79a9da;
-  padding: 1em;
-  margin: 1em;
+  border-collapse: collapse;
 }
 
-.document input[type="image"] {
-  float: left;
-}
-.document .document-url img {
-  float: right;
-}
-.document h3 {
-  font-size: 15px;
+th, td {
+  padding: 5px;
   text-align: left;
-  border-bottom: 1px dotted white;
-  color: #001F3F;
-  padding-top: 10px;
 }
-.document p {
-  font-size: 15px;
-  text-align: right;
-  color: black;
+
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table th {
+  background-color: #3b333f;
+  color: white;
 }

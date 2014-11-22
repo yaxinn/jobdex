@@ -7,25 +7,30 @@
     <div id="generic-text">
         <p>Not yet implemented</p>
         <div id="documents" ng-controller="DocumentController">
-            {% for document in documents %}
-            <div class="document">
-                <input src="/static/images/close.png" type="image" data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)"/>
-                <img src="/static/images/pdf.png" data-url="/assets/{{document.pdf}}" class="document-url" ng-click="showDocument($event.target)">
-                <h3>Document Name:</h3>
-                <p>{{document}}</p>
-                <h3>Date Uploaded:</h3>
-                <p>{{document.date_uploaded}}</p>
+            <table>
+                <tr>
+                    <th>View</th>
+                    <th>Document Name</th>
+                    <th>Date Uploaded</th>      
+                    <th>Delete</th>
+                </tr>
+                {% for document in documents %}
+                    <tr class="document">
+                        <td><img src="/static/images/pdf.png" data-url="/assets/{{document.pdf}}" class="document-url" ng-click="showDocument($event.target)"></td>
+                        <td>{{document}}</td>
+                        <td>{{document.date_uploaded}}</td>
+                        <td><input src="/static/images/close.png" type="image" data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)"/></td>
+                    </tr>
+                {% endfor %}
+            </table>        
+        </div>
 
-            {% endfor %}
-        </div>
-        </div>
+        <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">
+            <label for="name">Name:</label><input type="text" name="name" required/>
+            <br>
+            <label for="pdf">Document:</label><input type="file" name="pdf"/>
+            <input type="submit">
+        </form>
     </div>
-
-    <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">
-        <label for="name">Name:</label><input type="text" name="name"/>
-        <br>
-        <label for="pdf">Document:</label><input type="file" name="pdf"/>
-    	<input type="submit">
-    </form>
 </div>
 {% endblock %}
