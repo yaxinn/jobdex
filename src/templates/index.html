@@ -102,7 +102,19 @@
 
             <div id ="tab-content">
                 <div id="main" class="active-tab">
-                    <h1>Stage: {{displayedCard.status}}</h1>
+                    <h1>Status: {{displayedCard.status}}</h1>
+                    <button class="card-edit" ng-click="editStatus()">Edit</button>
+                    <div class="edit-fields" ng-show="isStatusEditing">
+                        <label for="new-status">New Status:</label>
+                            <select name="new-status" ng-model="newStatus">
+                                <option value="Interested" selected>Interested</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Recieved Offer">Recieved Offer</option>
+                            </select>
+                            <br>
+                        <button class="card-edit" ng-click="changeStatus()">Save new status</button>
                 </div>
                 <div id="contacts" class="tab">
                     <h1>Contacts:</h1>
@@ -112,16 +124,72 @@
                         <p style="text-align: center">{{displayedCard.contactEmail}}</p>
                     <h2>Phone:</h2>
                         <p style="text-align: center">{{displayedCard.contactPhone}}</p>
+
+                        <button class="card-edit" ng-click="editContact()">Edit</button>
+                        <button class="card-edit" ng-click="editAddContact()">Add</button>
+                        <div class="edit-fields" ng-show="isContactEditing">
+                            <label for="new-name">New Name:</label>
+                                <input type="text" placeholder="{{displayedCard.contactName}}" name="new-name" ng-model="new_name">
+                            <br>
+                            <label for="new-email">New Email:</label>
+                                <input type="text" placeholder="{{displayedCard.contactEmail}}" name="new-email" ng-model="new_email">
+                            <br>
+                            <label for="new-phone">New Phone:</label>
+                                <input type="text" placeholder="{{displayedCard.contactPhone}}"name="new-phone" ng-model="new_phone">
+                            <br>
+                            <button class="card-edit" ng-click="edit_contact()">Save new contact</button>
+                        </div>
+                        <div class="edit-fields" ng-show="isContactAdding">
+                            <label for="new-name">New Name:</label>
+                                <input type="text" name="add-name" ng-model="add_name">
+                            <br>
+                            <label for="new-email">New Email:</label>
+                                <input type="text" name="add-email" ng-model="add_email">
+                            <br>
+                            <label for="new-phone">New Phone:</label>
+                                <input type="text" name="add-phone" ng-model="add_phone">
+                            <br>
+                            <button class="card-edit" ng-click="add_contact()">Add new contact</button>
+                        </div>
                 </div>
 
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
                     <p style="text-align: center">{{displayedCard.notes}}</p>
+                    <button class="card-edit" ng-click="editNotes()">Edit</button>
+                    <div class="edit-fields" ng-show="isNotesEditing">
+                        <label for="new-notes">New notes:</label>
+                            <input type="text" name="new-notes" ng-model="new_notes">
+                        <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
+                    </div>
+
+                    <h1>Tags:</h1>
+                    <p style="text-align: center">
+                        {% for tag in {{displayedCard.tags}} %}
+                            #{{tag}}
+                        {% endfor %}
+                    </p>
+                        <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
+                        <button class="card-edit" ng-click="editRemoveTags()">Remove Tag</button>
+                    <div class="edit-fields" ng-show="isTagAdding">
+                           <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
+                         <button class="card-edit" ng-click="add_tag()">Save new tags</button>
+                    </div>
+                    <div class="edit-fields" ng-show="isTagRemoving">
+                         <label for="old-tag">Remove a Tag</label><input type="text" name="old-tag" ng-model="old_tag">
+                         <button class="card-edit" ng-click="remove_tag()">Remove tag</button>
+                    </div>
                 </div>
 
                 <div id="tasks" class="tab">
                     <h1>Tasks:</h1>
                     <p style="text-align: center">{{displayedCard.task}}</p>
+                    <button class="card-edit" ng-click="edit()">Add New Task</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                        <label for="new-task">New task:</label>
+                        <input type="text" name="new-task" ng-model="new_task">
+                        <button class="card-edit" ng-click="add_task()">Save New Task</button>
+                    </div>
                 </div>
 
                 <div id="documents" class="tab">
