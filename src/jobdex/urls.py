@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^api/user/create-deck/$', 'card.views.create_deck', name='create_deck'),
     url(r'^api/card/add-card/$', 'card.views.add_card', name='add_card'),
     url(r'^api/user/remove-card/$', 'card.views.remove_card', name='remove_card'),
+    url(r'^api/user/delete-deck/$', 'card.views.delete_deck', name='delete_card'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

@@ -124,6 +124,16 @@ def add_card(request):
     response = {'card_id': card_id, 'error_message': 1}
     return JsonResponse(response, safe=False)
 
+# Remove deck, given a deck id
+@csrf_exempt
+def delete_deck(request):
+    try:
+        info = json.loads(request.POST.keys()[0])
+        deck_id = info['deck_id']
+        Deck.objects.filter(unique_id=deck_id).delete()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Deck.DoesNotExist:
+        return JsonResponse({'error_message': -22}, safe=False)
 
    
 
@@ -133,7 +143,7 @@ def remove_card(request):
     try:
         info = json.loads(request.POST.keys()[0])
         card_id = info['card_id']
-        Card.objects.filter(unique_id=card_id).delete()
+        Card.objects.filter(card_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)

@@ -30,6 +30,7 @@ var ERR_BAD_CREDENTIALS = -18;
 var ERR_EXISTING_USER = -19;
 var ERR_BAD_USERNAME = -20;
 var ERR_BAD_PASSWORD = -21;
+var ERR_DECK_DOES_NOT_EXIST = -22;
 
 
 // Controller with all of the methods for the User Model
@@ -308,6 +309,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
         $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
+        $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.detailIsShown = true;
     };
 
@@ -351,10 +353,26 @@ app.controller('CardController', function($scope, $http){
 
     };
 
+    $scope.delete_deck = function(deck){
+        var deckID = $(angular.element(deck)[0]).data('unique_id');
+        var req = {deck_id: deckID};
+
+        $http.post('/api/user/delete-deck/', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    error(data)
+                }
+                else if (data.error_message == 1) {
+                    location.reload(true);
+                }
+            }).error(function(data, status, headers, config){
+                console.log(data);
+        });
+    };
+
     //remove card given user and card_id
     $scope.remove_card = function(card){
-        var cardID = $(angular.element(card)[0]).data('unique_id');
-        var req = {card_id: cardID};
+        var req = {card_id: $scope.displayedCard.id};
 
         $http.post('/api/user/remove-card/', req).
             success(function(data, status, headers, config){
