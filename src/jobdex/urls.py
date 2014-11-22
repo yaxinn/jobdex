@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url(r'^api/card/edit-contact/$', 'card.views.edit_contact', name="edit_contact"),
     url(r'^api/card/remove-contact/$', 'card.views.remove_contact', name="remove_contact"),
     url(r'^api/card/add-contact/$', 'card.views.add_contact', name="add_contact"),
+    url(r'^api/card/get-contacts/$', 'card.views.get_contacts', name="get_contacts"),
+
     url(r'^api/card/edit-notes/$', 'card.views.edit_notes', name="edit_notes"),
     url(r'^api/card/add-task/$', 'card.views.add_task', name="add_task"),
     url(r'^api/card/add-tag/$', 'card.views.add_tag', name='add_tag'),
