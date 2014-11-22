@@ -150,50 +150,6 @@ def edit_contact(request):
     except Contact.DoesNotExist:
         return JsonResponse({'error_message': -14}, safe=False)
 
-# Add card given company name, status, tags, and contact info
-@csrf_exempt
-def create_card(request):
-    info = json.loads(request.POST.keys()[0])
-    company_name = info['companyName']
-    status = str(info['status'])
-    job_title = info['jobTitle']
-    notes = str(info['notes'])
-    tags = str(info['tags']).split(',')
-    contact_name = str(info['contactName'])
-    contact_email = str(info['contactEmail'])
-    contact_phone = str(info['contactPhone'])
-    user = UserProfile.objects.get(username=request.user)
-
-    try:
-        company = Company.objects.get(name=company_name)
-    except Company.DoesNotExist:
-        company = Company(name=company_name)
-        company.save()
-
-    new_card = Card(associated_company=company, status=status, job_title=job_title, notes=notes, owner=user)
-    new_card.save()
-
-    new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
-    new_contact.save()
-
-    for tag in tags:
-        new_tag = Tag(tag=tag.strip(), tagged_card=new_card)
-        new_tag.save()
-    card_id = str(new_card.card_id)
-    response = {'card_id': card_id, 'error_message': 1}
-    return JsonResponse(response, safe=False)
-
-# Remove card, given a card id
-@csrf_exempt
-def remove_card(request):
-    try:
-        info = json.loads(request.POST.keys()[0])
-        card_id = info['card_id']
-        Card.objects.filter(card_id=card_id).delete()
-        return JsonResponse({'error_message': 1}, safe=False)
-    except Card.DoesNotExist:
-        return JsonResponse({'error_message': -8}, safe=False)
-
 # Add contact given card id and contact info
 @csrf_exempt
 def add_contact(request):
@@ -211,6 +167,8 @@ def add_contact(request):
         return JsonResponse({'error_message': -8}, safe=False)
     except Contact.DoesNotExist:
         return JsonResponse({'error_message': -14}, safe=False)
+
+#######################################################################
 
 # Add tags based on card id and tag names
 @csrf_exempt
@@ -266,21 +224,7 @@ def modify_tag(request):
         return JsonResponse({'error_message': -8}, safe=False)
     return JsonResponse({'error_message': 1}, safe=False)
 
-
-       # card_id = info('card_id')
-        #old_tag = request.GET.get('old_tag')
-        #new_tag = request.POST.get('new_tag')
-        #card = Card.objects.filter(unique_id=card_id)
-        #tags = Tag.objects.filter(tagged_card=card_id)
-        #for tag in tags:
-        #    if tag == old_tag:
-        #        tag = new_tag
-         #       tag.save()
-        #return JsonResponse({'error_message': 1}, safe=False)
-    #except Card.DoesNotExist:
-     #   return JsonResponse({'error_message': -8}, safe=False)
-    #except Tag.DoesNotExist:
-     #   return JsonResponse({'error_message': -3}, safe=False)
+#######################################################################
 
 # Change status based on card id and new status
 @csrf_exempt
@@ -297,6 +241,8 @@ def modify_card_status(request):
         return JsonResponse({'error_message': -8}, safe=False)
     return JsonResponse({'error_message': 1}, safe=False)
 
+#######################################################################
+
 # Edit the notes for a company.
 @csrf_exempt
 def edit_notes(request):
@@ -310,6 +256,8 @@ def edit_notes(request):
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.Exception:
         return JsonResponse({'error_message': -22}, safe=False)
+
+#######################################################################
 
 @csrf_exempt
 def add_task(request):
