@@ -10,7 +10,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
-unit_tests = True
+unit_tests = False
 
 # Home page view
 def home(request):
