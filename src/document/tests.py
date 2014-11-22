@@ -54,6 +54,29 @@ class DocAddExistTestCase(TestCase):
 		error_code = json.loads(self.response.content)['error_message']
 		self.assertEqual(error_code, ERROR_CODES['DOCEXIST'])			
 
+# get document test
+class DocGetTestCase(TestCase):
+	def setUp(self):
+		self.client = Client()
+		user_info = {
+			"username": "seth",
+			"password": "tawfik",
+			"confirm_password": "tawfik",
+			"email": "paulina@bev.com", 
+		}
+		self.client.post('/signup/', user_info)
+
+	def test_analyze_response(self):
+		data = {"name": "test_file",
+					   "pdf": open('document/test.pdf')}
+		self.client.post('/api/document/upload/', data)
+		self.response = self.client.get('/api/document/get/', {})
+		content = json.loads(self.response.content)
+		l = len(content)
+		self.assertEqual(1, l)
+		self.assertEqual(True, "test_file" in content)
+
+
 # delete existing document test
 class DocDelTestCase(TestCase):
 	def setUp(self):
