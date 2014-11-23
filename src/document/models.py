@@ -9,5 +9,6 @@ class Document(models.Model):
     date_uploaded = models.DateTimeField(default=datetime.now())
     pdf = models.FileField(upload_to='documents/', blank=True, null=True)
     uploaded_by = models.ForeignKey(user.models.UserProfile)
+ 
     def __str__(self):
         return self.doc_name

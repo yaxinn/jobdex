@@ -580,3 +580,44 @@ input::-webkit-input-placeholder {
 .icon-plus:before {
   content: "\e600";
 }
+
+/* reports */
+#reports-page form {
+  text-align: left;
+  position: fixed;
+}
+ 
+#reports-page  label {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 1em;
+  font-size: 20px;
+}
+ 
+table {
+  width: 100%;
+}
+ 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+ 
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+ 
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+ 
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+ 
+table th {
+  background-color: #3b333f;
+  color: white;
+}

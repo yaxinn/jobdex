@@ -21,3 +21,4 @@ pip-delete-this-directory.txt
 .sass-cache
 *.css.map
 .DS_Store
+src/db.sqlite3

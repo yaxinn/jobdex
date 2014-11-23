@@ -14,6 +14,7 @@ import os
 BASE_DIR = Path(__file__).ancestor(2)
 STATIC_DIR = BASE_DIR.child("static")
 TEMPLATE_DIR = BASE_DIR.child("templates")
+ASSETS_DIR = BASE_DIR.child("assets")
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,6 +86,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
+MEDIA_ROOT = ASSETS_DIR
+MEDIA_URL = '/assets/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (

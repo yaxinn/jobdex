@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+import settings
 
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'card.views.home', name='home'),
     url(r'^about/$', 'card.views.about', name='about'),
-    url(r'^report/$', 'card.views.report', name='report'),
+    url(r'^report/$', 'document.views.report', name='report'),
     url(r'^login/$', 'user.views.login_view', name='login'),
     url(r'^logout/$', 'user.views.logout_view', name='logout'),
     url(r'^signup/$', 'user.views.signup_view', name='signup'),
@@ -29,7 +30,14 @@ urlpatterns = patterns('',
     url(r'^api/card/remove-tag/$', 'card.views.remove_tag', name='remove_tag'),
     url(r'^api/card/get-tags/$', 'card.views.get_tags', name='get_tags'),
 
+    url(r'^api/document/upload/$', 'document.views.upload_document', name='upload_doc'),
+    url(r'^api/document/delete/$', 'document.views.delete_document', name='delete_doc'),
+    url(r'^api/document/get/$', 'document.views.get_documents', name='get_docs'),
+
     # url(r'^blog/', include('blog.urls')),
+
+    url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT}),
 
     url(r'^admin/', include(admin.site.urls)),
 )
