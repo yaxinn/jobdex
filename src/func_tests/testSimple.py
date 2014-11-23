@@ -1,10 +1,9 @@
 """
-Each file that starts with test... in this directory is scanned for subclasses of unittest.TestCase or testLib.RestTestCase
+Run with "python -m unittest discover -v" in /src/.
 """
 
 import unittest
 import os
-import testLib
 from django.test import Client
 import django
 import traceback
