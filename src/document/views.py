@@ -8,12 +8,13 @@ from card.models import *
 from django.http import JsonResponse
 from django.core import serializers
 from django.db.models.signals import post_save
+from django.shortcuts import redirect
 import json
 
 
-def report(request):
+def documents(request):
     context = {"documents": Document.objects.all()}
-    return render(request, 'report.html', context)
+    return render(request, 'documents.html', context)
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -29,7 +30,8 @@ def upload_document(request):
     except Document.DoesNotExist:
         new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
         new_document.save()
-        return JsonResponse({'error_message': 1}, safe=False)
+        # return JsonResponse({'error_message': 1}, safe=False)
+        return redirect('documents')
 
 @csrf_exempt
 @require_http_methods(["POST"])
