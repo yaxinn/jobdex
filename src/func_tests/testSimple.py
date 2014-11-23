@@ -4,7 +4,6 @@ Each file that starts with test... in this directory is scanned for subclasses o
 
 import unittest
 import os
-import testLib
 from django.test import Client
 import django
 import traceback
