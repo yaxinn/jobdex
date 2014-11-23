@@ -170,9 +170,9 @@
 
                     <h1>Tags:</h1>
                     <p style="text-align: center">
-                        {% for tag in {{displayedCard.tags}} %}
+                        <div ng-repeat="tag in displayedCard.tags" style="text-align: center">
                             #{{tag}}
-                        {% endfor %}
+                        </div>
                     </p>
                         <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
                         <button class="card-edit" ng-click="editRemoveTags()">Remove Tag</button>
