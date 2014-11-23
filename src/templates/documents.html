@@ -6,6 +6,7 @@
     </div>
     <div id="generic-text">
         <div id="documents" ng-controller="DocumentController">
+            <div>
             <table>
                 <tr>
                     <th>View</th>
@@ -21,7 +22,8 @@
                         <td><input src="/static/images/close.png" type="image" data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)"/></td>
                     </tr>
                 {% endfor %}
-            </table>        
+            </table>
+            </div>
         </div>
 
         <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">

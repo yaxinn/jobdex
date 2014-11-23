@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-family: GravityLight;
   text-transform: uppercase;
-  font-size: 21px;
+  font-size: 16px;
   width: 100%;
   line-height: 30px;
 }
@@ -333,7 +333,6 @@ a {
 
 
 #dashboard input[type=submit] {
-  width: 100px;
   height: 100%;
   border-radius: 5px;
   float: none;
@@ -349,6 +348,8 @@ a {
   outline: none;
   font-size: 20px;
   line-height: 30px;
+  border: 0px;
+  margin-top: 10px;
 }
 #dashboard input[type=submit]:hover {
   cursor: pointer;
@@ -563,7 +564,6 @@ input::-webkit-input-placeholder {
   background: transparent;
 }
 
-
 .icon-info {
   color: black;
   font-family: Info;
@@ -617,4 +617,12 @@ table tr:nth-child(odd) {
 table th {
   background-color: #3b333f;
   color: white;
+}
+
+a#logout {
+  margin-left: 50px;
+}
+
+*:focus {
+    outline: 0;
 }

@@ -82,8 +82,8 @@
 
     {% verbatim %}
         <div id="card-detail-top">
-            <input src="/static/images/close.png" type="image" id="closer"/>
-            <button calss="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
+            <input src="/static/images/close.png" type="image" id="closer" ng-click="closeDetails()"/>
+            <button class="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
 
             <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
         </div>
