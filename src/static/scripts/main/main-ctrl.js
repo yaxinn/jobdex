@@ -188,6 +188,7 @@ app.controller('CardController', function($scope, $http){
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
     $scope.displayedCard = {};
+    $scope.displayedCard.contactList = [];
     $scope.detailIsShown = false;
     $scope.isEditing = false;
     $scope.isStatusEditing = false;
@@ -268,7 +269,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
-        $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags');
+        $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
         $scope.displayedCard.contacts = $(angular.element(card)[0]).data('contacts').split(",");
         $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];
         $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
@@ -276,6 +277,21 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('id');
         $scope.detailIsShown = true;
+        var contactObj = {};
+        for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
+            
+            contactObj.name = $scope.displayedCard.contacts[i];
+            console.log(contactObj.name);
+            contactObj.email = $scope.displayedCard.contacts[i+1];
+            console.log(contactObj.email);
+            contactObj.phone = $scope.displayedCard.contacts[i+2];
+            console.log(contactObj.phone);
+
+            $scope.displayedCard.contactList.push(contactObj);
+            contactObj = {};
+        }
+
+        
     }
 
     $scope.create_card = function(){
@@ -446,7 +462,8 @@ app.controller('CardController', function($scope, $http){
         var add_email = $scope.add_email;
         var add_phone = $scope.add_phone;
 
-        var req = JSON.stringify({card_id: card_id, 
+        var req = JSON.stringify(
+            {card_id: card_id, 
             add_name: add_name, 
             add_email: add_email,
             add_phone: add_phone,
@@ -516,15 +533,14 @@ app.controller('CardController', function($scope, $http){
     }
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.edit_contact = function() {
+    $scope.edit_contact = function(oldName) {
         var card_id = $scope.displayedCard.id;
         var new_name = $scope.new_name;
         var new_email = $scope.new_email;
         var new_phone = $scope.new_phone;
-        var current_name = $scope.displayedCard.contactName;
+        var current_name = oldName;
 
-        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: current_name};
-
+        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: oldName};
         $http.post('/api/card/edit-contact/', req).
             success(function(data, status, headers, config) {
 
