@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
 <div id="reports-page">
     <div class="banner">
         <h1>Reports</h1>
@@ -33,4 +34,9 @@
         </form>
     </div>
 </div>
+{% else %}
+<div id="generic-text">
+    <p>Please login to see your report!</p>
+</div>
+{% endif %}
 {% endblock %}
