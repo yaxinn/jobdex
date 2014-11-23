@@ -117,40 +117,45 @@
                         <button class="card-edit" ng-click="changeStatus()">Save new status</button>
                 </div>
                 <div id="contacts" class="tab">
-                    <h1>Contacts:</h1>
+                    <div ng-repeat="obj in displayedCard.contactList">
+                    <h1>Contacts:</h1> 
                     <h2>Name:</h2>
-                        <p style="text-align: center">{{displayedCard.contactName}}</p>
+                        <p style="text-align: center">{{obj.name}}</p>
                     <h2>Email:</h2>
-                        <p style="text-align: center">{{displayedCard.contactEmail}}</p>
+                        <p style="text-align: center">{{obj.email}}</p>
                     <h2>Phone:</h2>
-                        <p style="text-align: center">{{displayedCard.contactPhone}}</p>
+                        <p style="text-align: center">{{obj.phone}}</p>
+                    <button class="card-edit" ng-click="editContact()">Edit</button>
+                    <div class="edit-fields" ng-show="isContactEditing">
+                        <label for="new-name">New Name:</label>
+                            <input type="text" name="new-name" ng-model="new_name">
+                        <br>
+                        <label for="new-email">New Email:</label>
+                            <input type="text"  name="new-email" ng-model="new_email">
+                        <br>
+                        <label for="new-phone">New Phone:</label>
+                            <input type="text" name="new-phone" ng-model="new_phone">
+                        <br>
+                        <button class="card-edit" ng-click="edit_contact(obj.name)">Save new contact</button>
+                    </div>
+                    </div>
 
-                        <button class="card-edit" ng-click="editContact()">Edit</button>
-                        <button class="card-edit" ng-click="editAddContact()">Add</button>
-                        <div class="edit-fields" ng-show="isContactEditing">
-                            <label for="new-name">New Name:</label>
-                                <input type="text" placeholder="{{displayedCard.contactName}}" name="new-name" ng-model="new_name">
-                            <br>
-                            <label for="new-email">New Email:</label>
-                                <input type="text" placeholder="{{displayedCard.contactEmail}}" name="new-email" ng-model="new_email">
-                            <br>
-                            <label for="new-phone">New Phone:</label>
-                                <input type="text" placeholder="{{displayedCard.contactPhone}}"name="new-phone" ng-model="new_phone">
-                            <br>
-                            <button class="card-edit" ng-click="edit_contact()">Save new contact</button>
-                        </div>
-                        <div class="edit-fields" ng-show="isContactAdding">
-                            <label for="new-name">New Name:</label>
-                                <input type="text" name="add-name" ng-model="add_name">
-                            <br>
-                            <label for="new-email">New Email:</label>
-                                <input type="text" name="add-email" ng-model="add_email">
-                            <br>
-                            <label for="new-phone">New Phone:</label>
-                                <input type="text" name="add-phone" ng-model="add_phone">
-                            <br>
-                            <button class="card-edit" ng-click="add_contact()">Add new contact</button>
-                        </div>
+
+                    
+                    <button class="card-edit" ng-click="editAddContact()">Add</button>
+                    <div class="edit-fields" ng-show="isContactAdding">
+                        <label for="new-name">New Name:</label>
+                            <input type="text" name="add-name" ng-model="add_name">
+                        <br>
+                        <label for="new-email">New Email:</label>
+                            <input type="text" name="add-email" ng-model="add_email">
+                        <br>
+                        <label for="new-phone">New Phone:</label>
+                            <input type="text" name="add-phone" ng-model="add_phone">
+                        <br>
+                        <button class="card-edit" ng-click="add_contact()">Add new contact</button>
+                    </div>
+
                 </div>
 
                 <div id="notes" class="tab">

@@ -303,6 +303,7 @@ app.controller('CardController', function($scope, $http){
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
     $scope.displayedCard = {};
+    $scope.displayedCard.contactList = [];
     $scope.detailIsShown = false;
 
     $scope.isEditing = false;
@@ -394,6 +395,19 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
         $scope.detailIsShown = true;
+        var contactObj = {};
+        for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
+            
+            contactObj.name = $scope.displayedCard.contacts[i];
+            console.log(contactObj.name);
+            contactObj.email = $scope.displayedCard.contacts[i+1];
+            console.log(contactObj.email);
+            contactObj.phone = $scope.displayedCard.contacts[i+2];
+            console.log(contactObj.phone);
+
+            $scope.displayedCard.contactList.push(contactObj);
+            contactObj = {};
+        }
     };
 
     $scope.showCardForm = false;
@@ -497,24 +511,25 @@ app.controller('CardController', function($scope, $http){
     //add contact for the given card_id
     $scope.add_contact = function(cardID){
 
+        var card_id = $scope.displayedCard.id;
         var add_name = $scope.add_name;
         var add_email = $scope.add_email;
         var add_phone = $scope.add_phone;
 
-        var req = JSON.stringify({card_id: cardID,
-            add_name: add_name,
+        var req = JSON.stringify(
+            {card_id: card_id, 
+            add_name: add_name, 
             add_email: add_email,
             add_phone: add_phone,
         });
 
-        $http.post('/api/card/' + cardID + '/add-contact', req).
+        $http.post('/api/card/add-contact/', req).
             success(function(data, status, headers, config){
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    console.log(data);
                     location.reload();
                 }
 
@@ -522,9 +537,7 @@ app.controller('CardController', function($scope, $http){
             }).error(function(data, status, headers, config){
                 console.log(data);
         });
-
-        $scope.card = {};
-    };  
+    };
 
 
  //Add task for a given card_id
