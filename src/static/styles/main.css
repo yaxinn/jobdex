@@ -579,12 +579,12 @@ input::-webkit-input-placeholder {
 }
 
 /* reports */
-#reports-page form {
+#documents-page form {
   text-align: left;
-  position: fixed;
+  position: relative;
 }
  
-#reports-page  label {
+#documents-page  label {
   display: inline-block;
   width: 200px;
   text-align: right;
