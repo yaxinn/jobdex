@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-family: GravityLight;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 21px;
   width: 100%;
   line-height: 30px;
 }
@@ -112,8 +112,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 70%;
   margin: 0 auto;
   padding: 1em;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
 }
 #generic-text p {
   font-size: 20px;
@@ -237,8 +235,8 @@ a {
 }
 #card-detail-top button {
   padding: 0;
-  background: white;
-  border: 1px solid black;
+  background: red;
+  border: 0px;
   border-radius: 5px;
   width: 75px;
   height: 25px;
@@ -249,6 +247,7 @@ a {
   position: relative;
   bottom: 17px;
   left: 740px;
+  color: white;
 }
 
 #card-detail-top button:hover {
@@ -277,7 +276,7 @@ a {
   color: white;
 }
 #card-detail #card-detail-navbar li:hover {
-  background: #003973;
+  background: #3B333F;
 }
 #card-detail #card-detail-navbar li:hover a {
   color: white;
@@ -322,7 +321,7 @@ a {
 }
 
 .tLink {
-  padding:9px 15px;
+  padding:5px;
   display:inline-block;
   border-radius:3px 3px 0px 0px;
   background: transparent;
@@ -343,7 +342,7 @@ a {
   margin-top: 1em;
   font-family: GravityLight;
   border: 1px solid black;
-  background: #ff851b;
+  background: #CF5946;
   color: white;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -355,7 +354,7 @@ a {
 }
 #dashboard input[type=submit]:hover {
   cursor: pointer;
-  background: #edaa4e;
+  background: #CF5946;
 }
 #dashboard label {
   display: inline-block;
@@ -500,11 +499,11 @@ a {
 
 /* search */
 a {
-  color: #69C;
+  color: #3B333F;
   text-decoration: none;
 }
 a:hover {
-  color: #F60;
+  color: #CF5946;
 }
 
 

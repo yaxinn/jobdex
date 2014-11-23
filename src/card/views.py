@@ -75,8 +75,6 @@ def create_deck(request):
 @csrf_exempt
 def add_card(request):
 
-    print request
-
     if unit_tests:
         deck_id = request.POST['deck_id']
         deck = Deck.objects.get(unique_id=deck_id)
@@ -101,9 +99,6 @@ def add_card(request):
 
     new_card = Card(job_title=job_title, status=status, notes=notes, card_deck=deck)
     new_card.save()
-
-    print "@@"
-    print new_card
 
     new_contact = Contact(name=contact_name, phone=contact_phone, email=contact_email, associated_card=new_card)
     new_contact.save()
