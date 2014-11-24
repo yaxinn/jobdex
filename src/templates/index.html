@@ -131,6 +131,7 @@
                         <h2>Phone:</h2>
                         <p style="text-align: center">{{contact.phone}}</p>
                         <button class="card-edit" ng-click="editContact()">Edit</button>
+                        <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button>
                         <div class="edit-fields" ng-show="isContactEditing">
                             <label for="new-name">New Name:</label>
                             <input type="text" name="new-name" ng-model="new_name">

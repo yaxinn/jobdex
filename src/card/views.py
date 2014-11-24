@@ -151,6 +151,7 @@ def get_contacts(request):
     return JsonResponse(contacts_output, safe=False)
 
 # Remove contact, given a card id and contact name
+@csrf_exempt
 def remove_contact(request):
     try:
         if testing:
