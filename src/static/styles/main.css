@@ -221,6 +221,7 @@ a {
 }
 
 #card-detail {
+  visibility: hidden;
   height: 600px;
   border: 1px solid black;
   border-radius: 5px;

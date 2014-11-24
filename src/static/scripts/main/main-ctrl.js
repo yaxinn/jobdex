@@ -387,6 +387,9 @@ app.controller('CardController', function($scope, $http){
 
     $scope.showDetails = function(card) {
         //console.log($(angular.element(card)[0]).data('company'));
+        $('#card-detail').css({
+            'visibility': 'visible',
+        });
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
