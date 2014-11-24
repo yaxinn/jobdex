@@ -3,11 +3,36 @@
 {% if user.is_authenticated %}
 <div id="dashboard" ng-controller="CardController">
     <div class="banner">
+        <button class="icon-plus" ng-click="create_deck_helper()"></button>
+            <!--<span class="icon-plus"></span>-->
+
+        <form>
+            <input id="search-bar" type="search" placeholder="search">
+        </form>
         <h1>{{user}}'s Dashboard</h1>
     </div>
-    <div id="menu-items">
+    <div id="new-deck" ng-show="showDeckForm">
+              
+                    <div class="deck-company">
+                        <form>
+                            <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="deck.companyName"/>
+                            <br/>
+                            <label for="company-description">Company Description:</label><input type="text" name="company-description" ng-model="deck.companyDescription"/>
+                            <br/>
+                            <input type="submit" value="Create" ng-click="create_deck()"/>
+                            <input type="submit" value="Cancel" ng-click="showDeckForm=false">
+                        </form>
+                    </div>
+               
+    </div>
+    <div class="deck-exists" ng-show="deckExists">
+        <h1>This deck already exists!</h1>
+        <input type="submit" value="OK" ng-click="deckExists=false"/>
+    </div>
+    <div id="menu-items" ng-show="showCardForm">
         <div id="add-card">
-            <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="card.companyName">
+            <form>
+            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
             <br>
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
@@ -22,59 +47,56 @@
             <br>
             <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
             <br>
-            <label for="position">Position:</label><input type="text" name="position" ng-model="card.position">
-            <br>
             <label for="contact-name">Contact Name:</label><input type="text" name="contact-name" ng-model="card.contactName">
             <br>
-            <label for="contact-email">Contact Email:</label><input type="text" name="contact-email" ng-model="card.contactEmail">
+            <label for="contact-email">Contact Email:</label><input type="email" name="contact-email" ng-model="card.contactEmail">
             <br>
             <label for="contact-phone">Contact Phone:</label><input type="text" name="contact-phone" ng-model="card.contactPhone">
             <br>
-            <input type="submit" value="Add Card" ng-click="create_card()">
+            <input type="submit" value="Add Card" ng-click="add_card()">
+            <input type="submit" value="Cancel" ng-click="showCardForm=false">
+
+        </form>
         </div>
     </div>
-    <div id="cards">
-        {% for card in cards %}
-            <div class="card">
-                <div class="card-top">
-                    <input src="/static/images/close.png" type="image" data-unique_id={{card.unique_id}} ng-click="remove_card($event.target)"/>
+    <div id="decks">
+        {% for deck in decks %}
+            <div class="deck">
+                <div class="deck-top">
+                    <input src="/static/images/close.png" type="image" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"/>
+
+                     {{deck.associated_company.name}}
+
                 </div>
-                <div class="card-company">
-                    <h1>{{card.associated_company.name}}</h1>
-                </div>
+                {% for card in deck.card_set.all %}
                 <div class="card-position card-field">
-                    <div class="card-label">Job Title:</div>
-                    <p>{{card.job_title}}</p>
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" data-tags="{{card.tag_set.all}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
-                <div class="card-status card-field">
-                    <div class="card-label">Status:</div>
-                    <p>{{card.status}}</p>
-                </div>
-                <div class="card-tags card-field">
-                    <div class="card-label">Tags:</div>
-                    <p>
-                    {% for tag in card.tag_set.all %}
-                        #{{tag}}
-                    {% endfor %}
-                    </p>
-                </div>
-                <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-tags="{{card.tag_set.all}}" data-status="{{card.status}}" data-id="{{card.unique_id}}" ng-click="showDetails($event.target)">Show More</button>
+                {% endfor %}
+                
+                <button class="add-card-detail-btn" data-deck-id="{{deck.unique_id}}" ng-click="add_card_helper($event.target)">+ Add Position...</button>         
+
             </div>
         {% endfor %}
     </div>
+    <!--<div class="confirmation" ng-show"deleteConfirm">
+
+    </div>-->
     <div id="card-detail" ng-show="detailIsShown">
 
     {% verbatim %}
         <div id="card-detail-top">
-            <img src="/static/images/close.png" id="card-detail-close" ng-click="closeDetails()"/>
-            <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>            
+            <input src="/static/images/close.png" type="image" id="closer" ng-click="closeDetails()"/>
+            <button class="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
+
+            <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
         </div>
-        
         <div id="card-detail-navbar">
+
             <ul id="tab-links">
-                <li class="grid-20"><a class="tLink" href="#main" class="active-tab">Main</a></li>
+                <li class="grid-20 active-tab"><a class="tLink" href="#main">Main</a></li>
                 <li class="grid-20"><a class="tLink" href="#contacts" >Contacts</a></li>
-                <li class="grid-20"><a class="tLink" href="#notes" >Notes and Tags</a></li>
+                <li class="grid-20"><a class="tLink" href="#notes" >Notes</a></li>
                 <li class="grid-20"><a class="tLink" href="#tasks" >Tasks</a></li>
                 <li class="grid-20"><a class="tLink" href="#documents">Documents</a></li>
             </ul>
@@ -85,54 +107,109 @@
             <div id ="tab-content">
                 <div id="main" class="active-tab">
                     <h1>Status: {{displayedCard.status}}</h1>
-                    <button class="card-edit" ng-click="edit()">Edit</button>
-                    <div class="edit-fields" ng-show="isEditing">
+                    <button class="card-edit" ng-click="editStatus()">Edit</button>
+                    <div class="edit-fields" ng-show="isStatusEditing">
                         <label for="new-status">New Status:</label>
                             <select name="new-status" ng-model="newStatus">
                                 <option value="Interested" selected>Interested</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Complete">Complete</option>
                                 <option value="Rejected">Rejected</option>
-                                <option value="Recieved Offer">Recieved Offer</option>
+                                <option value="Received Offer">Received Offer</option>
                             </select>
                             <br>
                         <button class="card-edit" ng-click="changeStatus()">Save new status</button>
                     </div>
                 </div>
                 <div id="contacts" class="tab">
-                    <h1>Contacts:</h1>
-                    <h2>Name:</h2>
-                        <p style="text-align: center">{{displayedCard.contactName}}</p>
-                    <h2>Email:</h2>
-                        <p style="text-align: center">{{displayedCard.contactEmail}}</p>
-                    <h2>Phone:</h2>
-                        <p style="text-align: center">{{displayedCard.contactPhone}}</p>
+                    <div ng-repeat="contact in displayedCard.contactList">
+                        <h1>Contacts:</h1> 
+                        <h2>Name:</h2>
+                        <p style="text-align: center">{{contact.name}}</p>
+                        <h2>Email:</h2>
+                        <p style="text-align: center">{{contact.email}}</p>
+                        <h2>Phone:</h2>
+                        <p style="text-align: center">{{contact.phone}}</p>
+                        <button class="card-edit" ng-click="editContact()">Edit</button>
+                        <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button>
+                        <div class="edit-fields" ng-show="isContactEditing">
+                            <label for="new-name">New Name:</label>
+                            <input type="text" name="new-name" ng-model="new_name">
+                            <br>
+                            <label for="new-email">New Email:</label>
+                            <input type="text"  name="new-email" ng-model="new_email">
+                            <br>
+                            <label for="new-phone">New Phone:</label>
+                            <input type="text" name="new-phone" ng-model="new_phone">
+                            <br>
+                            <button class="card-edit" ng-click="edit_contact(new_name, new_email, new_phone, contact.name)">Save new contact</button>
+                        </div>
+                    </div>
+
+
+
+                    <button class="card-edit" ng-click="editAddContact()">Add</button>
+                    <div class="edit-fields" ng-show="isContactAdding">
+                        <label for="new-name">New Name:</label>
+                        <input type="text" name="add-name" ng-model="add_name">
+                        <br>
+                        <label for="new-email">New Email:</label>
+                        <input type="text" name="add-email" ng-model="add_email">
+                        <br>
+                        <label for="new-phone">New Phone:</label>
+                        <input type="text" name="add-phone" ng-model="add_phone">
+                        <br>
+                        <button class="card-edit" ng-click="add_contact()">Add new contact</button>
+                    </div>
+
                 </div>
 
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
                     <p style="text-align: center">{{displayedCard.notes}}</p>
-                    <h1>Tags:</h1>                    
-                    <p style="text-align: center">
-                        {% for tag in {{displayedCard.tags}} %}
-                            #{{tag}}
-                        {% endfor %}
-                    </p>
-                    <button class="card-edit" ng-click="edit()">Edit Tags</button>
-                    <div class="edit-fields" ng-show="isEditing">
-                           <label for="new-tag">New Tags:</label><input type="text" name="new-tag" ng-model="newTag">
-                         <button class="card-edit" ng-click="changeTag()">Save new tags</button>
+                    <button class="card-edit" ng-click="editNotes()">Edit</button>
+                    <div class="edit-fields" ng-show="isNotesEditing">
+                        <label for="new-notes">New notes:</label>
+                        <input type="text" name="new-notes" ng-model="new_notes">
+                        <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
+                    </div>
+
+                    <h1>Tags:</h1>
+                    <div ng-repeat="tag in displayedCard.tags" style="text-align: center">   
+                        <p style="text-align: center">
+                        #<span class="single-tag" ng-click="editTag(tag)" ng-show="!isEditingTag(tag)">
+                            {{tag}}
+                        </span>
+                        <input type="text" size="30" class="changed-tag-input" ng-show="isEditingTag(tag)" ng-model="newTag" placeholder="{{selectedTag}}">
+                        <button class="card-edit" ng-click="changeTag(tag, newTag)" ng-show="isEditingTag(tag)">Save</button>
+                        </p>
+                    </div>
+                        <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
+                        <button class="card-edit" ng-click="editRemoveTags()">Remove Tag</button>
+                    <div class="edit-fields" ng-show="isTagAdding">
+                           <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
+                         <button class="card-edit" ng-click="add_tag()">Save new tags</button>
+                    </div>
+                    <div class="edit-fields" ng-show="isTagRemoving">
+                         <label for="old-tag">Remove a Tag</label><input type="text" name="old-tag" ng-model="old_tag">
+                         <button class="card-edit" ng-click="remove_tag()">Remove tag</button>
                     </div>
                 </div>
 
                 <div id="tasks" class="tab">
                     <h1>Tasks:</h1>
                     <p style="text-align: center">{{displayedCard.task}}</p>
+                    <button class="card-edit" ng-click="edit()">Add New Task</button>
+                    <div class="edit-fields" ng-show="isEditing">
+                        <label for="new-task">New task:</label>
+                        <input type="text" name="new-task" ng-model="new_task">
+                        <button class="card-edit" ng-click="add_task()">Save New Task</button>
+                    </div>
                 </div>
 
                 <div id="documents" class="tab">
                     <h1>Documents:</h1>
-                    <p style="text-align: center">Not yet implemented.</p>
+                    <p style="text-align: center">Right now, documents are implemented on a per-user basis, as opposed to a per-card per-user basis.</p>
                 </div> 
             </div>
 

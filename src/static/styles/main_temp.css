@@ -1,0 +1,494 @@
+@import url(unsemantic-grid-base.css);
+@import url(unsemantic2.css);
+@font-face {
+  font-family: Futura_Oblique;
+  src: url(../fonts/futura_oblique.ttf);
+}
+
+@font-face {
+  font-family: SourceSansRegular;
+  src: url(../fonts/SourceSansPro-Regular.otf);
+}
+
+@font-face {
+  font-family: SourceSansLight;
+  src: url(/static/fonts/SourceSansPro-Light.otf);
+}
+
+@font-face {
+  font-family: SourceSansItalic;
+  src: url(/static/fonts/SourceSansPro-It.otf);
+}
+
+@font-face {
+  font-family: SourceSansBold;
+  src: url(../fonts/SourceSansPro-Bold.otf);
+}
+
+@font-face {
+  font-family: GravityLight;
+  src: url(../fonts/Gravity-Light.ttf);
+}
+
+@font-face {
+  font-family: Plus;
+  src: url(../fonts/plus.ttf);
+}
+
+@font-face {
+  font-family: Info;
+  src: url(../fonts/info.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: none;
+}
+
+#container {
+  background: #ecf0f1;
+  margin: 0 auto;
+  font-family: GravityLight;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+  font-family: GravityLight;
+  text-transform: uppercase;
+  font-size: 25px;
+  width: 100%;
+  line-height: 30px;
+}
+
+#navbar {
+  background: #3b333f;
+}
+#navbar a {
+  font-size: 19px;
+  font-family: GravityLight;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: 36px;
+  color: white;
+}
+
+#footer {
+  font-family: GravityLight;
+  background: #3b333f;
+  color: white;
+  height: 100px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 19px;
+}
+#footer p {
+  padding-top: 1em;
+}
+
+#dashboard {
+  min-height: 900px;
+  background: #D5DDE6;
+}
+
+#dashboard button:hover {
+  cursor: pointer
+}
+
+#about-page {
+  background: #ecf0f1;
+}
+
+#generic-text {
+  height: 500px;
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  padding: 1em;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+#generic-text p {
+  font-size: 20px;
+}
+
+#menu-items {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 2em;
+  width: 700px;
+}
+
+
+#new-card-btn {
+  margin: -12px auto;
+  width: auto;
+}
+
+#decks {
+  height: 500px;
+  color: black;
+}
+
+.banner {
+  background: #D5DDE6;
+  padding: 1em;
+  height: 30px;
+  color: black;
+  display: inline-flex;
+  width: 100%;
+}
+
+.deck {
+  float: left;
+  width: 200px;
+  height: auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #758CA6;
+  padding: 1em;
+  margin-left: 1em;
+  margin-top: 3em;
+}
+.deck .deck-top {
+  height: 20px;
+  color: white;
+  font-size: 19px;
+  display: inline;
+}
+.deck .deck-top img {
+  float: right;
+}
+.deck .deck-top img:hover {
+  cursor: pointer;
+}
+.card h1 {
+  font-size: 20px;
+  color: white;
+}
+.deck .card-field {
+  padding: 0.5em;
+  background: white;
+  border-radius: 5px;
+  margin-top: 0.5em;
+}
+.deck .card-field p {
+  /*text-align: center;*/
+}
+.deck .card-field .card-label {
+  color: #3b333f !important;
+  font-family: SourceSansBold;
+  text-align: center;
+}
+
+.deck .card-detail-btn {
+  padding: 0;
+  background: white;
+  border-radius: 5px;
+  width: 100%;
+  height: 20px;
+  margin-top: 0em;
+  border: None;
+  font-size: 17px;
+  font-family: GravityLight;
+  text-align: left;
+}
+
+.deck .add-card-detail-btn {
+  padding: 0;
+  background: white;
+  border-radius: 5px;
+  width: 60%;
+  height: 20px;
+  margin-top: 1em;
+  border: None;
+  font-size: 17px;
+  font-family: GravityLight;
+  text-align: left;
+}
+.deck button:hover {
+  cursor: pointer;
+}
+
+#card-detail {
+  height: 500px;
+  border: 1px solid black;
+  width: 800px;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #79a9da;
+}
+
+.tLink {
+  padding:9px 15px;
+  display:inline-block;
+  border-radius:3px 3px 0px 0px;
+  background:#7FB5DA;
+  font-size:16px;
+  font-weight:600;
+  color:#4c4c4c;
+  transition:all linear 0.15s;
+}
+
+#card-detail #card-detail-tabs {
+  background: white;
+}
+
+#dashboard input[type=submit] {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+  font-family: GravityLight;
+  border: 1px solid black;
+  background: #ff851b;
+  color: white;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  width: 150px;
+  height: 30px;
+  outline: none;
+  font-size: 20px;
+}
+#dashboard input[type=submit]:hover {
+  cursor: pointer;
+  background: #edaa4e;
+}
+#dashboard label {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 1em;
+  font-size: 20px;
+}
+#dashboard input[type=text] {
+  height: 20px;
+  width: 200px;
+}
+
+#lean_overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none;
+}
+
+.popupContainer {
+  position: absolute;
+  width: 330px;
+  height: auto;
+  left: 45%;
+  top: 80px;
+  background: #FFF;
+}
+
+.popupHeader {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-family: GravityLight;
+}
+
+.popupHeader {
+  background: #F4F4F2;
+  position: relative;
+  padding: 10px 20px;
+  padding-top: 12px;
+  border-bottom: 1px solid #DDD;
+  font-weight: bold;
+}
+
+.popupHeader .modal_close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.popupBody {
+  padding: 20px;
+}
+
+.centeredText {
+  text-align: center;
+  margin: 20px 0;
+  clear: both;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.action_btns {
+  clear: both;
+  overflow: hidden;
+}
+
+.action_btns a {
+  display: block;
+}
+
+/*.user_login {display: none;}*/
+.user_login label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #DDD;
+  color: #666;
+}
+
+.user_login .checkbox {
+  margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+}
+
+.forgot_password, .create_account {
+  font-family: GravityLight;
+  display: block;
+  margin: 20px 0 10px;
+  clear: both;
+  overflow: hidden;
+  text-decoration: none;
+  color: #79a9da;
+}
+
+.user_register {
+  display: none;
+}
+
+.user_register label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user_register input[type="text"], .user_register input[type="email"], .user_register input[type="password"] {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #DDD;
+  color: #666;
+}
+
+.user_register input[type="checkbox"] {
+  float: left;
+  margin-right: 5px;
+}
+
+.user_register input[type="checkbox"] + label {
+  float: left;
+}
+
+.user_register .checkbox {
+  margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+}
+
+
+/* search */
+a {
+  color: #69C;
+  text-decoration: none;
+}
+a:hover {
+  color: #F60;
+}
+
+
+input {
+  outline: none;
+}
+input[type=search] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  font-family: inherit;
+  font-size: 100%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+  display: none; 
+}
+
+
+input[type=search] {
+  background: #ededed url(http://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  border: solid 1px #ccc;
+  padding: 7px 10px 7px 32px;
+  width: 95px;
+  /*margin-left: 50px;*/
+  
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 5em;
+  
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+input[type=search]:focus {
+  width: 130px;
+  background-color: #fff;
+  border-color: #758CA6;
+  
+  -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+  -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+  box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+
+input:-moz-placeholder {
+  color: #999;
+}
+input::-webkit-input-placeholder {
+  color: #999;
+}
+
+/* custom icons */
+.icon-plus {
+  color: #D15B47;
+  font-family: Plus;
+  font-size: 32px;
+  padding-right: 10px;
+  border: none;
+  background: transparent;
+}
+
+
+.icon-info {
+  color: black;
+  font-family: Info;
+  font-size: 22px;
+}
+
+.icon-info:before {
+  float: right;
+  content: "\e601";
+}
+.icon-plus:before {
+  content: "\e600";
+}

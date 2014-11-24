@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div id="documents-page">
+    <div class="banner">
+        <h1>{{user}}'s Documents</h1>
+    </div>
+    <div id="generic-text">
+        <div id="documents" ng-controller="DocumentController">
+            <div>
+            <table>
+                <tr>
+                    <th>View</th>
+                    <th>Document Name</th>
+                    <th>Date Uploaded</th>      
+                    <th>Delete</th>
+                </tr>
+                {% for document in documents %}
+                    <tr class="document">
+                        <td><img src="/static/images/pdf.png" data-url="/assets/{{document.pdf}}" class="document-url" ng-click="showDocument($event.target)"></td>
+                        <td>{{document}}</td>
+                        <td>{{document.date_uploaded}}</td>
+                        <td><input src="/static/images/close.png" type="image" data-id="{{document.unique_id}}" class="document-delete" ng-click="deleteDocument($event.target)"/></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </div>
+
+        <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">
+            <label for="name">Name:</label><input type="text" name="name" required/>
+            <br>
+            <label for="pdf">Document:</label><input type="file" name="pdf"/><input type="submit">
+        </form>
+    </div>
+</div>
+{% else %}
+<div id="generic-text">
+    <p>Please login to see your document!</p>
+</div>
+{% endif %}
+{% endblock %}
