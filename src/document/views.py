@@ -14,7 +14,7 @@ import json
 unit_tests = False
 
 def documents(request):
-    context = {"documents": Document.objects.all()}
+    context = {"documents": Document.objects.all().filter(uploaded_by=request.user.user_profile)}
     return render(request, 'documents.html', context)
 
 @csrf_exempt
