@@ -186,6 +186,16 @@ app.controller('CardController', function($scope, $http){
     var deck_id_table = [];
 
 //Deck
+    $scope.showDeckForm = false;
+    $scope.create_deck_helper = function(){
+        $('#new-deck').css({
+            'visibility': 'visible',
+        });
+        $scope.showDeckForm = true;
+
+    }
+
+    $scope.deckExists = false;
     $scope.create_deck = function(){
 
         var req = JSON.stringify({companyName: $scope.deck.companyName, 
@@ -194,6 +204,14 @@ app.controller('CardController', function($scope, $http){
         $http.post('/api/user/create-deck/', req).
             success(function(data, status, headers, config){
                 console.log(data);
+
+                if (data.error_message == -23) {
+                    $('.deck-exists').css({
+                        'visibility': 'visible',
+                    });
+                    $scope.deckExists = true;
+                    $scope.showDeckForm = false;
+                }
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
@@ -280,7 +298,7 @@ app.controller('CardController', function($scope, $http){
         var card_id = $scope.displayedCard.id;
         var old_tag = $scope.old_tag;
 
-        var req = JSON.stringify({card_id: card_id, old_tag: old_tag});
+        var req = JSON.stringify({card_id: card_id, target_tag: old_tag});
         
         $http.post('/api/card/remove-tag/', req).
             success(function(data, status, headers, config){
@@ -380,6 +398,9 @@ app.controller('CardController', function($scope, $http){
 
     $scope.showDetails = function(card) {
         //console.log($(angular.element(card)[0]).data('company'));
+        $('#card-detail').css({
+            'visibility': 'visible',
+        });
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
@@ -390,6 +411,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
+        $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
         $scope.detailIsShown = true;
         var contactObj = {};
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
@@ -404,16 +426,29 @@ app.controller('CardController', function($scope, $http){
             $scope.displayedCard.contactList.push(contactObj);
             contactObj = {};
         }
+
+        for (var i = 0; i < $scope.displayedCard.tags.length; i++){
+            $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].substring($scope.displayedCard.tags[i].indexOf(":") + 1);
+            $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].slice(">", -1);
+            if (i == $scope.displayedCard.tags.length - 1){
+                $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].slice(">", -1);
+            }
+        }
+        
     };
 
     $scope.showCardForm = false;
     $scope.displayedDeck = {};
     $scope.add_card_helper = function(deck) {
+        $('#menu-items').css({
+            'visibility': 'visible',
+        });
         $scope.displayedDeck.deckID = $(angular.element(deck)[0]).data('deck-id');
         $scope.showCardForm = true;
     };
 
     $scope.add_card = function() {
+
         $scope.showCardForm = false;
         console.log($scope.displayedDeck.deckID);
         var req = JSON.stringify({deck_id: $scope.displayedDeck.deckID,
