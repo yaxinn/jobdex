@@ -732,11 +732,6 @@ app.controller('DocumentController', function($scope, $http) {
 
     //    $scope.doc = {};
     //};
-
-    $scope.toLocalTZ = function(date) {
-        return date.toLocaleTimeString()
-    }
-
     $scope.showDocument = function(doc) {
         var docURL = $(angular.element(doc)[0]).data('url');
         window.location.href = "/static/web/viewer.html?file=" + docURL;

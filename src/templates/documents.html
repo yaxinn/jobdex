@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if user.is_authenticated %}
 <div id="documents-page">
+{% if user.is_authenticated %}
     <div class="banner">
         <h1>{{user}}'s Documents</h1>
     </div>
@@ -33,10 +33,10 @@
             <label for="pdf">Document:</label><input type="file" name="pdf"/><input type="submit">
         </form>
     </div>
-</div>
 {% else %}
 <div id="generic-text">
     <p>Please login to see your document!</p>
 </div>
 {% endif %}
+</div>
 {% endblock %}

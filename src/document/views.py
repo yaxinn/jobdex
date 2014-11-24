@@ -12,6 +12,10 @@ from django.shortcuts import redirect
 import json
 
 unit_tests = False
+ERR_DOC_EXISTS = -9
+ERR_DOC_INVALID = -10
+ERR_DOC_DOES_NOT_EXIST = -11
+
 
 def documents(request):
     if request.user.is_active and request.user.is_authenticated:
@@ -26,10 +30,10 @@ def upload_document(request):
     pdf = request.FILES['pdf']
     user = request.user.user_profile
     if str(pdf).split(".")[-1] != "pdf":
-        return JsonResponse({'error_message': -10}, safe=False)
+        return JsonResponse({'error_message': ERR_DOC_INVALID}, safe=False)
     try:
-        Document.objects.get(doc_name=name)
-        return JsonResponse({'error_message': -9}, safe=False)
+        Document.objects.get(doc_name=name, uploaded_by=request.user.user_profile)
+        return JsonResponse({'error_message': ERR_DOC_EXISTS}, safe=False)
     except Document.DoesNotExist:
         new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
         new_document.save()
@@ -51,9 +55,9 @@ def delete_document(request):
 
         doc = Document.objects.get(unique_id=doc_id)
         doc.delete()
-        return JsonResponse({'error_message': 1}, safe=False)
+        return JsonResponse({'error_message': SUCCESS}, safe=False)
     except Document.DoesNotExist:
-        return JsonResponse({'error_message': -11}, safe=False)
+        return JsonResponse({'error_message': ERR_DOC_DOES_NOT_EXIST}, safe=False)
 
 def get_documents(request):
     user = request.user.user_profile
