@@ -11,7 +11,7 @@ from django.db.models.signals import post_save
 from django.shortcuts import redirect
 import json
 
-testing = True
+testing = False
 SUCCESS = 1
 ERR_DOC_EXISTS = -9
 ERR_DOC_INVALID = -10
