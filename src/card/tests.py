@@ -84,6 +84,7 @@ class RemoveNonexistentDeck(TestCase):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['DECK_DOESNT_EXIST'])
 
+
 ############
 #   CARD   #
 ############
@@ -185,6 +186,41 @@ class RemoveNonexistentCard(TestCase):
     def test_analyze_response(self):
         error_code = json.loads(self.response.content)['error_message']
         self.assertEqual(error_code, ERROR_CODES['CARD_DOESNT_EXIST'])
+
+class GetDeck(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "user36435645",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paul@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "personA",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+        self.response = client.post('/api/card/add-card/', data)
+        self.response2 = client.post('/api/card/all-cards/')
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
 
 ################
 #   CONTACTS   #
@@ -407,6 +443,53 @@ class GetContacts(TestCase):
 
     def test_analyze_response(self):
         self.assertTrue("Bob" in self.contacts.content)
+
+
+class EditContacts(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "user6787867585678",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "Bob",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        self.contacts = client.get('/api/card/get-contacts/', {"card_id": card_id})
+
+        edit_data = {
+            "card_id": card_id,
+            "new_name": "Oprah Winfrey",
+            "new_email": "o@gmail.com",
+            "new_phone": "1234567890",
+            "current_name": "Bob"
+        }
+        client.post('/api/card/edit-contact/', edit_data)
+
+    def test_analyze_response(self):
+        self.assertTrue("Oprah Winfrey" in self.contacts.content)
 
 ################
 #   TAGS   #

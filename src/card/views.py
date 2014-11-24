@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
 unit_tests = False
+DECK_EXISTS_ERROR = -23
 
 # Home page view
 def home(request):
@@ -34,11 +35,11 @@ def get_all_cards(request):
     return JsonResponse(cards_output, safe=False)
 
 # Return all cards of a company, given company name
-def get_company_cards(request):
-    company_name = request.GET.get('company_name')
-    cards = Card.objects.filter(associated_company=company_name)
-    cards_output = serializers.serialize("json", cards)
-    return JsonResponse(cards_output, safe=False)
+# def get_company_cards(request):
+#     company_name = request.GET.get('company_name')
+#     cards = Card.objects.filter(associated_company=company_name)
+#     cards_output = serializers.serialize("json", cards)
+#     return JsonResponse(cards_output, safe=False)
 
 #############################
 # NEW DECK AND CARDS DESIGN #
@@ -47,7 +48,6 @@ def get_company_cards(request):
 # Add card given company name, status, tags, and contact info
 @csrf_exempt
 def create_deck(request):
-
     if unit_tests:
         company_name = request.POST['companyName']
         company_description = request.POST['companyDescription']
@@ -64,8 +64,13 @@ def create_deck(request):
         company = Company(name=company_name, description=company_description)
         company.save()
 
-    new_deck = Deck(associated_company=company, owner=user)
-    new_deck.save()
+    try:
+        Deck.objects.get(associated_company=company, owner=user)
+        response = {'error_message': DECK_EXISTS_ERROR}
+        return JsonResponse(response, safe=False)
+    except Deck.DoesNotExist:
+        new_deck = Deck(associated_company=company, owner=user)
+        new_deck.save()
 
     deck_id = str(new_deck.unique_id)
     response = {'deck_id': deck_id, 'error_message': 1}
@@ -75,26 +80,18 @@ def create_deck(request):
 @csrf_exempt
 def add_card(request):
     if unit_tests:
-        deck_id = request.POST['deck_id']
-        deck = Deck.objects.get(unique_id=deck_id)
-        job_title = request.POST['jobTitle']
-        status = request.POST['status']
-        notes = request.POST['notes']
-        tags = request.POST['tags'].split(',')
-        contact_name = request.POST['contactName']
-        contact_email = request.POST['contactEmail']
-        contact_phone = request.POST['contactPhone']
+        info = request.POST
     else:
         info = json.loads(request.POST.keys()[0])
-        deck_id = info['deck_id']
-        deck = Deck.objects.get(unique_id=deck_id)
-        job_title = info['jobTitle']
-        status = str(info['status'])
-        notes = str(info['notes'])
-        tags = str(info['tags']).split(',')
-        contact_name = str(info['contactName'])
-        contact_email = str(info['contactEmail'])
-        contact_phone = str(info['contactPhone'])
+    deck_id = info['deck_id']
+    deck = Deck.objects.get(unique_id=deck_id)
+    job_title = info['jobTitle']
+    status = str(info['status'])
+    notes = str(info['notes'])
+    tags = str(info['tags']).split(',')
+    contact_name = str(info['contactName'])
+    contact_email = str(info['contactEmail'])
+    contact_phone = str(info['contactPhone'])
 
     new_card = Card(job_title=job_title, status=status, notes=notes, card_deck=deck)
     new_card.save()
