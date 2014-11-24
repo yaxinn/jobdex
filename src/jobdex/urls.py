@@ -30,9 +30,9 @@ urlpatterns = patterns('',
     url(r'^api/card/remove-tag/$', 'card.views.remove_tag', name='remove_tag'),
     url(r'^api/card/get-tags/$', 'card.views.get_tags', name='get_tags'),
 
-    url(r'^api/document/upload/$', 'document.views.upload_document', name='upload_doc'),
-    url(r'^api/document/delete/$', 'document.views.delete_document', name='delete_doc'),
-    url(r'^api/document/get/$', 'document.views.get_documents', name='get_docs'),
+    url(r'^api/document/upload/$', 'document.views.upload_document', name='upload_document'),
+    url(r'^api/document/delete/$', 'document.views.delete_document', name='delete_document'),
+    url(r'^api/document/get/$', 'document.views.get_documents', name='get_documents'),
 
     # url(r'^blog/', include('blog.urls')),
 

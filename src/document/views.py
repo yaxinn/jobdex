@@ -11,7 +11,7 @@ from django.db.models.signals import post_save
 from django.shortcuts import redirect
 import json
 
-testing = False
+testing = True
 SUCCESS = 1
 ERR_DOC_EXISTS = -9
 ERR_DOC_INVALID = -10
@@ -38,6 +38,7 @@ def upload_document(request):
     except Document.DoesNotExist:
         new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
         new_document.save()
+        redirect('documents')
         # return JsonResponse({'error_message': 1}, safe=False)
         return redirect('documents')
 

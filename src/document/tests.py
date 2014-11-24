@@ -8,7 +8,8 @@ ERROR_CODES = {
         "SUCCESS": 1,
         "DOCEXIST": -9,
         "DOCINVALID": -10,
-        "DOCDNEXIST": -11
+        "DOCDNEXIST": -11,
+        "REDIRECT": 302
         }
 
 # add document test
@@ -29,8 +30,7 @@ class DocAddTestCase(TestCase):
         self.response = client.post('/api/document/upload/', data)
 
     def test_analyze_response(self):
-        error_code = json.loads(self.response.content)['error_message']
-        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+        self.assertEqual(self.response.status_code, ERROR_CODES['REDIRECT'])
 
 # add existing document test
 class DocAddExistTestCase(TestCase):
