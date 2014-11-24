@@ -74,7 +74,6 @@ def create_deck(request):
  #Adding a position to the deck
 @csrf_exempt
 def add_card(request):
-
     if unit_tests:
         deck_id = request.POST['deck_id']
         deck = Deck.objects.get(unique_id=deck_id)

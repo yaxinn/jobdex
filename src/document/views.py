@@ -14,8 +14,10 @@ import json
 unit_tests = False
 
 def documents(request):
-    context = {"documents": Document.objects.all().filter(uploaded_by=request.user.user_profile)}
-    return render(request, 'documents.html', context)
+    if request.user.is_active and request.user.is_authenticated:
+        context = {"documents": Document.objects.all().filter(uploaded_by=request.user.user_profile)}
+        return render(request, 'documents.html', context)
+    return render(request, 'index.html', {})
 
 @csrf_exempt
 @require_http_methods(["POST"])
