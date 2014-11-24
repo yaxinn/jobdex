@@ -600,6 +600,9 @@ app.controller('CardController', function($scope, $http){
     $scope.edit_notes = function() {
         var card_id = $scope.displayedCard.id;
         var new_notes = $scope.new_notes;
+        if (new_notes == null) {
+            new_notes = " ";
+        }
         var req = {card_id: card_id, new_notes: new_notes}
 
         $http.post('/api/card/edit-notes/', req).
