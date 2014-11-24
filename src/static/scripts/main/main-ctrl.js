@@ -250,20 +250,32 @@ app.controller('CardController', function($scope, $http){
         });
     };
 
-    /*$scope.changeTag = function(){
+    $scope.selectedTag = "";
+
+    $scope.isEditingTag = function(tagName) {
+        if (tagName == $scope.selectedTag) {
+            return true;
+        }
+        return false;
+    }
+
+    $scope.editTag = function(tagName) {
+        $scope.selectedTag = tagName;
+    }
+    $scope.changeTag = function(oldTag, newTag){
         var cardId = $scope.displayedCard.id;
-        var newTag = $scope.newTag;
 
-        var req = {card_id: cardID, new_tag: newTag};
+        var req = {card_id: cardId, tag_to_replace: oldTag, new_tag: newTag};
+        console.log(oldTag);
 
-        $http.post('/api/card/modify-tag', req).
+        $http.post('/api/card/edit-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    $scope.tags.splice($scope.currentTagIndex, 1);
-                    $scope.tags.push(newTag);
+                    //$scope.tags.splice($scope.currentTagIndex, 1);
+                    //$scope.tags.push(newTag);
                     location.reload(true);
                 }
 
@@ -272,7 +284,7 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
         });
 
-    };*/
+    };
 
     $scope.get_tags = function(cardID){
 

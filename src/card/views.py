@@ -236,7 +236,7 @@ def add_tag(request):
     card = Card.objects.get(card_id=card_id)
 
     for tag in tags:
-        new_tag = Tag(tag=tag, tagged_card=card)
+        new_tag = Tag(tag=tag.strip(), tagged_card=card)
         new_tag.save()
     return JsonResponse({'error_message': 1}, safe=False)
 
@@ -283,7 +283,7 @@ def edit_tag(request):
             info = json.loads(request.POST.keys()[0])
 
         card_id = info['card_id']
-        tag_to_replace = info['tag_to_replace']
+        tag_to_replace = info['tag_to_replace'].strip()
         new_tag = info['new_tag']
 
         card = Card.objects.get(card_id=card_id)
@@ -293,6 +293,9 @@ def edit_tag(request):
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
         return JsonResponse({'error_message': -8}, safe=False)
+    # Add exception handling for if old tag doesn't exist
+    except Tag.DoesNotExist:
+        return JsonResponse({'error_message': -2}, safe=False)
 
 #######################################################################
 

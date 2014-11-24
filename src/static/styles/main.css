@@ -706,3 +706,11 @@ input[type=password]:hover{
   background-color: #3B333F;
 
 }
+
+.single-tag {
+    border-bottom: 1px solid white;
+}
+
+.single-tag:hover {
+    cursor: pointer;
+}
