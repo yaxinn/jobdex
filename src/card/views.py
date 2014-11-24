@@ -35,11 +35,11 @@ def get_all_cards(request):
     return JsonResponse(cards_output, safe=False)
 
 # Return all cards of a company, given company name
-def get_company_cards(request):
-    company_name = request.GET.get('company_name')
-    cards = Card.objects.filter(associated_company=company_name)
-    cards_output = serializers.serialize("json", cards)
-    return JsonResponse(cards_output, safe=False)
+# def get_company_cards(request):
+#     company_name = request.GET.get('company_name')
+#     cards = Card.objects.filter(associated_company=company_name)
+#     cards_output = serializers.serialize("json", cards)
+#     return JsonResponse(cards_output, safe=False)
 
 #############################
 # NEW DECK AND CARDS DESIGN #
