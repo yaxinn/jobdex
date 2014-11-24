@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://127.0.0.1:8000/" />
+<title>cardEditingAndPDF</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">cardEditingAndPDF</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Create Account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;username&quot;]</td>
+	<td>222</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>222@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;password&quot;]</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=confirm_password</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.icon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-name</td>
+	<td>Apple</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-description</td>
+	<td>Yuck.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.add-card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=position</td>
+	<td>hjghj</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=status</td>
+	<td>label=Interested</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=tags</td>
+	<td>ghk</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=notes</td>
+	<td>hjk</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-email</td>
+	<td>ghjk@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-phone</td>
+	<td>9999999999</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-name</td>
+	<td>jklhjk</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add Card']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Contacts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#contacts &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add-name</td>
+	<td>Bob</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add-email</td>
+	<td>bob@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add-phone</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#contacts &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Contacts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='contacts']/div[2]/p</td>
+	<td>Bob</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='contacts']/div[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-name</td>
+	<td>Jeff</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-email</td>
+	<td>jeff@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-phone</td>
+	<td>9999999999</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.ng-scope &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Contacts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Notes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#notes &gt; p.ng-binding</td>
+	<td>hjk</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#notes &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-notes</td>
+	<td>newnote</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#notes &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Notes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#notes &gt; p.ng-binding</td>
+	<td>newnote</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='notes']/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=add-tag</td>
+	<td>newtag</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='notes']/div[3]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Notes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='notes']/div[3]/p/span</td>
+	<td>newtag</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='notes']/button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=old-tag</td>
+	<td>newtag</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='notes']/div[5]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Notes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>id=notes</td>
+	<td>newtag</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Tasks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#tasks &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-task</td>
+	<td>newtask</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#tasks &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Tasks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//a[contains(text(),'Documents')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pdf</td>
+	<td>C:\Users\Paul_SSD\Desktop\JavaAPIGettingStarted.pdf</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>newpdf</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='documents']/div/table/tbody/tr[2]/td[2]</td>
+	<td>newpdf</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.document-delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>id=generic-text</td>
+	<td>newpdf</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pdf</td>
+	<td>C:\Users\Paul_SSD\Desktop\JavaAPIGettingStarted.pdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logout</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
