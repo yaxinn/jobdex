@@ -25,6 +25,10 @@
                     </div>
                
     </div>
+    <div class="deck-exists" ng-show="deckExists">
+        <h1>This deck already exists!</h1>
+        <input type="submit" value="OK" ng-click="deckExists=false"/>
+    </div>
     <div id="menu-items" ng-show="showCardForm">
         <div id="add-card">
             <form>

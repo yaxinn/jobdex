@@ -186,6 +186,8 @@ app.controller('CardController', function($scope, $http){
     var deck_id_table = [];
 
 //Deck
+    $scope.deckExists = false;
+    $scope.showDeckForm = false;
     $scope.create_deck = function(){
 
         var req = JSON.stringify({companyName: $scope.deck.companyName, 
@@ -194,6 +196,11 @@ app.controller('CardController', function($scope, $http){
         $http.post('/api/user/create-deck/', req).
             success(function(data, status, headers, config){
                 console.log(data);
+
+                if (data.error_message == -23) {
+                    $scope.deckExists = true;
+                    $scope.showDeckForm = false;
+                }
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
