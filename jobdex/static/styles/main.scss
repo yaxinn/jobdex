@@ -143,6 +143,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 @mixin btn {
+    outline: none;
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -203,20 +204,74 @@ h1,h2,h3,h4,h5,h6 {
     }
 }
 
+a {
+    text-decoration: none;
+}
+
 #card-detail {
-    height: 500px;
+    height: 600px;
     border: 1px solid black;
-    width: 800px;
+    border-radius: 5px;
+    width: 900px;
     margin: auto;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: #79a9da;
-    #card-detail-tabs {
-        background: white;
+    background: $c4;
+    #card-detail-top {
+        font-family: Futura_Oblique;
+        padding: 1em;
     }
+    #card-detail-navbar {
+        height: 40px;
+        border-top: 5px solid $orange;
+        border-bottom: 5px solid $orange;
+        li {
+            background: $clouds;
+            text-align: center;
+            border-right: 1px solid black;
+            height: 40px;
+            padding-top: 10px;
+            display: block;
+        }
+        a {
+            display: block;
+            font-family: SourceSansBold;
+            color: $navy;
+        }
+        li:hover {
+            background: $nice-blue;
+            a {
+                color: white;
+            }
+        }
+    }
+    #card-detail-tabs {
+        height: 443px;
+        background: $paulina-purp;
+        color: white;
+    }
+    #card-detail-company {
+        color: crimson;
+        text-decoration: underline;
+    }
+    #card-detail-position {
+        color: $blue;
+        text-decoration: underline;
+    }
+    #card-detail-close:hover {
+        cursor: pointer;
+    }
+    .edit-fields {
+        padding: 1em;
+        text-align: center;
+    }
+}
+
+.card-edit {
+    @include btn;
 }
 
 #dashboard {
