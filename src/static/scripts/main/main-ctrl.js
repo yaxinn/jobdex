@@ -287,7 +287,7 @@ app.controller('CardController', function($scope, $http){
         var card_id = $scope.displayedCard.id;
         var old_tag = $scope.old_tag;
 
-        var req = JSON.stringify({card_id: card_id, old_tag: old_tag});
+        var req = JSON.stringify({card_id: card_id, target_tag: old_tag});
         
         $http.post('/api/card/remove-tag/', req).
             success(function(data, status, headers, config){
@@ -400,6 +400,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
+        $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
         $scope.detailIsShown = true;
         var contactObj = {};
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
@@ -414,6 +415,15 @@ app.controller('CardController', function($scope, $http){
             $scope.displayedCard.contactList.push(contactObj);
             contactObj = {};
         }
+
+        for (var i = 0; i < $scope.displayedCard.tags.length; i++){
+            $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].substring($scope.displayedCard.tags[i].indexOf(":") + 1);
+            $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].slice(">", -1);
+            if (i == $scope.displayedCard.tags.length - 1){
+                $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].slice(">", -1);
+            }
+        }
+        
     };
 
     $scope.showCardForm = false;
