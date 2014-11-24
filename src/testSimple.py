@@ -1,5 +1,5 @@
 """
-Each file that starts with test... in this directory is scanned for subclasses of unittest.TestCase or testLib.RestTestCase
+Run with "python -m unittest discover -v" in /src/.
 """
 
 import unittest
@@ -15,6 +15,8 @@ import json
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "jobdex.settings")
 django.setup()
 
+
+
 ##################
 ### HTML TESTS ###
 ##################
@@ -23,12 +25,6 @@ class TestAbout(testLib.RestTestCase):
 	def test_about(self):
 		self.client = Client()
 		response = self.client.get("/about/")
-		self.assertEqual(response.status_code, 200)
-
-class TestReport(testLib.RestTestCase):
-	def test_report(self):
-		self.client = Client()
-		response = self.client.get("/report/")
 		self.assertEqual(response.status_code, 200)
 
 class TestReport(testLib.RestTestCase):

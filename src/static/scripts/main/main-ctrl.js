@@ -213,25 +213,23 @@ app.controller('CardController', function($scope, $http){
 
 // Tag
     //add a tag to the tag given
-    $scope.add_tag = function(cardID){
-
+    $scope.add_tag = function(){
+        var card_id = $scope.displayedCard.id;
         var tags = $scope.new_tags
 
-        var req = JSON.stringify({card_id: cardID, tags: tags});
+        var req = JSON.stringify({card_id: card_id, tags: tags});
         
-        $http.post('/api/card/' + cardID + '/add-tag', req).
+        $http.post('/api/user/add-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    $scope.tags.push(tagName);
                     location.reload();
                 }
             }).error(function(data, status, headers, config){
             //Handle error
         });
-        $scope.card = {};
     };
 
     /*$scope.changeTag = function(){
@@ -277,24 +275,23 @@ app.controller('CardController', function($scope, $http){
     };
 
     // remove the tag given cardID and tagName
-    $scope.remove_tag = function(cardID, tagName){
+    $scope.remove_tag = function(){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
-
+        var card_id = $scope.displayedCard.id;
         var old_tag = $scope.old_tag;
 
-        var req = JSON.stringify({card_id: cardID, old_tag: old_tag});
-
-        $http.post('/api/card/' + cardID + '/remove-tag', req).
-            
+        var req = JSON.stringify({card_id: card_id, old_tag: old_tag});
+        
+        $http.post('/api/user/remove-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    location.reload(true);
+                    location.reload();
                 }
             }).error(function(data, status, headers, config){
-                //Handle error
+            //Handle error
         });
     };
 
@@ -303,6 +300,7 @@ app.controller('CardController', function($scope, $http){
     //Create a new card with a company name, job title, and initial status. 
     //The card's id should be returned and stored in the database.
     $scope.displayedCard = {};
+    $scope.displayedCard.contactList = [];
     $scope.detailIsShown = false;
 
     $scope.isEditing = false;
@@ -394,6 +392,19 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
         $scope.detailIsShown = true;
+        var contactObj = {};
+        for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
+            
+            contactObj.name = $scope.displayedCard.contacts[i];
+            console.log(contactObj.name);
+            contactObj.email = $scope.displayedCard.contacts[i+1];
+            console.log(contactObj.email);
+            contactObj.phone = $scope.displayedCard.contacts[i+2];
+            console.log(contactObj.phone);
+
+            $scope.displayedCard.contactList.push(contactObj);
+            contactObj = {};
+        }
     };
 
     $scope.showCardForm = false;
@@ -497,24 +508,25 @@ app.controller('CardController', function($scope, $http){
     //add contact for the given card_id
     $scope.add_contact = function(cardID){
 
+        var card_id = $scope.displayedCard.id;
         var add_name = $scope.add_name;
         var add_email = $scope.add_email;
         var add_phone = $scope.add_phone;
 
-        var req = JSON.stringify({card_id: cardID,
-            add_name: add_name,
+        var req = JSON.stringify(
+            {card_id: card_id, 
+            add_name: add_name, 
             add_email: add_email,
             add_phone: add_phone,
         });
 
-        $http.post('/api/card/' + cardID + '/add-contact', req).
+        $http.post('/api/card/add-contact/', req).
             success(function(data, status, headers, config){
 
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    console.log(data);
                     location.reload();
                 }
 
@@ -522,9 +534,7 @@ app.controller('CardController', function($scope, $http){
             }).error(function(data, status, headers, config){
                 console.log(data);
         });
-
-        $scope.card = {};
-    };  
+    };
 
 
  //Add task for a given card_id
@@ -575,15 +585,14 @@ app.controller('CardController', function($scope, $http){
     }
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.edit_contact = function() {
+    $scope.edit_contact = function(oldName) {
         var card_id = $scope.displayedCard.id;
         var new_name = $scope.new_name;
         var new_email = $scope.new_email;
         var new_phone = $scope.new_phone;
-        var current_name = $scope.displayedCard.contactName;
+        var current_name = oldName;
 
-        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: current_name};
-
+        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: oldName};
         $http.post('/api/card/edit-contact/', req).
             success(function(data, status, headers, config) {
 
@@ -596,8 +605,8 @@ app.controller('CardController', function($scope, $http){
                 }
 
             }).error(function(data, status, headers, config) {
-                console.log(data);
-        });
+                console.log(data); 
+        });     
     };
 
     //remove a contact given card_id and contact.name

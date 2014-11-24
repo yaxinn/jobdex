@@ -11,9 +11,10 @@ from django.db.models.signals import post_save
 from django.shortcuts import redirect
 import json
 
+unit_tests = False
 
 def documents(request):
-    context = {"documents": Document.objects.all()}
+    context = {"documents": Document.objects.all().filter(uploaded_by=request.user.user_profile)}
     return render(request, 'documents.html', context)
 
 @csrf_exempt
@@ -37,18 +38,14 @@ def upload_document(request):
 @require_http_methods(["POST"])
 def delete_document(request):
     try:
-        # uncomment the following two lines when not testing 
-        info = json.loads(request.POST.keys()[0])
-        doc_id = info['doc_id']
-        ########################
-
+        if unit_tests:
+            doc_id = request.POST['doc_id']
+        else:
+            info = json.loads(request.POST.keys()[0])
+            doc_id = info['doc_id']
         #user = request.user.user_profile
         #user.documents.filter(unique_id=doc_id).delete()
         #user.save()
-
-        # for testing purpose, use the following line, comment it out when done with testing
-        # doc_id = request.POST['doc_id']
-        ########################
 
         doc = Document.objects.get(unique_id=doc_id)
         doc.delete()
