@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://127.0.0.1:8000/" />
+<title>testsIter3</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testsIter3</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Create Account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;username&quot;]</td>
+	<td>Oprah</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>oprah@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;password&quot;]</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=confirm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input.button</td>
+	<td>Create Account</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=h1</td>
+	<td>OPRAH'S DASHBOARD</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.icon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=label</td>
+	<td>Company Name:</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='new-deck']/div/form/label[2]</td>
+	<td>Company Description:</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-name</td>
+	<td>Apple</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-description</td>
+	<td>Dumb company.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.deck-top</td>
+	<td>Apple</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.icon-plus</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-name</td>
+	<td>Microsoft</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=company-description</td>
+	<td>Amazing company!</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='decks']/div[2]/div</td>
+	<td>Microsoft</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.add-card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=#add-card &gt; form.ng-pristine.ng-valid &gt; input[type=&quot;submit&quot;]</td>
+	<td>Add Card</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//input[@value='Cancel'])[2]</td>
+	<td>Cancel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=position</td>
+	<td>Engineer</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=status</td>
+	<td>label=In Progress</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=tags</td>
+	<td>engineering, programming</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=notes</td>
+	<td>I really want this job.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-name</td>
+	<td>Steve Jobs</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-email</td>
+	<td>steve@apple.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-phone</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add Card']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=button.card-detail-btn</td>
+	<td>Engineer</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.add-card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=position</td>
+	<td>Senior Developer</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=status</td>
+	<td>label=Interested</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=tags</td>
+	<td>development</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=notes</td>
+	<td>Pays $600,000!</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-name</td>
+	<td>Bill Gates</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-email</td>
+	<td>billyboy@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-phone</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add Card']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='decks']/div/div[3]/button</td>
+	<td>Senior Developer</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='decks']/div[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=position</td>
+	<td>Window Wiper</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=status</td>
+	<td>label=Recieved Offer</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=tags</td>
+	<td>hjklh</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=notes</td>
+	<td>hjkl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-name</td>
+	<td>hjkl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-email</td>
+	<td>hjkl@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=contact-phone</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Add Card']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='decks']/div[2]/div[2]/button</td>
+	<td>Window Wiper</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=new-status</td>
+	<td>label=Complete</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Main</td>
+	<td>MAIN</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Contacts</td>
+	<td>CONTACTS</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Notes</td>
+	<td>NOTES</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Tasks</td>
+	<td>TASKS</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>xpath=(//a[contains(text(),'Documents')])[2]</td>
+	<td>DOCUMENTS</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.ng-scope &gt; div.edit-fields &gt; label</td>
+	<td>New Name:</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='contacts']/div/div/label[2]</td>
+	<td>New Email:</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='contacts']/div/div/label[3]</td>
+	<td>New Phone:</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=h1.ng-binding</td>
+	<td>STATUS: COMPLETE</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=p.ng-binding</td>
+	<td>Steve Jobs</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='contacts']/div/p[2]</td>
+	<td>steve@apple.com</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='contacts']/div/p[3]</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.ng-scope &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-name</td>
+	<td>John Kennedy</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-email</td>
+	<td>john@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-phone</td>
+	<td>1234567890</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.ng-scope &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Notes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-notes</td>
+	<td>This is a cool job.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#notes &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.card-detail-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=p.ng-binding</td>
+	<td>John Kennedy</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=#notes &gt; p.ng-binding</td>
+	<td>This is a cool job.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Tasks</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#tasks &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=new-task</td>
+	<td>Call manager.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#tasks &gt; div.edit-fields &gt; button.card-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@type='image'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextNotPresent</td>
+	<td>id=decks</td>
+	<td>Microsoft</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>id=generic-text</td>
+	<td>Apple</td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>id=generic-text</td>
+	<td>Oprah</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Home</td>
+	<td>HOME</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=About</td>
+	<td>ABOUT</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Dashboard</td>
+	<td>DASHBOARD</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>id=report</td>
+	<td>DOCUMENTS</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>id=login</td>
+	<td>LOGIN</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=p</td>
+	<td>Please login to see your dashboard!</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Create Account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;username&quot;]</td>
+	<td>Paul</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=email</td>
+	<td>paul@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input[name=&quot;password&quot;]</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=confirm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.user_register &gt; form.ng-pristine.ng-valid &gt; input.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=h1</td>
+	<td>PAUL'S DASHBOARD</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=p</td>
+	<td>Please login to see your dashboard!</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=username</td>
+	<td>Paul</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=h1</td>
+	<td>PAUL'S DASHBOARD</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=p</td>
+	<td>Please login to see your dashboard!</td>
+</tr>
+</tbody></table>
+</body>
+</html>
