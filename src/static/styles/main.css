@@ -677,6 +677,14 @@ a#logout {
     border-color: #98d470;
 }*/
 
-input:hover{
+input[type=text]:hover{
+  background-color: #eaf7c9;
+}
+
+input[type=email]:hover{
+  background-color: #eaf7c9;
+}
+
+input[type=password]:hover{
   background-color: #eaf7c9;
 }
