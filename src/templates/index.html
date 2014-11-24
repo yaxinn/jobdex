@@ -66,7 +66,7 @@
                 </div>
                 {% for card in deck.card_set.all %}
                 <div class="card-position card-field">
-                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{card.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
                 {% endfor %}
                 
