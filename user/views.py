@@ -13,7 +13,6 @@ from django.core import serializers
 def signup_view(request):
     if request.method == 'POST':
         username = request.POST['username']
-        print(username)
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
         email = request.POST['email']
