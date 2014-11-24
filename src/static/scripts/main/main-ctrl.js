@@ -647,11 +647,11 @@ app.controller('CardController', function($scope, $http){
     };
 
     //remove a contact given card_id and contact.name
-    $scope.remove_contact = function(cardID){
+    $scope.removeContact = function(name){
+        var cardId = $scope.displayedCard.id;
+        var req = JSON.stringify({card_id: cardId, contactName: name});
 
-        var req = JSON.stringify({card_id: cardID, contactName: $scope.contact.name});
-
-        $http.delete('/api/card/' + cardID + '/remove-contact', req).
+        $http.post('/api/card/remove-contact/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message)
