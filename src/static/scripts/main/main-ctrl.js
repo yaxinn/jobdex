@@ -219,7 +219,7 @@ app.controller('CardController', function($scope, $http){
 
         var req = JSON.stringify({card_id: card_id, tags: tags});
         
-        $http.post('/api/user/add-tag/', req).
+        $http.post('/api/card/add-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
@@ -282,7 +282,7 @@ app.controller('CardController', function($scope, $http){
 
         var req = JSON.stringify({card_id: card_id, old_tag: old_tag});
         
-        $http.post('/api/user/remove-tag/', req).
+        $http.post('/api/card/remove-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
@@ -384,7 +384,6 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
         $scope.displayedCard.contacts = $(angular.element(card)[0]).data('contacts').split(",");
-        console.log($scope.displayedCard.contacts);
         $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];
         $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
         $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
@@ -585,11 +584,11 @@ app.controller('CardController', function($scope, $http){
     }
 
     //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.edit_contact = function(oldName) {
+    $scope.edit_contact = function(newName, newEmail, newPhone, oldName) {
         var card_id = $scope.displayedCard.id;
-        var new_name = $scope.new_name;
-        var new_email = $scope.new_email;
-        var new_phone = $scope.new_phone;
+        var new_name = newName;
+        var new_email = newEmail;
+        var new_phone = newPhone;
         var current_name = oldName;
 
         var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: oldName};

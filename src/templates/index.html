@@ -118,41 +118,41 @@
                     </div>
                 </div>
                 <div id="contacts" class="tab">
-                    <div ng-repeat="obj in displayedCard.contactList">
-                    <h1>Contacts:</h1> 
-                    <h2>Name:</h2>
-                        <p style="text-align: center">{{obj.name}}</p>
-                    <h2>Email:</h2>
-                        <p style="text-align: center">{{obj.email}}</p>
-                    <h2>Phone:</h2>
-                        <p style="text-align: center">{{obj.phone}}</p>
-                    <button class="card-edit" ng-click="editContact()">Edit</button>
-                    <div class="edit-fields" ng-show="isContactEditing">
-                        <label for="new-name">New Name:</label>
+                    <div ng-repeat="contact in displayedCard.contactList">
+                        <h1>Contacts:</h1> 
+                        <h2>Name:</h2>
+                        <p style="text-align: center">{{contact.name}}</p>
+                        <h2>Email:</h2>
+                        <p style="text-align: center">{{contact.email}}</p>
+                        <h2>Phone:</h2>
+                        <p style="text-align: center">{{contact.phone}}</p>
+                        <button class="card-edit" ng-click="editContact()">Edit</button>
+                        <div class="edit-fields" ng-show="isContactEditing">
+                            <label for="new-name">New Name:</label>
                             <input type="text" name="new-name" ng-model="new_name">
-                        <br>
-                        <label for="new-email">New Email:</label>
+                            <br>
+                            <label for="new-email">New Email:</label>
                             <input type="text"  name="new-email" ng-model="new_email">
-                        <br>
-                        <label for="new-phone">New Phone:</label>
+                            <br>
+                            <label for="new-phone">New Phone:</label>
                             <input type="text" name="new-phone" ng-model="new_phone">
-                        <br>
-                        <button class="card-edit" ng-click="edit_contact(obj.name)">Save new contact</button>
-                    </div>
+                            <br>
+                            <button class="card-edit" ng-click="edit_contact(new_name, new_email, new_phone, contact.name)">Save new contact</button>
+                        </div>
                     </div>
 
 
-                    
+
                     <button class="card-edit" ng-click="editAddContact()">Add</button>
                     <div class="edit-fields" ng-show="isContactAdding">
                         <label for="new-name">New Name:</label>
-                            <input type="text" name="add-name" ng-model="add_name">
+                        <input type="text" name="add-name" ng-model="add_name">
                         <br>
                         <label for="new-email">New Email:</label>
-                            <input type="text" name="add-email" ng-model="add_email">
+                        <input type="text" name="add-email" ng-model="add_email">
                         <br>
                         <label for="new-phone">New Phone:</label>
-                            <input type="text" name="add-phone" ng-model="add_phone">
+                        <input type="text" name="add-phone" ng-model="add_phone">
                         <br>
                         <button class="card-edit" ng-click="add_contact()">Add new contact</button>
                     </div>
@@ -165,7 +165,7 @@
                     <button class="card-edit" ng-click="editNotes()">Edit</button>
                     <div class="edit-fields" ng-show="isNotesEditing">
                         <label for="new-notes">New notes:</label>
-                            <input type="text" name="new-notes" ng-model="new_notes">
+                        <input type="text" name="new-notes" ng-model="new_notes">
                         <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
                     </div>
 
