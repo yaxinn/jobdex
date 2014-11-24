@@ -118,6 +118,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #menu-items {
+  visibility: hidden;
   text-align: center;
   margin: 0 auto;
   margin-top: 2em;
@@ -130,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
   width: auto;
 }
 #new-deck {
+  visibility: hidden;
   text-align: center;
 }
 #decks {
@@ -144,6 +146,10 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
   display: inline-flex;
   width: 100%;
+}
+
+.deck-exists {
+  visibility: hidden;
 }
 
 .deck {
@@ -216,6 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 .deck button:hover {
   cursor: pointer;
 }
+
+
 a {
   text-decoration: none;
 }

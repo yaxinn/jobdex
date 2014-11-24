@@ -3,7 +3,7 @@
 {% if user.is_authenticated %}
 <div id="dashboard" ng-controller="CardController">
     <div class="banner">
-        <button class="icon-plus" ng-click="showDeckForm=true"></button>
+        <button class="icon-plus" ng-click="create_deck_helper()"></button>
             <!--<span class="icon-plus"></span>-->
 
         <form>

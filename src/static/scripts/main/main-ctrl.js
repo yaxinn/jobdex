@@ -186,8 +186,16 @@ app.controller('CardController', function($scope, $http){
     var deck_id_table = [];
 
 //Deck
-    $scope.deckExists = false;
     $scope.showDeckForm = false;
+    $scope.create_deck_helper = function(){
+        $('#new-deck').css({
+            'visibility': 'visible',
+        });
+        $scope.showDeckForm = true;
+
+    }
+
+    $scope.deckExists = false;
     $scope.create_deck = function(){
 
         var req = JSON.stringify({companyName: $scope.deck.companyName, 
@@ -198,6 +206,9 @@ app.controller('CardController', function($scope, $http){
                 console.log(data);
 
                 if (data.error_message == -23) {
+                    $('.deck-exists').css({
+                        'visibility': 'visible',
+                    });
                     $scope.deckExists = true;
                     $scope.showDeckForm = false;
                 }
@@ -429,11 +440,15 @@ app.controller('CardController', function($scope, $http){
     $scope.showCardForm = false;
     $scope.displayedDeck = {};
     $scope.add_card_helper = function(deck) {
+        $('#menu-items').css({
+            'visibility': 'visible',
+        });
         $scope.displayedDeck.deckID = $(angular.element(deck)[0]).data('deck-id');
         $scope.showCardForm = true;
     };
 
     $scope.add_card = function() {
+
         $scope.showCardForm = false;
         console.log($scope.displayedDeck.deckID);
         var req = JSON.stringify({deck_id: $scope.displayedDeck.deckID,
