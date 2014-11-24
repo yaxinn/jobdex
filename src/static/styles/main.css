@@ -675,6 +675,10 @@ a#logout {
   margin-left: 50px;
 }
 
+a#login {
+  margin-left: 50px;
+}
+
 *:focus {
     outline: 0;
 }
@@ -696,4 +700,9 @@ input[type=email]:hover{
 
 input[type=password]:hover{
   background-color: #eaf7c9;
+}
+
+#card-detail #card-detail-navbar li.active-tab {
+  background-color: #3B333F;
+
 }

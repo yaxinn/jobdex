@@ -49,16 +49,21 @@ $("#login").click(function() {
 
 
 jQuery(document).ready(function() {
+
     jQuery('#tab-links a').on('click', function(e)  {
+
         var currentAttrValue = jQuery(this).attr('href');
- 
+
         // Show/Hide Tabs
         jQuery('#card-detail-tabs ' + currentAttrValue).siblings().hide();
         jQuery('#card-detail-tabs ' + currentAttrValue).show();
- 
+
         // Change/remove current tab to active
         jQuery(this).parent('li').addClass('active-tab').siblings().removeClass('active-tab');
- 
         e.preventDefault();
     });
+
+    $("#tab-links .active-tab a").click();
+
 });
+

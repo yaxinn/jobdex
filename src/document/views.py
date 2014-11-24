@@ -11,7 +11,8 @@ from django.db.models.signals import post_save
 from django.shortcuts import redirect
 import json
 
-unit_tests = False
+testing = False
+SUCCESS = 1
 ERR_DOC_EXISTS = -9
 ERR_DOC_INVALID = -10
 ERR_DOC_DOES_NOT_EXIST = -11
@@ -44,11 +45,12 @@ def upload_document(request):
 @require_http_methods(["POST"])
 def delete_document(request):
     try:
-        if unit_tests:
-            doc_id = request.POST['doc_id']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            doc_id = info['doc_id']
+
+        doc_id = info['doc_id']
         #user = request.user.user_profile
         #user.documents.filter(unique_id=doc_id).delete()
         #user.save()

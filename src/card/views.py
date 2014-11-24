@@ -10,7 +10,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
-unit_tests = False
+testing = False
 DECK_EXISTS_ERROR = -23
 
 # Home page view
@@ -48,13 +48,14 @@ def get_all_cards(request):
 # Add card given company name, status, tags, and contact info
 @csrf_exempt
 def create_deck(request):
-    if unit_tests:
-        company_name = request.POST['companyName']
-        company_description = request.POST['companyDescription']
+
+    if testing:
+        info = request.POST
     else:
         info = json.loads(request.POST.keys()[0])
-        company_name = info['companyName']
-        company_description = info['companyDescription']
+
+    company_name = info['companyName']
+    company_description = info['companyDescription']
 
     user = UserProfile.objects.get(username=request.user)
 
@@ -79,7 +80,7 @@ def create_deck(request):
  #Adding a position to the deck
 @csrf_exempt
 def add_card(request):
-    if unit_tests:
+    if testing:
         info = request.POST
     else:
         info = json.loads(request.POST.keys()[0])
@@ -110,11 +111,13 @@ def add_card(request):
 @csrf_exempt
 def delete_deck(request):
     try:
-        if unit_tests:
-            deck_id = request.POST['deck_id']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            deck_id = info['deck_id']
+
+        deck_id = info['deck_id']
+
         Deck.objects.get(unique_id=deck_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Deck.DoesNotExist:
@@ -124,11 +127,12 @@ def delete_deck(request):
 @csrf_exempt
 def remove_card(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
+
+        card_id = info['card_id']
         Card.objects.get(card_id=card_id).delete()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
@@ -149,13 +153,13 @@ def get_contacts(request):
 # Remove contact, given a card id and contact name
 def remove_contact(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            contact_name = request.POST['contactName']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            contact_name = info['contact_name']
+
+        card_id = info['card_id']
+        contact_name = info['contactName']
 
         card = Card.objects.get(card_id=card_id)
         Contact.objects.get(name=contact_name, associated_card=card).delete()
@@ -169,19 +173,17 @@ def remove_contact(request):
 @csrf_exempt
 def edit_contact(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            new_name = request.POST['new_name']
-            new_email = request.POST['new_email']
-            new_phone = request.POST['new_phone']
-            current_name = request.POST['current_name']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            new_name = info['new_name']
-            new_email = info['new_email']
-            new_phone = info['new_phone']
-            current_name = info['current_name']
+
+        card_id = info['card_id']
+        new_name = info['new_name']
+        new_email = info['new_email']
+        new_phone = info['new_phone']
+        current_name = info['current_name']
+
         card = Card.objects.get(card_id=card_id)
         contact = Contact.objects.get(name=current_name, associated_card=card)
         contact.name = new_name
@@ -198,17 +200,16 @@ def edit_contact(request):
 @csrf_exempt
 def add_contact(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            add_name = request.POST['add_name']
-            add_email = request.POST['add_email']
-            add_phone = request.POST['add_phone']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            add_name = info['add_name']
-            add_email = info['add_email']
-            add_phone = info['add_phone']
+
+        card_id = info['card_id']
+        add_name = info['add_name']
+        add_email = info['add_email']
+        add_phone = info['add_phone']
+
         card = Card.objects.get(card_id=card_id)
         add_contact = Contact(name= "," + add_name, email=add_email, phone=add_phone, associated_card=card)
         add_contact.save()
@@ -223,15 +224,15 @@ def add_contact(request):
 # Add tags based on card id and tag names
 @csrf_exempt
 def add_tag(request):
-    if unit_tests:
-        card_id = request.POST['card_id']
-        card = Card.objects.get(card_id=card_id)
-        tags = request.POST['tags'].split(',')
+
+    if testing:
+        info = request.POST
     else:
         info = json.loads(request.POST.keys()[0])
-        card_id = info['card_id']
-        card = Card.objects.get(card_id=card_id)
-        tags = info['tags'].split(',')
+
+    card_id = info['card_id']
+    tags = info['tags'].split(',')
+    card = Card.objects.get(card_id=card_id)
 
     for tag in tags:
         new_tag = Tag(tag=tag, tagged_card=card)
@@ -242,13 +243,13 @@ def add_tag(request):
 @csrf_exempt
 def remove_tag(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            target_tag = request.POST['target_tag']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            target_tag = info['target_tag']
+
+        card_id = info['card_id']
+        target_tag = info['target_tag']
 
         card = Card.objects.get(card_id=card_id)
         Tag.objects.get(tagged_card=card, tag=target_tag).delete()
@@ -275,15 +276,15 @@ def get_tags(request):
 @csrf_exempt
 def edit_tag(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            tag_to_replace = request.POST['tag_to_replace']
-            new_tag = request.POST['new_tag']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            tag_to_replace = info['tag_to_replace']
-            new_tag = info['new_tag']
+
+        card_id = info['card_id']
+        tag_to_replace = info['tag_to_replace']
+        new_tag = info['new_tag']
+
         card = Card.objects.get(card_id=card_id)
         target = Tag.objects.get(tagged_card=card, tag=tag_to_replace)
         target.tag = new_tag
@@ -298,13 +299,13 @@ def edit_tag(request):
 @csrf_exempt
 def modify_card_status(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            new_status = request.POST['new_status']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            new_status = info['new_status']
+
+        card_id = info['card_id']
+        new_status = info['new_status']
 
         card = Card.objects.get(card_id=card_id)
         card.status = new_status
@@ -320,13 +321,13 @@ def modify_card_status(request):
 @csrf_exempt
 def edit_notes(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            new_notes = request.POST['new_notes']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            new_notes = info['new_notes']
+
+        card_id = info['card_id']
+        new_notes = info['new_notes']
 
         card = Card.objects.get(card_id=card_id)
         card.notes = new_notes
@@ -340,13 +341,14 @@ def edit_notes(request):
 @csrf_exempt
 def add_task(request):
     try:
-        if unit_tests:
-            card_id = request.POST['card_id']
-            new_task = request.POST['new_task']
+        if testing:
+            info = request.POST
         else:
             info = json.loads(request.POST.keys()[0])
-            card_id = info['card_id']
-            new_task = info['new_task']
+
+        card_id = info['card_id']
+        new_task = info['new_task']
+
         card = Card.objects.get(card_id=card_id)
         add_task = Task(task=new_task, associated_card=card)
         add_task.save()
