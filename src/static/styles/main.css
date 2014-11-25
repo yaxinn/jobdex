@@ -40,6 +40,11 @@
   src: url(../fonts/info.ttf);
 }
 
+@font-face {
+  font-family: Delete;
+  src: url(../fonts/icomoon.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -597,6 +602,8 @@ input::-webkit-input-placeholder {
 .icon-info {
   color: black;
   font-family: Info;
+  border: none;
+  background: transparent;
   font-size: 22px;
 }
 
@@ -605,6 +612,17 @@ input::-webkit-input-placeholder {
   content: "\e601";
 }
 .icon-plus:before {
+  content: "\e600";
+}
+
+.icon-delete {
+  color: black;
+  font-family: Delete;
+  font-size: 22px;
+  border: none;
+  background: transparent;
+}
+.icon-delete:before{
   content: "\e600";
 }
 

@@ -63,7 +63,8 @@
         {% for deck in decks %}
             <div class="deck">
                 <div class="deck-top">
-                    <input src="/static/images/close.png" type="image" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"/>
+                    <button class="icon-delete" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"></button>
+                
 
                      {{deck.associated_company.name}}
 
