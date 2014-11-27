@@ -63,15 +63,17 @@
         {% for deck in decks %}
             <div class="deck">
                 <div class="deck-top">
-                    <input src="/static/images/close.png" type="image" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"/>
+                    <button class="icon-delete" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"></button>
 
-                     {{deck.associated_company.name}}
+
+                     {{deck.associated_company.name}}<br>
 
                 </div>
                 {% for card in deck.card_set.all %}
                 <div class="card-position card-field">
                     <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" data-tags="{{card.tag_set.all}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
+
                 {% endfor %}
                 
                 <button class="add-card-detail-btn" data-deck-id="{{deck.unique_id}}" ng-click="add_card_helper($event.target)">+ Add Position...</button>         
