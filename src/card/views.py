@@ -86,7 +86,7 @@ def add_card(request):
         info = json.loads(request.POST.keys()[0])
     deck_id = info['deck_id']
     deck = Deck.objects.get(unique_id=deck_id)
-    job_title = info['jobTitle']
+    job_title = str(info['jobTitle'])
     status = str(info['status'])
     notes = str(info['notes'])
     tags = str(info['tags']).split(',')

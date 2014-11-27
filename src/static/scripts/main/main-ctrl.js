@@ -169,23 +169,24 @@ app.controller('UserController', function($scope, $http) {
 app.controller('CardController', function($scope, $http){
 
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-    // Dont know what this part is.
-    //     $http.get('/api/card/all-cards').
-    //         success(function(data, status, headers, config) {
-    //             console.log("SUCCESS");
-    //             console.log(data);
-    //             $scope.cards = data;
-    //         }).error(function(data, status, headers, config) {
-    //             console.log("ERROR");
-    //             console.log(data);
-    //     });
 
-    //This table is needed to store ids on the front end for some of the method calls to cards
-    //when using ng-repeat, set it to "id_entry in cardCtrl.id_table", where cardCtrl is the CardController alias
+    $scope.loadDescription = function(companyName) {
+        var id = "27457";
+        var key = "hLRrzOCPdlc";
+        var url = "http://api.glassdoor.com/api/api.htm?t.p="+id+"&t.k="+key+"&userip=0.0.0.0&useragent=&format=json&v=1&action=employers&q="+companyName;
+        $http.get(url, {})
+            .success(function(data, status, headers, config){
+                var description = data.response.employers[0];
+                $('#glassdoor-description').text('hi');
+            })
+            .error(function(data, status, headers, config){
+                console.log(data);
+        });
+    }
+
     var id_table = [];
     var deck_id_table = [];
 
-//Deck
     $scope.showDeckForm = false;
     $scope.create_deck_helper = function(){
         $('#new-deck').css({
@@ -220,23 +221,21 @@ app.controller('CardController', function($scope, $http){
                     deck_id_table.push(data.deck_id);
                 }
 
-                location.reload();
+            location.reload();
 
             }).error(function(data, status, headers, config){
                 console.log(data);
-        });
+            });
 
         $scope.deck = {};
     };
 
-// Tag
-    //add a tag to the tag given
     $scope.add_tag = function(){
         var card_id = $scope.displayedCard.id;
         var tags = $scope.new_tags
 
-        var req = JSON.stringify({card_id: card_id, tags: tags});
-        
+            var req = JSON.stringify({card_id: card_id, tags: tags});
+
         $http.post('/api/card/add-tag/', req).
             success(function(data, status, headers, config){
                 if (data.error_message <= 0) {
@@ -246,8 +245,8 @@ app.controller('CardController', function($scope, $http){
                     location.reload();
                 }
             }).error(function(data, status, headers, config){
-            //Handle error
-        });
+                console.log(data);
+            });
     };
 
     $scope.selectedTag = "";
@@ -280,9 +279,8 @@ app.controller('CardController', function($scope, $http){
                 }
 
             }).error(function(data, status, headers, config){
-                //Handle error
                 console.log(data);
-        });
+            });
 
     };
 
@@ -326,9 +324,6 @@ app.controller('CardController', function($scope, $http){
     };
 
 
-// Card
-    //Create a new card with a company name, job title, and initial status. 
-    //The card's id should be returned and stored in the database.
     $scope.displayedCard = {};
     $scope.displayedCard.contactList = [];
     $scope.detailIsShown = false;
@@ -408,8 +403,11 @@ app.controller('CardController', function($scope, $http){
         $scope.detailIsShown = false;
     }
 
+    $scope.blah = function(x) {
+        console.log(x);
+    }
+
     $scope.showDetails = function(card) {
-        //console.log($(angular.element(card)[0]).data('company'));
         $('#card-detail').css({
             'visibility': 'visible',
         });
@@ -460,7 +458,6 @@ app.controller('CardController', function($scope, $http){
     };
 
     $scope.add_card = function() {
-
         $scope.showCardForm = false;
         console.log($scope.displayedDeck.deckID);
         var req = JSON.stringify({deck_id: $scope.displayedDeck.deckID,
@@ -550,8 +547,6 @@ app.controller('CardController', function($scope, $http){
         });     
     };
 
-//contact
-    //add contact for the given card_id
     $scope.add_contact = function(cardID){
 
         var card_id = $scope.displayedCard.id;
@@ -582,8 +577,6 @@ app.controller('CardController', function($scope, $http){
         });
     };
 
-
- //Add task for a given card_id
     $scope.add_task = function(cardID){
 
         var card_id = $scope.displayedCard.id;
@@ -608,7 +601,6 @@ app.controller('CardController', function($scope, $http){
         });
     };
 
-    // Edit notes.
     $scope.edit_notes = function() {
         var card_id = $scope.displayedCard.id;
         var new_notes = $scope.new_notes;

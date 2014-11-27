@@ -16,8 +16,11 @@
                     <div class="deck-company">
                         <form>
                             <label for="company-name">Company Name:</label><input type="text" name="company-name" ng-model="deck.companyName"/>
+                            <!--<button ng-click="loadDescription(deck.companyName)">Load Description</button>-->
                             <br/>
                             <label for="company-description">Company Description:</label><input type="text" name="company-description" ng-model="deck.companyDescription"/>
+                            <div id="glassdoor-description">
+                            </div>
                             <br/>
                             <input type="submit" value="Create" ng-click="create_deck()"/>
                             <input type="submit" value="Cancel" ng-click="showDeckForm=false">
@@ -36,11 +39,11 @@
             <br>
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
-                        <option value="Interested" selected>Interested</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Complete">Complete</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="Recieved Offer">Recieved Offer</option>
+                        <option value="interested" selected>Interested</option>
+                        <option value="inprogress">In Progress</option>
+                        <option value="complete">Complete</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="offered">Recieved Offer</option>
                     </select>
             <br>
             <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
@@ -64,15 +67,23 @@
             <div class="deck">
                 <div class="deck-top">
                     <button class="icon-delete" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"></button>
-
-
                      {{deck.associated_company.name}}<br>
-
                 </div>
                 {% for card in deck.card_set.all %}
-                <div class="card-position card-field">
-                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" data-tags="{{card.tag_set.all}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
-                </div>
+                <button class="card-detail-btn {{card.status}}" 
+                        data-contacts="
+                        {% for contact in card.contact_set.all %}
+                            {{contact.name}}, {{contact.email}}, {{contact.phone}}
+                        {% endfor %}" 
+                        data-company="{{deck.associated_company.name}}" 
+                        data-position="{{card.job_title}}" 
+                        data-notes="{{card.notes}}" 
+                        data-status="{{card.status}}" 
+                        data-card_id="{{card.card_id}}" 
+                        data-tags="{{card.tag_set.all}}" 
+                        ng-click="showDetails($event.target)">
+                            {{card.job_title}}
+                </button>
 
                 {% endfor %}
                 

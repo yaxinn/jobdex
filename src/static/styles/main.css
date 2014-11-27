@@ -184,12 +184,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 20px;
   color: white;
 }
-.deck .card-field {
-  padding: 0.5em;
-  background: white;
-  border-radius: 5px;
-  margin-top: 0.5em;
-}
+
 .deck .card-field p {
   /*text-align: center;*/
 }
@@ -200,16 +195,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .deck .card-detail-btn {
-  padding: 0;
+  padding: 1em;
   background: white;
   border-radius: 5px;
   width: 100%;
   height: 20px;
-  margin-top: 0em;
+  margin-top: 1em;
   border: None;
   font-size: 17px;
   font-family: GravityLight;
   text-align: left;
+  color: white;
 }
 
 .deck .add-card-detail-btn {
@@ -731,4 +727,20 @@ input[type=password]:hover{
 
 .single-tag:hover {
     cursor: pointer;
+}
+
+.interested {
+    background-color: #6A6A82 !important;
+}
+.inprogress {
+    background-color: #397F4B !important;
+}
+.complete {
+    background-color: #998B4C !important;
+}
+.rejected {
+    background-color: #A37784 !important;
+}
+.offered {
+    background-color: #5A86C5 !important;
 }
