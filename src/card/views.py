@@ -89,7 +89,7 @@ def add_card(request):
     job_title = info['jobTitle']
     status = str(info['status'])
     notes = str(info['notes'])
-    tags = str(info['tags']).split(',')
+    tags = info['tags'].split(',')
     contact_name = str(info['contactName'])
     contact_email = str(info['contactEmail'])
     contact_phone = str(info['contactPhone'])
