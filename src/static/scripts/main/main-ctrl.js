@@ -230,6 +230,29 @@ app.controller('CardController', function($scope, $http){
         $scope.deck = {};
     };
 
+    //$scope.isFiltered = function(card) {
+    //    console.log(card);
+    //    var cardTags = $(angular.element(card)[0]).data('tags');
+    //    console.log(cardTags);
+    //    return false;
+    //}
+
+    $scope.$watch('tagFilter', function() {
+        var tag = $scope.tagFilter; 
+        $('.card-detail-btn').each(function() {
+            //console.log($(this).data('tags'));
+            if (tag && $(this).data('tags').indexOf(tag) === -1) {
+                $(this).css({
+                    'border': '3px solid #FFD700',
+                });
+            } else {
+                $(this).css({
+                    'border': 'none',
+                });
+            }
+        });
+    }, true);
+
     $scope.add_tag = function(){
         var card_id = $scope.displayedCard.id;
         var tags = $scope.new_tags
@@ -421,7 +444,11 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
-        $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
+        if ($(angular.element(card)[0]).data('tags')) {
+            $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
+        } else {
+            $scope.displayedCard.tags = "";
+        }
         $scope.detailIsShown = true;
         var contactObj = {};
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){

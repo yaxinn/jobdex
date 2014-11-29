@@ -5,11 +5,7 @@
     <h1>{{user}}'s Dashboard</h1>
     <div class="banner">
         <button class="icon-plus" ng-click="create_deck_helper()"></button>
-            <!--<span class="icon-plus"></span>-->
-
-        <form>
-            <input id="search-bar" type="search" placeholder="search">
-        </form>
+        <input id="search-bar" type="search" placeholder="search tags" ng-model="tagFilter">
     </div>
     <div id="new-deck" ng-show="showDeckForm">
               
