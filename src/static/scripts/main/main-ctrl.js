@@ -367,7 +367,6 @@ app.controller('CardController', function($scope, $http){
     $scope.isNotesEditing= false;
     $scope.isTagAdding= false;
     $scope.isTagRemoving= false;
-    
     $scope.edit = function() {
        if ($scope.isEditing){
             $scope.isEditing = false;
@@ -382,6 +381,14 @@ app.controller('CardController', function($scope, $http){
         }
         else{
            $scope.isStatusEditing = true;
+        }
+    }
+    $scope.editContact = function() {
+       if ($scope.isContactEditing){
+            $scope.isContactEditing = false;
+        }
+        else{
+           $scope.isContactEditing = true;
         }
     }
     $scope.editAddContact = function() {
@@ -418,6 +425,7 @@ app.controller('CardController', function($scope, $http){
     }
     $scope.closeEdit = function() {
        $scope.isEditing = false;
+       $scope.isContactEditing = false;
        $scope.isNotesEditing= false;
        $scope.isTagAdding= false;
        $scope.isTagRemoving= false;
@@ -444,7 +452,14 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];
         $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
         $scope.displayedCard.contactPhone = $scope.displayedCard.contacts[2];
-        $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
+        var status = $(angular.element(card)[0]).data('status');
+        if (status == "inprogress") {
+            $scope.displayedCard.status = "In Progress";
+        } else if (status == "offered") {
+            $scope.displayedCard.status = "Offer Receieved";
+        } else {
+            $scope.displayedCard.status = status;
+        } 
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
         if ($(angular.element(card)[0]).data('tags').length > 0) {
@@ -463,7 +478,7 @@ app.controller('CardController', function($scope, $http){
             $scope.displayedCard.documentList.push(docObj);
         }
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
-            
+
             contactObj.name = $scope.displayedCard.contacts[i];
             contactObj.email = $scope.displayedCard.contacts[i+1];
             contactObj.phone = $scope.displayedCard.contacts[i+2];
@@ -479,7 +494,7 @@ app.controller('CardController', function($scope, $http){
                 $scope.displayedCard.tags[i] = $scope.displayedCard.tags[i].slice(">", -1);
             }
         }
-        
+
     };
 
     $scope.showCardForm = false;
@@ -519,7 +534,7 @@ app.controller('CardController', function($scope, $http){
 
             }).error(function(data, status, headers, config){
                 console.log(data);
-        });
+            });
 
         $scope.card = {};
 
@@ -539,7 +554,7 @@ app.controller('CardController', function($scope, $http){
                 }
             }).error(function(data, status, headers, config){
                 console.log(data);
-        });
+            });
     };
 
     //remove card given user and card_id
@@ -659,23 +674,15 @@ app.controller('CardController', function($scope, $http){
         });
     }
 
-//Edit Contact
-    $scope.editContact = function(contact, contactName, contactEmail, contactPhone) {
-        $scope.isContactEditing = true;
-        $scope.selectedContact = contact;
-        $scope.selectedContactName = contactName.trim();
-        $scope.selectedContactEmail = contactEmail.trim();
-        $scope.selectedContactPhone = contactPhone.trim();
-    }
-    $scope.closeEditContact = function(){
-        $scope.isContactEditing = false;
-        $scope.selectedContact = null;
-    }
-    //edit contact given newName, newEmail, newPhone, and oldName
-    $scope.change_contact = function(newName, newEmail, newPhone, oldName) {
+    //Change the status of a card (In Progress, Complete, Failed, or Interested)
+    $scope.edit_contact = function(newName, newEmail, newPhone, oldName) {
         var card_id = $scope.displayedCard.id;
+        var new_name = newName;
+        var new_email = newEmail;
+        var new_phone = newPhone;
+        var current_name = oldName;
 
-        var req = {card_id: card_id, new_name: newName, new_email: newEmail, new_phone: newPhone, current_name: oldName.trim()};
+        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: oldName};
         $http.post('/api/card/edit-contact/', req).
             success(function(data, status, headers, config) {
 
@@ -683,7 +690,7 @@ app.controller('CardController', function($scope, $http){
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    $scope.closeEditContact();
+                    // change the card status in the html
                     location.reload(true);
                 }
 

@@ -17,7 +17,7 @@ class Deck(models.Model):
 class Card(models.Model):
     card_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
     job_title = models.CharField(max_length=255, blank=False)
-    status = models.CharField(max_length=20, blank=False, default="Interested")
+    status = models.CharField(max_length=20, blank=False, default="interested")
     notes = models.TextField(default="")
     card_deck = models.ForeignKey(Deck)
     documents_submitted = models.ManyToManyField('document.Document')

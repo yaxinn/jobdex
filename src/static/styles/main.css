@@ -84,6 +84,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 36px;
   color: white;
 }
+#navbar a:hover {
+    text-decoration: underline;
+}
 
 #footer {
   font-family: GravityLight;
@@ -721,11 +724,11 @@ input[type=password]:hover{
 
 }
 
-.single {
+.single-tag {
     border-bottom: 1px solid white;
 }
 
-.single:hover {
+.single-tag:hover {
     cursor: pointer;
 }
 
