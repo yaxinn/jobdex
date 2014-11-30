@@ -230,13 +230,6 @@ app.controller('CardController', function($scope, $http){
         $scope.deck = {};
     };
 
-    //$scope.isFiltered = function(card) {
-    //    console.log(card);
-    //    var cardTags = $(angular.element(card)[0]).data('tags');
-    //    console.log(cardTags);
-    //    return false;
-    //}
-
     $scope.$watch('tagFilter', function() {
         var tag = $scope.tagFilter; 
         $('.card-detail-btn').each(function() {
@@ -444,7 +437,7 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.status = $(angular.element(card)[0]).data('status');
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
         $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
-        if ($(angular.element(card)[0]).data('tags')) {
+        if ($(angular.element(card)[0]).data('tags').length > 0) {
             $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
         } else {
             $scope.displayedCard.tags = "";
@@ -454,11 +447,8 @@ app.controller('CardController', function($scope, $http){
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
             
             contactObj.name = $scope.displayedCard.contacts[i];
-            console.log(contactObj.name);
             contactObj.email = $scope.displayedCard.contacts[i+1];
-            console.log(contactObj.email);
             contactObj.phone = $scope.displayedCard.contacts[i+2];
-            console.log(contactObj.phone);
 
             $scope.displayedCard.contactList.push(contactObj);
             contactObj = {};

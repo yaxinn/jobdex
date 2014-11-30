@@ -744,3 +744,8 @@ input[type=password]:hover{
 .offered {
     background-color: #5A86C5 !important;
 }
+
+.contact-detail {
+    width: 200px;
+    float: left;
+}
