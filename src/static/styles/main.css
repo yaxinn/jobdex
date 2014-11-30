@@ -761,6 +761,13 @@ input[type=password]:hover{
 
 .tag-detail {
     text-align: right;
-    width: 100px;
+    width: 200px;
     margin: 0 auto;
+    padding-right: 100px;
+}
+
+.document-detail a {
+    color: white;
+    border-bottom: 1px dotted white;
+    text-align: center;
 }

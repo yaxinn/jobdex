@@ -230,6 +230,24 @@ app.controller('CardController', function($scope, $http){
         $scope.deck = {};
     };
 
+    $scope.addDocument = function() {
+        var card_id = $scope.displayedCard.id;
+        var doc = $scope.documentAdded.trim();
+        var req = JSON.stringify({card_id: card_id, document: doc});
+
+        $http.post('/api/card/add-document/', req).
+            success(function(data, status, headers, config){
+                if (data.error_message <= 0) {
+                    $scope.errorHandler(data.error_message);
+                }
+                else if (data.error_message == 1){
+                    location.reload();
+                }
+            }).error(function(data, status, headers, config){
+                console.log(data);
+            });
+    }
+
     $scope.$watch('tagFilter', function() {
         var tag = $scope.tagFilter; 
         $('.card-detail-btn').each(function() {
@@ -249,8 +267,7 @@ app.controller('CardController', function($scope, $http){
     $scope.add_tag = function(){
         var card_id = $scope.displayedCard.id;
         var tags = $scope.new_tags
-
-            var req = JSON.stringify({card_id: card_id, tags: tags});
+        var req = JSON.stringify({card_id: card_id, tags: tags});
 
         $http.post('/api/card/add-tag/', req).
             success(function(data, status, headers, config){
@@ -430,6 +447,8 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
+        $scope.displayedCard.documents = $(angular.element(card)[0]).data('documents').split(",");
+        $scope.displayedCard.documenturls = $(angular.element(card)[0]).data('documenturls').split(",");
         $scope.displayedCard.contacts = $(angular.element(card)[0]).data('contacts').split(",");
         $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];
         $scope.displayedCard.contactEmail = $scope.displayedCard.contacts[1];
@@ -445,6 +464,13 @@ app.controller('CardController', function($scope, $http){
         $scope.detailIsShown = true;
         var contactObj = {};
         $scope.displayedCard.contactList = [];
+        $scope.displayedCard.documentList = [];
+        for (var i = 0; i < $scope.displayedCard.documents.length; i++) {
+            var docObj = {};
+            docObj.name = $scope.displayedCard.documents[i].trim();
+            docObj.url = $scope.displayedCard.documenturls[i].trim();
+            $scope.displayedCard.documentList.push(docObj);
+        }
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
             
             contactObj.name = $scope.displayedCard.contacts[i];

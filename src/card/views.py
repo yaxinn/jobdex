@@ -17,8 +17,11 @@ DECK_EXISTS_ERROR = -23
 def home(request):
     #print request.user.username
     if request.user.is_active and request.user.is_authenticated:
-        decks = Deck.objects.filter(owner=request.user)
-        return render(request, 'index.html', {"decks": decks})
+        context = {
+                "decks": Deck.objects.filter(owner=request.user),
+                "documents": Document.objects.all(),
+        }
+        return render(request, 'index.html', context)
     return render(request, 'index.html', {})
 
 def about(request):
@@ -359,3 +362,25 @@ def add_task(request):
         return JsonResponse({'error_message': 1}, safe=False)
     except Task.Exception:
         return JsonResponse({'error_message': -16}, safe=False)
+
+@csrf_exempt
+def add_document(request):
+    if testing:
+        info = request.POST
+    else:
+        info = json.loads(request.POST.keys()[0])
+
+    card_id = info['card_id']
+    document_name = info['document']
+    try:
+        card = Card.objects.get(card_id=card_id)
+        document = Document.objects.get(doc_name=document_name)
+        card.documents_submitted.add(document)
+        card.save()
+        return JsonResponse({'error_message': 1}, safe=False)
+    except Card.DoesNotExist:
+        #Handle this shit
+        return JsonResponse({'error_message': -1000}, safe=False)
+    except Document.DoesNotExist:
+        #Handle this shit
+        return JsonResponse({'error_message': -1000}, safe=False)

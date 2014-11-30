@@ -20,9 +20,7 @@ class Card(models.Model):
     status = models.CharField(max_length=20, blank=False, default="Interested")
     notes = models.TextField(default="")
     card_deck = models.ForeignKey(Deck)
-
-
-
+    documents_submitted = models.ManyToManyField('document.Document')
 
 class Tag(models.Model):
     tag = models.CharField(max_length=100)

@@ -75,6 +75,22 @@
                                 {{contact.name}}, {{contact.email}}, {{contact.phone}},
                             {% endif %}
                         {% endfor %}" 
+                        data-documents="
+                        {% for document in card.documents_submitted.all %}
+                            {% if forloop.last %}
+                                {{document.doc_name}}
+                            {% else %}
+                                {{document.doc_name}},
+                            {% endif %}
+                        {% endfor %}"
+                        data-documenturls="
+                        {% for document in card.documents_submitted.all %}
+                            {% if forloop.last %}
+                                {{document.pdf}}
+                            {% else %}
+                                {{document.pdf}},
+                            {% endif %}
+                        {% endfor %}"
                         data-company="{{deck.associated_company.name}}" 
                         data-position="{{card.job_title}}" 
                         data-notes="{{card.notes}}" 
@@ -218,7 +234,21 @@
 
                 <div id="documents" class="tab">
                     <h1>Documents:</h1>
-                    <p style="text-align: center">Right now, documents are implemented on a per-user basis, as opposed to a per-card per-user basis.</p>
+                    <div ng-repeat="document in displayedCard.documentList" class="document-detail">
+                        <a href="/assets/{{document.url}}">{{document.name}}</a>
+                    </div>
+                    <button class="card-edit" ng-click="addingDocument=true">Add an uploaded document</button>
+                    <div ng-show="addingDocument">
+                        <label for="document">Choose a document:</label>
+                        <select name="document" ng-model="documentAdded">
+                            {% endverbatim %}
+                            {% for doc in documents %}
+                                <option value="{{doc}}">{{doc}}</option>
+                            {% endfor %}
+                            {% verbatim %}
+                        </select>
+                        <button class="card-edit" ng-click="addDocument()">Add</button>
+                    </div>
                 </div> 
             </div>
 
