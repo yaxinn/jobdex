@@ -71,7 +71,7 @@
                 </div>
                 {% for card in deck.card_set.all %}
                 <div class="card-position card-field">
-                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" data-tags="{{card.tag_set.all}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
+                    <button class="card-detail-btn" data-contacts="{% for contact in card.contact_set.all %}{% if forloop.last %}{{contact.name}}, {{contact.email}}, {{contact.phone}}{% else %}{{contact.name}}, {{contact.email}}, {{contact.phone}}, {% endif%}{% endfor %}" data-company="{{deck.associated_company.name}}" data-position="{{card.job_title}}" data-notes="{{card.notes}}" data-status="{{card.status}}" data-card_id="{{card.card_id}}" data-tags="{{card.tag_set.all}}" ng-click="showDetails($event.target)">{{card.job_title}}</button>
                 </div>
 
                 {% endfor %}
@@ -124,16 +124,17 @@
                     </div>
                 </div>
                 <div id="contacts" class="tab">
+                    <h1>Contacts:</h1>
                     <div ng-repeat="contact in displayedCard.contactList">
-                        <h1>Contacts:</h1> 
-                        <h2>Name:</h2>
+                      
+                        
                         <p style="text-align: center">{{contact.name}}</p>
-                        <h2>Email:</h2>
+                      
                         <p style="text-align: center">{{contact.email}}</p>
-                        <h2>Phone:</h2>
+                        
                         <p style="text-align: center">{{contact.phone}}</p>
                         <button class="card-edit" ng-click="editContact()">Edit</button>
-                        <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button>
+                        <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button><br>
                         <div class="edit-fields" ng-show="isContactEditing">
                             <label for="new-name">New Name:</label>
                             <input type="text" name="new-name" ng-model="new_name">

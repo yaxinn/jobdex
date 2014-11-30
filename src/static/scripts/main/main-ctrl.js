@@ -308,7 +308,7 @@ app.controller('CardController', function($scope, $http){
     $scope.removeTag = function(){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
         var card_id = $scope.displayedCard.id;
-        var old_tag = $scope.old_tag;
+        var old_tag = $scope.old_tag.trim();
 
         var req = JSON.stringify({card_id: card_id, target_tag: old_tag});
         
@@ -661,7 +661,7 @@ app.controller('CardController', function($scope, $http){
     //remove a contact given card_id and contact.name
     $scope.removeContact = function(name){
         var cardId = $scope.displayedCard.id;
-        var req = JSON.stringify({card_id: cardId, contactName: name});
+        var req = JSON.stringify({card_id: cardId, contactName: name.trim()});
 
         $http.post('/api/card/remove-contact/', req).
             success(function(data, status, headers, config){

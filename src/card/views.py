@@ -212,7 +212,7 @@ def add_contact(request):
         add_phone = info['add_phone']
 
         card = Card.objects.get(card_id=card_id)
-        add_contact = Contact(name= "," + add_name, email=add_email, phone=add_phone, associated_card=card)
+        add_contact = Contact(name=add_name, email=add_email, phone=add_phone, associated_card=card)
         add_contact.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
