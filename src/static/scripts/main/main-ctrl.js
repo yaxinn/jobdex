@@ -444,6 +444,7 @@ app.controller('CardController', function($scope, $http){
         }
         $scope.detailIsShown = true;
         var contactObj = {};
+        $scope.displayedCard.contactList = [];
         for (var i = 0; i < $scope.displayedCard.contacts.length; i+=3){
             
             contactObj.name = $scope.displayedCard.contacts[i];
