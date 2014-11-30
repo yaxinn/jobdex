@@ -761,4 +761,6 @@ input[type=password]:hover{
 
 .tag-detail {
     text-align: right;
+    width: 100px;
+    margin: 0 auto;
 }
