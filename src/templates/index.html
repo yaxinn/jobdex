@@ -82,7 +82,7 @@
                         data-card_id="{{card.card_id}}" 
                         data-tags="{{card.tag_set.all}}" 
                         ng-click="showDetails($event.target)">
-                            {{card.job_title}}
+                            {{card.job_title|truncatechars:20}}
                 </button>
 
                 {% endfor %}
