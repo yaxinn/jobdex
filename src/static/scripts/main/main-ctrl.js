@@ -251,8 +251,7 @@ app.controller('CardController', function($scope, $http){
     $scope.$watch('tagFilter', function() {
         var tag = $scope.tagFilter; 
         $('.card-detail-btn').each(function() {
-            //console.log($(this).data('tags'));
-            if (tag && $(this).data('tags').indexOf(tag) === -1) {
+            if (tag && $(this).data('tags').indexOf(tag) !== -1) {
                 $(this).css({
                     'border': '3px solid #FFD700',
                 });
