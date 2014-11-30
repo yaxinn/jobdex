@@ -184,24 +184,20 @@
                     </div>
 
                     <h1>Tags:</h1>
-                    <div ng-repeat="tag in displayedCard.tags" style="text-align: center">   
+                    <div ng-repeat="tag in displayedCard.tags" class="tag-detail">   
                         <p style="text-align: center">
                         #<span class="single-tag" ng-click="editTag(tag)" ng-show="!isEditingTag(tag)">
                             {{tag}}
                         </span>
                         <input type="text" size="30" class="changed-tag-input" ng-show="isEditingTag(tag)" ng-model="newTag" placeholder="{{selectedTag}}">
                         <button class="card-edit" ng-click="changeTag(tag, newTag)" ng-show="isEditingTag(tag)">Save</button>
+                        <img class="tag-remove-icon" src="/static/images/remove.png" ng-click="removeTag(tag)"/>
                         </p>
                     </div>
                         <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
-                        <button class="card-edit" ng-click="editRemoveTags()">Remove Tag</button>
                     <div class="edit-fields" ng-show="isTagAdding">
                            <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
                          <button class="card-edit" ng-click="add_tag()">Save new tags</button>
-                    </div>
-                    <div class="edit-fields" ng-show="isTagRemoving">
-                         <label for="old-tag">Remove a Tag</label><input type="text" name="old-tag" ng-model="old_tag">
-                         <button class="card-edit" ng-click="remove_tag()">Remove tag</button>
                     </div>
                 </div>
 

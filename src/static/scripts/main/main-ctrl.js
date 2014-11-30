@@ -319,10 +319,10 @@ app.controller('CardController', function($scope, $http){
     };
 
     // remove the tag given cardID and tagName
-    $scope.remove_tag = function(){
+    $scope.removeTag = function(tag){
         //$scope.tagIndex = $scope.tags.indexOf(tagName);
         var card_id = $scope.displayedCard.id;
-        var old_tag = $scope.old_tag;
+        var old_tag = tag.trim();
 
         var req = JSON.stringify({card_id: card_id, target_tag: old_tag});
         
