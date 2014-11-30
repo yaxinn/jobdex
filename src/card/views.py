@@ -200,19 +200,19 @@ def edit_contact(request):
 # Add contact given card id and contact info
 @csrf_exempt
 def add_contact(request):
+    if testing:
+        info = request.POST
+    else:
+        info = json.loads(request.POST.keys()[0])
+
+    card_id = info['card_id']
+    add_name = info['add_name']
+    add_email = info['add_email']
+    add_phone = info['add_phone']
+
     try:
-        if testing:
-            info = request.POST
-        else:
-            info = json.loads(request.POST.keys()[0])
-
-        card_id = info['card_id']
-        add_name = info['add_name']
-        add_email = info['add_email']
-        add_phone = info['add_phone']
-
         card = Card.objects.get(card_id=card_id)
-        add_contact = Contact(name= "," + add_name, email=add_email, phone=add_phone, associated_card=card)
+        add_contact = Contact(name=add_name, email=add_email, phone=add_phone, associated_card=card)
         add_contact.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:

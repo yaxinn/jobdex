@@ -566,7 +566,6 @@ app.controller('CardController', function($scope, $http){
     };
 
     $scope.add_contact = function(cardID){
-
         var card_id = $scope.displayedCard.id;
         var add_name = $scope.add_name;
         var add_email = $scope.add_email;

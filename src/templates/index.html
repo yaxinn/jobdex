@@ -69,7 +69,11 @@
                 <button class="card-detail-btn {{card.status}}" 
                         data-contacts="
                         {% for contact in card.contact_set.all %}
-                            {{contact.name}}, {{contact.email}}, {{contact.phone}}
+                            {% if forloop.last %}
+                                {{contact.name}}, {{contact.email}}, {{contact.phone}}
+                            {% else %}
+                                {{contact.name}}, {{contact.email}}, {{contact.phone}},
+                            {% endif %}
                         {% endfor %}" 
                         data-company="{{deck.associated_company.name}}" 
                         data-position="{{card.job_title}}" 
