@@ -152,30 +152,21 @@
                 </div>
                 <div id="contacts" class="tab">
                     <div class="contact-detail" ng-repeat="contact in displayedCard.contactList">
-                        <h1>Contacts:</h1> 
+                        <p>
                         <h2>Name:</h2>
-                        <p style="text-align: center">{{contact.name}}</p>
+                        <p style="text-align: center"><span class="single" ng-click="editContact(contact, contact.name, contact.email, contact.phone)" ng-show="selectedContact!=contact">{{contact.name}}</span></p>
+                        <input type="text" class="change-contact" ng-show="isContactEditing&&selectedContact==contact" ng-model="newName" placeholder="{{selectedContactName}}">
                         <h2>Email:</h2>
-                        <p style="text-align: center">{{contact.email}}</p>
+                        <p style="text-align: center" ng-show="selectedContact!=contact">{{contact.email}}</p>
+                        <input type="text" class="change-contact" ng-show="isContactEditing&&selectedContact==contact" ng-model="newEmail" placeholder="{{selectedContactEmail}}">
                         <h2>Phone:</h2>
-                        <p style="text-align: center">{{contact.phone}}</p>
-                        <button class="card-edit" ng-click="editContact()">Edit</button>
+                        <p style="text-align: center" ng-show="selectedContact!=contact">{{contact.phone}}</p>
+                        <input type="text" class="change-contact" ng-show="isContactEditing&&selectedContact==contact" ng-model="newPhone" placeholder="{{selectedContactPhone}}">
+                        <button class="card-edit" ng-click="change_contact(newName, newEmail, newPhone, contact.name)" ng-show="isContactEditing">Save new contact</button>
+                        <button class="card-edit" ng-click="closeEditContact()" ng-show="isContactEditing">Cancel</button>
                         <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button>
-                        <div class="edit-fields" ng-show="isContactEditing">
-                            <label for="new-name">New Name:</label>
-                            <input type="text" name="new-name" ng-model="new_name">
-                            <br>
-                            <label for="new-email">New Email:</label>
-                            <input type="text"  name="new-email" ng-model="new_email">
-                            <br>
-                            <label for="new-phone">New Phone:</label>
-                            <input type="text" name="new-phone" ng-model="new_phone">
-                            <br>
-                            <button class="card-edit" ng-click="edit_contact(new_name, new_email, new_phone, contact.name)">Save new contact</button>
-                        </div>
+                        </p>
                     </div>
-
-
 
                     <button class="card-edit" ng-click="editAddContact()">Add</button>
                     <div class="edit-fields" ng-show="isContactAdding">
@@ -206,7 +197,7 @@
                     <h1>Tags:</h1>
                     <div ng-repeat="tag in displayedCard.tags" class="tag-detail">   
                         <p>
-                        #<span class="single-tag" ng-click="editTag(tag)" ng-show="!isEditingTag(tag)">
+                        #<span class="single" ng-click="editTag(tag)" ng-show="!isEditingTag(tag)">
                             {{tag}}
                         </span>
                         <input type="text" size="30" class="changed-tag-input" ng-show="isEditingTag(tag)" ng-model="newTag" placeholder="{{selectedTag}}">
