@@ -4,6 +4,9 @@
     <div class="banner">
         <h1>Reports</h1>
     </div>
+    <div class="grid-100" id="chart-section">
+        <canvas id="chart" width="400" height="400"></canvas>
+    </div>
     <div class="grid-100 grid-parent" id="facts">
         <div class="fact-section grid-20">
             <h1>Total Jobs Applied:</h1>
@@ -27,4 +30,41 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block additional_scripts %}
+<script src="/static/bower_components/Chart.min.js"></script>
+<script>
+var data = [
+    {
+        value: {{jobs_applied}},
+        label: "Jobs Applied To",
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+    },
+    {
+        value: {{jobs_offered}},
+        label: "Offered Receieved",
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+    },
+    {
+        value: {{jobs_rejected}},
+        label: "Positions Rejected From",
+        color: "#FDB45C",
+        highlight: "#FFC870",
+    },
+    {
+        value: {{jobs_in_progress}},
+        label: "Jobs In Progress",
+        color: "#3a3a3a",
+    },
+    {
+        value: {{companies_applied}},
+        label: "Companies Applied To",
+        color: "#66cdaa",
+    }
+];
+var ctx = document.getElementById("chart").getContext("2d");
+var myPieChart = new Chart(ctx).Pie(data);
+</script>
 {% endblock %}
