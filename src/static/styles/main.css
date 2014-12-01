@@ -45,6 +45,11 @@
   src: url(../fonts/icomoon.ttf);
 }
 
+@font-face {
+  font-family: FontAwesome;
+  src: url(../fonts/fontawesome-webfont.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -245,7 +250,30 @@ a {
   left: 0;
   right: 0;
   background: #d1d2d5;
+  -webkit-animation: fade-in-modal .3s forwards ease-out;
 }
+
+@-webkit-keyframes fade-in-modal {
+  0% {
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
 #card-detail-top button {
   padding: 0;
   background: red;
@@ -262,6 +290,7 @@ a {
   color: white;
   line-height: 22px;
 }
+
 
 #card-detail-top button:hover {
   cursor: pointer;
@@ -469,14 +498,16 @@ a {
 
 /*.user_login {display: none;}*/
 .user_login label {
+  font-family: GravityLight;
   display: block;
   margin-bottom: 5px;
 }
 
 .user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {
   display: block;
-  width: 90%;
+  width: 92%;
   padding: 10px;
+  padding-right: -6px;
   border: 1px solid #DDD;
   color: #666;
 }
@@ -494,7 +525,11 @@ a {
   clear: both;
   overflow: hidden;
   text-decoration: none;
-  color: #79a9da;
+  color: #D35C48;
+}
+
+.forgot_password:hover {
+  color: #79A9DA;
 }
 
 .todo-wrapper {
@@ -508,6 +543,7 @@ a {
 }
 
 .user_register label {
+  font-family: GravityLight;
   display: block;
   margin-bottom: 5px;
 }
@@ -698,10 +734,6 @@ a#logout {
   margin-left: 50px;
 }
 
-a#login {
-  margin-left: 50px;
-}
-
 *:focus {
     outline: 0;
 }
@@ -806,4 +838,89 @@ input[type=password]:hover{
 #chart-section {
     margin: 1em auto;
     width: 400px;
+}
+
+/* Landing Page */
+
+.landing-page {
+  background: #3B333F;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+#wrapper {
+  padding-top: 10%;
+}
+
+#description {
+  color: white;
+  font-family: GravityLight;
+  font-size: 20px;
+  margin-top: 33px;
+}
+
+html {
+  height: 100%;
+}
+
+#get-started a {
+  text-align: center;
+  margin-top: 66px;
+}
+
+#login {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+  border: 1px solid white;
+  padding: 1em 5em;
+  transition: 0.2s;
+  font-family: GravityLight;
+  font-size: 18px;
+  color: white;
+  text-transform: uppercase;
+}
+
+#login:hover {
+  background: #D35C48;
+  color: #fff;
+  padding: 1em 5em;
+  border: 1px solid #D35C48;
+}
+
+#login:after {
+  position: absolute;
+  content: '\f0b1';
+  font-family: 'FontAwesome';
+  font-weight: normal;
+  right: -3em;
+  transition: 0.4s;
+  color: #fff;
+}
+
+#login:hover:after {  
+  right: 2em;
+}
+
+.modal_close {
+  color: black;
+  font-size: 22px;
+  border: none;
+  background: transparent;
+}
+
+.login, .button {
+  color: white;
+  background: None;
+  background-color: #D35C48;
+  border: None;
+  width: 100%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 16px;
+  font-family: GravityLight;
+  clear: both;
 }
