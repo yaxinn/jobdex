@@ -402,8 +402,6 @@ def add_document(request):
         card.save()
         return JsonResponse({'error_message': 1}, safe=False)
     except Card.DoesNotExist:
-        #Handle this shit
-        return JsonResponse({'error_message': -1000}, safe=False)
+        return JsonResponse({'error_message': -8}, safe=False)
     except Document.DoesNotExist:
-        #Handle this shit
-        return JsonResponse({'error_message': -1000}, safe=False)
+        return JsonResponse({'error_message': -11}, safe=False)

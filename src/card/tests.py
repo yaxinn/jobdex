@@ -1,12 +1,15 @@
 from django.test import TestCase, Client
 from card.models import *
 from card.views import *
+from document.models import *
+from document.views import *
 import json
 from django.core import serializers
 
 ERROR_CODES = {
         "SUCCESS": 1,
         "CARD_DOESNT_EXIST": -8,
+        "DOCUMENT_DOESNT_EXIST": -11,
         "CONTACT_DOESNT_EXIST": -14,
         "DECK_DOESNT_EXIST": -22
         }
@@ -779,7 +782,7 @@ class EditNotesCardNonexistent(TestCase):
         self.assertEqual(error_code, ERROR_CODES['CARD_DOESNT_EXIST'])
 
 #############
-#   TASKS   #
+#   NOTES   #
 #############
 
 class EditNotes(TestCase):
@@ -820,6 +823,125 @@ class EditNotes(TestCase):
         }
 
         self.response = client.post('/api/card/add-task/', data)
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['SUCCESS'])
+
+##########################
+#   DOCUMENTS PER CARD   #
+##########################
+
+class AddNonexistentDocument(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userH",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "personA",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        data = {
+            "card_id": card_id,
+            "document": "my resume doesn't exist"
+        }
+
+        self.response = client.post('/api/card/add-document/', data)
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['DOCUMENT_DOESNT_EXIST'])
+
+class AddDocumentNonexistentCard(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userHH",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        data = {
+            "card_id": "123",
+            "document": "my resume doesn't exist"
+        }
+
+        self.response = client.post('/api/card/add-document/', data)
+
+    def test_analyze_response(self):
+        error_code = json.loads(self.response.content)['error_message']
+        self.assertEqual(error_code, ERROR_CODES['CARD_DOESNT_EXIST'])
+
+class AddExistingDocument(TestCase):
+    def setUp(self):
+        client = Client()
+        user_info = {
+            "username": "userHHH",
+            "password": "password",
+            "confirm_password": "password",
+            "email": "paulina@cool.com",
+        }
+        client.post('/signup/', user_info)
+
+        deck_data = {
+            "companyName": "Google",
+            "companyDescription": "tech"
+        }
+        self.create_deck_response = client.post('/api/user/create-deck/', deck_data)
+        deck_id = json.loads(self.create_deck_response.content)['deck_id']
+
+        card_data = {
+            "deck_id": deck_id,
+            "jobTitle": "Software Engineer",
+            "status": "interested",
+            "notes": "hello",
+            "tags": "tech",
+            "contactName": "personA",
+            "contactEmail": "poop@gmail.com",
+            "contactPhone": "123456"
+        }
+
+        self.add_card_response = client.post('/api/card/add-card/', card_data)
+        card_id = json.loads(self.add_card_response.content)['card_id']
+
+        document_data = {
+            "name": "test_file",
+            "pdf": open('document/test.pdf')
+        }
+
+        client.post('/api/document/upload/', document_data)
+
+        data = {
+            "card_id": card_id,
+            "document": "test_file"
+        }
+
+        self.response = client.post('/api/card/add-document/', data)
 
     def test_analyze_response(self):
         error_code = json.loads(self.response.content)['error_message']
