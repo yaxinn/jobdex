@@ -22,7 +22,7 @@ def home(request):
                 "documents": Document.objects.filter(uploaded_by=request.user),
         }
         return render(request, 'index.html', context)
-    return render(request, 'index.html', {})
+    return render(request, 'landing.html', {})
 
 def about(request):
     context = {}
