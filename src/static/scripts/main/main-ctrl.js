@@ -359,7 +359,10 @@ app.controller('CardController', function($scope, $http){
     $scope.displayedCard = {};
     $scope.displayedCard.contactList = [];
     $scope.detailIsShown = false;
-
+    $scope.todos = [
+    {text:'Learn AngularJS', done:false},         
+    {text: 'Build an app', done:false}
+    ];
     $scope.isEditing = false;
     $scope.isStatusEditing = false;
     $scope.isContactEditing = false;
@@ -495,6 +498,14 @@ app.controller('CardController', function($scope, $http){
             }
         }
 
+        for (var i = 0; i < $scope.displayedCard.tasks.length; i++){
+            $scope.displayedCard.tasks[i] = $scope.displayedCard.tasks[i].substring($scope.displayedCard.tasks[i].indexOf(":") + 1);
+            $scope.displayedCard.tasks[i] = $scope.displayedCard.tasks[i].slice(">", -1);
+            if (i == $scope.displayedCard.tasks.length - 1){
+                $scope.displayedCard.tasks[i] = $scope.displayedCard.tasks[i].slice(">", -1);
+            }
+        }
+
     };
 
     $scope.showCardForm = false;
@@ -626,8 +637,15 @@ app.controller('CardController', function($scope, $http){
         });
     };
 
-    $scope.add_task = function(cardID){
 
+
+    $scope.addTodo = function () {
+    $scope.todos.push({text:$scope.formTodoText, done:false});
+    $scope.formTodoText = '';
+  };
+
+
+    $scope.add_task = function(){
         var card_id = $scope.displayedCard.id;
         var new_task = $scope.new_task;
 

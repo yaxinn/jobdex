@@ -97,6 +97,7 @@
                         data-status="{{card.status}}" 
                         data-card_id="{{card.card_id}}" 
                         data-tags="{{card.tag_set.all}}" 
+                        data-tasks="{{card.task_set.all}}"
                         ng-click="showDetails($event.target)">
                             {{card.job_title|truncatechars:20}}
                 </button>
@@ -214,12 +215,23 @@
 
                 <div id="tasks" class="tab">
                     <h1>Tasks:</h1>
-                    <p style="text-align: center">{{displayedCard.task}}</p>
+                    
+                    <div class="todo-wrapper">
+                          <ul>
+                            <li ng-repeat="todo in displayedCard.tasks">
+                              <input type="checkbox" ng-model="todo.status"/>
+                              <span class="done-{{todo.status}}">{{todo}}</span>
+                            </li>
+                          </ul>
+                    </div>
+
                     <button class="card-edit" ng-click="edit()">Add New Task</button>
                     <div class="edit-fields" ng-show="isEditing">
                         <label for="new-task">New task:</label>
-                        <input type="text" name="new-task" ng-model="new_task">
-                        <button class="card-edit" ng-click="add_task()">Save New Task</button>
+                        <input type="text" name="new-task" ng-model="new_task" ng-model-instant>
+                        <form>
+                            <button class="card-edit" ng-click="add_task()"><h2>Add</h2></button>
+                        </form>
                     </div>
                 </div>
 

@@ -40,8 +40,8 @@ class Contact(models.Model):
 
 class Task(models.Model):
     task = models.CharField(max_length=100)
-    status = models.CharField(max_length=20, blank=False, default="incomplete")
+    status = models.BooleanField(default=False)
     associated_card = models.ForeignKey(Card)
 
     def __str__(self):
-        return "Tasks for " + self.associated_card.name
+        return self.task

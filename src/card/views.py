@@ -383,7 +383,7 @@ def add_task(request):
         add_task = Task(task=new_task, associated_card=card)
         add_task.save()
         return JsonResponse({'error_message': 1}, safe=False)
-    except Task.Exception:
+    except Task.DoesNotExist:
         return JsonResponse({'error_message': -16}, safe=False)
 
 @csrf_exempt

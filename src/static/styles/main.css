@@ -497,6 +497,12 @@ a {
   color: #79a9da;
 }
 
+.todo-wrapper {
+  width: 100%;
+  text-align: center;
+
+}
+
 .user_register {
   display: none;
 }
