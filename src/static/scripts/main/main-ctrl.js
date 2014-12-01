@@ -464,7 +464,7 @@ app.controller('CardController', function($scope, $http){
             $scope.displayedCard.status = status;
         } 
         $scope.displayedCard.id = $(angular.element(card)[0]).data('card_id');
-        $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks');
+        $scope.displayedCard.tasks = $(angular.element(card)[0]).data('tasks').split(",");
         if ($(angular.element(card)[0]).data('tags').length > 0) {
             $scope.displayedCard.tags = $(angular.element(card)[0]).data('tags').split(",");
         } else {
