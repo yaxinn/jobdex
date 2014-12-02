@@ -34,13 +34,12 @@ def upload_document(request):
         return JsonResponse({'error_message': ERR_DOC_INVALID}, safe=False)
     try:
         Document.objects.get(doc_name=name, uploaded_by=request.user.user_profile)
-        return JsonResponse({'error_message': ERR_DOC_EXISTS}, safe=False)
+        name += ' (copy) '
+        new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
     except Document.DoesNotExist:
         new_document = Document(doc_name=name, pdf=pdf, uploaded_by=request.user.user_profile)
-        new_document.save()
-        redirect('documents')
-        # return JsonResponse({'error_message': 1}, safe=False)
-        return redirect('documents')
+    new_document.save()
+    return redirect('documents')
 
 @csrf_exempt
 @require_http_methods(["POST"])
