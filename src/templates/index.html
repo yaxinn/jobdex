@@ -149,6 +149,7 @@
                             </select>
                             <br>
                         <button class="card-edit" ng-click="changeStatus()">Save new status</button>
+                        <button class="card-edit" ng-click="isStatusEditing=false">Cancel</button>
                     </div>
                 </div>
                 <div id="contacts" class="tab">
@@ -181,6 +182,7 @@
                         <input type="text" name="add-phone" ng-model="add_phone">
                         <br>
                         <button class="card-edit" ng-click="add_contact()">Add new contact</button>
+                        <button class="card-edit" ng-click="isContactAdding=false">Cancel</button>
                     </div>
 
                 </div>
@@ -193,6 +195,7 @@
                         <label for="new-notes">New notes:</label>
                         <input type="text" name="new-notes" ng-model="new_notes">
                         <button class="card-edit" ng-click="edit_notes()">Save New Note</button>
+                        <button class="card-edit" ng-click="isNotesEditing=false">Cancel</button>
                     </div>
 
                     <h1>Tags:</h1>
@@ -210,6 +213,7 @@
                     <div class="edit-fields" ng-show="isTagAdding">
                            <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
                          <button class="card-edit" ng-click="add_tag()">Save new tags</button>
+                         <button class="card-edit" ng-click="isTagAdding=false">Cancel</button>
                     </div>
                 </div>
 
@@ -230,7 +234,8 @@
                         <label for="new-task">New task:</label>
                         <input type="text" name="new-task" ng-model="new_task" ng-model-instant>
                         <form>
-                            <button class="card-edit" ng-click="add_task()"><h2>Add</h2></button>
+                            <button class="card-edit" ng-click="add_task()">Add</button>
+                            <button class="card-edit" ng-click="isEditing=false">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -251,6 +256,7 @@
                             {% verbatim %}
                         </select>
                         <button class="card-edit" ng-click="addDocument()">Add</button>
+                        <button class="card-edit" ng-click="addingDocument=false">Cancel</button>
                     </div>
                 </div> 
             </div>

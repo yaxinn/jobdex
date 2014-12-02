@@ -769,21 +769,25 @@ input[type=password]:hover{
 .single-tag:hover {
     cursor: pointer;
 }
-
+/*#6A6A82
+#397F4B
+#998B4C
+#A37784
+#5A86C5*/
 .interested {
-    background-color: #6A6A82 !important;
+    background-color: #9A969C !important;
 }
 .inprogress {
-    background-color: #397F4B !important;
+    background-color: #5D5861 !important;
 }
 .complete {
-    background-color: #998B4C !important;
+    background-color: #352E39 !important;
 }
 .rejected {
-    background-color: #A37784 !important;
+    background-color: #8A0000 !important;
 }
 .offered {
-    background-color: #5A86C5 !important;
+    background-color: #005C1F !important;
 }
 
 .contact-detail {
