@@ -46,6 +46,11 @@
 }
 
 @font-face {
+  font-family: Status;
+  src: url(../fonts/status.ttf);
+}
+
+@font-face {
   font-family: FontAwesome;
   src: url(../fonts/fontawesome-webfont.ttf);
 }
@@ -213,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 17px;
   font-family: GravityLight;
   text-align: left;
-  color: white;
+  color: black;
 }
 
 .deck .add-card-detail-btn {
@@ -686,6 +691,20 @@ input::-webkit-input-placeholder {
 .icon-delete:before{
   content: "\e600";
 }
+.icon-status {
+  font-family: Status;
+  font-size: 17px;
+  float: right;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  position: relative;
+  bottom: 8px;
+  color: transparent;
+}
+.icon-status:before {
+  content: "\e600";
+}
 
 /* reports */
 #documents-page form {
@@ -795,13 +814,13 @@ input[type=password]:hover{
 #A37784
 #5A86C5*/
 .interested {
-    background-color: #9A969C !important;
+    background-color: #D15B47 !important;
 }
 .inprogress {
-    background-color: #5D5861 !important;
+    background-color: #E6E65C !important;
 }
 .complete {
-    background-color: #352E39 !important;
+    background-color: #3b333f !important;
 }
 .rejected {
     background-color: #8A0000 !important;

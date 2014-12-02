@@ -36,8 +36,8 @@
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
                         <option value="interested" selected>Interested</option>
+                        <option value="complete">Application Submitted</option>
                         <option value="inprogress">In Progress</option>
-                        <option value="complete">Complete</option>
                         <option value="rejected">Rejected</option>
                         <option value="offered">Recieved Offer</option>
                     </select>
@@ -66,7 +66,9 @@
                      {{deck.associated_company.name}}<br>
                 </div>
                 {% for card in deck.card_set.all %}
-                <button class="card-detail-btn {{card.status}}" 
+                <div class="detail-button">
+
+                <button class="card-detail-btn" 
                         data-contacts="
                         {% for contact in card.contact_set.all %}
                             {% if forloop.last %}
@@ -99,9 +101,11 @@
                         data-tags="{{card.tag_set.all}}" 
                         data-tasks="{{card.task_set.all}}"
                         ng-click="showDetails($event.target)">
-                            {{card.job_title|truncatechars:20}}
+                        {{card.job_title|truncatechars:20}}<span class="icon-status {{card.status}}"></span>
+                              
                 </button>
-
+                
+            </div>
                 {% endfor %}
                 
                 <button class="add-card-detail-btn" data-deck-id="{{deck.unique_id}}" ng-click="add_card_helper($event.target)">+ Add Position</button>
@@ -119,7 +123,7 @@
             <input src="/static/images/close.png" type="image" id="closer" ng-click="closeDetails()"/>
             <button class="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
 
-            <h1>Your application for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
+            <h1>Your application process for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
         </div>
         <div id="card-detail-navbar">
 
@@ -142,8 +146,8 @@
                         <label for="new-status">New Status:</label>
                             <select name="new-status" ng-model="newStatus">
                                 <option value="interested" selected>Interested</option>
+                                <option value="complete">Application Submitted</option>
                                 <option value="inprogress">In Progress</option>
-                                <option value="complete">Complete</option>
                                 <option value="rejected">Rejected</option>
                                 <option value="offered">Received Offer</option>
                             </select>
