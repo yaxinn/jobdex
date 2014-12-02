@@ -8,7 +8,7 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="SeleniumTestsIter3.html">basicTests</a></td></tr>
+<tr><td><a href="basicTests.html">basicTests</a></td></tr>
 <tr><td><a href="loginFeatures.html">loginFeatures</a></td></tr>
 <tr><td><a href="deletingCards.html">deletingCards</a></td></tr>
 <tr><td><a href="cardEditingAndPDF.html">cardEditingAndPDF</a></td></tr>
