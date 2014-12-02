@@ -36,13 +36,13 @@
             <label for="status">Status:</label>
                     <select name="status" ng-model="card.status">
                         <option value="interested" selected>Interested</option>
-                        <option value="complete">Application Submitted</option>
+                        <option value="application submitted">Application Submitted</option>
                         <option value="inprogress">In Progress</option>
                         <option value="rejected">Rejected</option>
                         <option value="offered">Recieved Offer</option>
                     </select>
             <br>
-            <label for="tags">Tags:</label><input type="text" name="tags" ng-model="card.tags">
+            <label for="tags">Tags:</label><input type="text" placeholder="Separate tags by commas" name="tags" ng-model="card.tags">
             <br>
             <label for="notes">Notes:</label><input type="text" name="notes" ng-model="card.notes">
             <br>
@@ -146,7 +146,7 @@
                         <label for="new-status">New Status:</label>
                             <select name="new-status" ng-model="newStatus">
                                 <option value="interested" selected>Interested</option>
-                                <option value="complete">Application Submitted</option>
+                                <option value="application submitted">Application Submitted</option>
                                 <option value="inprogress">In Progress</option>
                                 <option value="rejected">Rejected</option>
                                 <option value="offered">Received Offer</option>
@@ -215,7 +215,7 @@
                     </div>
                         <button class="card-edit" ng-click="editAddTags()">Add Tag(s)</button>
                     <div class="edit-fields" ng-show="isTagAdding">
-                           <label for="add-tag">New Tag(s):</label><input type="text" name="add-tag" ng-model="new_tags">
+                           <label for="add-tag">New Tag(s):</label><input type="text" placeholder="Separate tags by commas" name="add-tag" ng-model="new_tags">
                          <button class="card-edit" ng-click="add_tag()">Save new tags</button>
                          <button class="cancel-edit" ng-click="isTagAdding=false">Cancel</button>
                     </div>

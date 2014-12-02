@@ -819,7 +819,7 @@ input[type=password]:hover{
 .inprogress {
     background-color: #E6E65C !important;
 }
-.complete {
+.application {
     background-color: #3b333f !important;
 }
 .rejected {
