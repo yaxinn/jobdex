@@ -814,19 +814,19 @@ input[type=password]:hover{
 #A37784
 #5A86C5*/
 .interested {
-    background-color: #D15B47 !important;
+    background-color: #FF7519 !important;
 }
 .inprogress {
-    background-color: #E6E65C !important;
+    background-color: #FFFF00 !important;
 }
 .application {
-    background-color: #3b333f !important;
+    background-color: #0000FF !important;
 }
 .rejected {
-    background-color: #8A0000 !important;
+    background-color: #FF0000 !important;
 }
 .offered {
-    background-color: #005C1F !important;
+    background-color: #33CC33 !important;
 }
 
 .contact-detail {
