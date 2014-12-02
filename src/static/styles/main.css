@@ -801,11 +801,11 @@ input[type=password]:hover{
 
 }
 
-.single-tag {
+.single{
     border-bottom: 1px solid white;
 }
 
-.single-tag:hover {
+.single:hover {
     cursor: pointer;
 }
 /*#6A6A82

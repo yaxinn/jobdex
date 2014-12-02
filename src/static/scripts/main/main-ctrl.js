@@ -386,14 +386,7 @@ app.controller('CardController', function($scope, $http){
            $scope.isStatusEditing = true;
         }
     }
-    $scope.editContact = function() {
-       if ($scope.isContactEditing){
-            $scope.isContactEditing = false;
-        }
-        else{
-           $scope.isContactEditing = true;
-        }
-    }
+
     $scope.editAddContact = function() {
        if ($scope.isContactAdding){
             $scope.isContactAdding = false;
@@ -428,7 +421,6 @@ app.controller('CardController', function($scope, $http){
     }
     $scope.closeEdit = function() {
        $scope.isEditing = false;
-       $scope.isContactEditing = false;
        $scope.isNotesEditing= false;
        $scope.isTagAdding= false;
        $scope.isTagRemoving= false;
@@ -690,15 +682,23 @@ app.controller('CardController', function($scope, $http){
         });
     }
 
-    //Change the status of a card (In Progress, Complete, Failed, or Interested)
-    $scope.edit_contact = function(newName, newEmail, newPhone, oldName) {
+//Edit Contact
+    $scope.editContact = function(contact, contactName, contactEmail, contactPhone) {
+        $scope.isContactEditing = true;
+        $scope.selectedContact = contact;
+        $scope.selectedContactName = contactName.trim();
+        $scope.selectedContactEmail = contactEmail.trim();
+        $scope.selectedContactPhone = contactPhone.trim();
+    }
+    $scope.closeEditContact = function(){
+        $scope.isContactEditing = false;
+        $scope.selectedContact = null;
+    }
+    //edit contact given newName, newEmail, newPhone, and oldName
+    $scope.change_contact = function(newName, newEmail, newPhone, oldName) {
         var card_id = $scope.displayedCard.id;
-        var new_name = newName;
-        var new_email = newEmail;
-        var new_phone = newPhone;
-        var current_name = oldName;
 
-        var req = {card_id: card_id, new_name: new_name, new_email: new_email, new_phone: new_phone, current_name: oldName};
+        var req = {card_id: card_id, new_name: newName, new_email: newEmail, new_phone: newPhone, current_name: oldName.trim()};
         $http.post('/api/card/edit-contact/', req).
             success(function(data, status, headers, config) {
 
@@ -706,7 +706,7 @@ app.controller('CardController', function($scope, $http){
                     $scope.errorHandler(data.error_message);
                 }
                 else if (data.error_message == 1){
-                    // change the card status in the html
+                    $scope.closeEditContact();
                     location.reload(true);
                 }
 

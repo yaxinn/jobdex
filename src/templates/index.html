@@ -168,8 +168,8 @@
                         <h2>Phone:</h2>
                         <p style="text-align: center" ng-show="selectedContact!=contact">{{contact.phone}}</p>
                         <input type="text" class="change-contact" ng-show="isContactEditing&&selectedContact==contact" ng-model="newPhone" placeholder="{{selectedContactPhone}}">
-                        <button class="card-edit" ng-click="change_contact(newName, newEmail, newPhone, contact.name)" ng-show="isContactEditing">Save new contact</button>
-                        <button class="cancel-edit" ng-click="closeEditContact()" ng-show="isContactEditing">Cancel</button>
+                        <button class="card-edit" ng-click="change_contact(newName, newEmail, newPhone, contact.name)" ng-show="isContactEditing&&selectedContact==contact">Save new contact</button>
+                        <button class="cancel-edit" ng-click="closeEditContact()" ng-show="isContactEditing&&selectedContact==contact">Cancel</button>
                         <button class="card-edit" ng-click="removeContact(contact.name)">Remove</button>
                         </p>
                     </div>
