@@ -35,7 +35,7 @@ def signup_view(request):
     else:
         error_message = None
     context = {'error_message': error_message}
-    return render(request, 'signup.html', context)
+    return render(request, 'landing.html', context)
 
 @csrf_exempt
 def login_view(request):
