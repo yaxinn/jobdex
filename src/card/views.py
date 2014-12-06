@@ -29,30 +29,32 @@ def about(request):
     return render(request, 'about.html', context)
 
 def report(request):
-    decks = Deck.objects.filter(owner=request.user)
-    jobs_applied = 0
-    jobs_offered = 0
-    jobs_rejected = 0
-    jobs_in_progress = 0
-    companies_applied = 0
-    for deck in decks:
-        companies_applied += 1
-        cards = Card.objects.filter(card_deck=deck)
-        for card in cards:
-            jobs_applied += 1
-            if card.status == "offered":
-                jobs_offered += 1
-            elif card.status == "rejected":
-                jobs_rejected += 1
-            elif card.status == "inprogress":
-                jobs_in_progress += 1
-    context = {
-            "jobs_applied": jobs_applied,
-            "jobs_offered": jobs_offered,
-            "jobs_rejected": jobs_rejected,
-            "jobs_in_progress": jobs_in_progress,
-            "companies_applied": companies_applied,
-    }
+    context = {}
+    if request.user.is_active and request.user.is_authenticated:
+        decks = Deck.objects.filter(owner=request.user)
+        jobs_applied = 0
+        jobs_offered = 0
+        jobs_rejected = 0
+        jobs_in_progress = 0
+        companies_applied = 0
+        for deck in decks:
+            companies_applied += 1
+            cards = Card.objects.filter(card_deck=deck)
+            for card in cards:
+                jobs_applied += 1
+                if card.status == "offered":
+                    jobs_offered += 1
+                elif card.status == "rejected":
+                    jobs_rejected += 1
+                elif card.status == "inprogress":
+                    jobs_in_progress += 1
+        context = {
+                "jobs_applied": jobs_applied,
+                "jobs_offered": jobs_offered,
+                "jobs_rejected": jobs_rejected,
+                "jobs_in_progress": jobs_in_progress,
+                "companies_applied": companies_applied,
+        }
     return render(request, 'report.html', context)
 
 def get_all_cards(request):
