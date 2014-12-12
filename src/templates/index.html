@@ -4,7 +4,7 @@
 <div id="dashboard" ng-controller="CardController">
     <h1>{{user}}'s Dashboard</h1>
     <div class="banner">
-        <button class="icon-plus" ng-click="create_deck_helper()"></button>
+        <button class="icon-plus" ng-click="create_deck_helper()" title="Create a deck (i.e. company you're applying to)"></button>
         <input id="search-bar" type="search" placeholder="search tags" ng-model="tagFilter">
     </div>
     <div id="new-deck" ng-show="showDeckForm">
@@ -63,7 +63,7 @@
             <div class="deck">
                 <div class="deck-top">
                     <button class="icon-delete" data-unique_id={{deck.unique_id}} ng-click="delete_deck($event.target)"></button>
-                     {{deck.associated_company.name}}<br>
+                    <div id="company-name">{{deck.associated_company.name}}</div>
                 </div>
                 {% for card in deck.card_set.all %}
                 <div class="detail-button">
@@ -101,7 +101,10 @@
                         data-tags="{{card.tag_set.all}}" 
                         data-tasks="{{card.task_set.all}}"
                         ng-click="showDetails($event.target)">
-                        {{card.job_title|truncatechars:20}}<span class="icon-status {{card.status}}"></span>
+                        <div id="card-button">
+                            <div id="card-title">{{card.job_title|truncatechars:23}}</div>
+                            <span class="icon-status {{card.status}}"></span>
+                        </div>
                               
                 </button>
                 
@@ -123,7 +126,7 @@
             <input src="/static/images/close.png" type="image" id="closer" ng-click="closeDetails()"/>
             <button class="remove-card"ng-click="remove_card($event.target)">Delete Card</button>
 
-            <h1>Your application process for <span id="card-detail-company">{{displayedCard.company}}</span>'s <span id="card-detail-position">{{displayedCard.position}}</span> position</h1>    
+            <h1>Your application process for <div id="card-name"><span id="card-detail-company">{{displayedCard.company}}</span></div>'s <div id="card-position"><span id="card-detail-position">{{displayedCard.position}}</span></div> position</h1>
         </div>
         <div id="card-detail-navbar">
 
@@ -193,7 +196,7 @@
 
                 <div id="notes" class="tab">
                     <h1>Notes:</h1>
-                    <p style="text-align: center">{{displayedCard.notes}}</p>
+                    <p style="text-align: center"><div id="notes-text">{{displayedCard.notes}}</p></div>
                     <button class="card-edit" ng-click="editNotes()">Edit</button>
                     <div class="edit-fields" ng-show="isNotesEditing">
                         <label for="new-notes">New notes:</label>

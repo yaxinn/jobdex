@@ -18,7 +18,7 @@
                 {% for document in documents %}
                     <tr class="document">
                         <td><img src="/static/images/pdf.png" data-url="/assets/{{document.pdf}}" class="document-url" ng-click="showDocument($event.target)"></td>
-                        <td>{{document}}</td>
+                        <td><div id="document-name">{{document}}</div></td>
                         <td>{{document.date_uploaded}}</td>
                         <td><button class="icon-delete" data-id="{{document.unique_id}}" ng-click="deleteDocument($event.target)"></button> </td>
                     </tr>

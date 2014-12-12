@@ -208,7 +208,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .deck .card-detail-btn {
-  padding: 1em;
+  padding: 11px;
+  padding-bottom: 22px;
   background: white;
   border-radius: 5px;
   width: 100%;
@@ -330,7 +331,8 @@ a {
   color: white;
 }
 #card-detail #card-detail-tabs {
-  height: 443px;
+  overflow: scroll;
+  height: 338px;
   background: #3b333f;
   color: white;
 }
@@ -340,7 +342,6 @@ a {
 }
 #card-detail #card-detail-position {
   color: #0074d9;
-  text-decoration: underline;
 }
 #card-detail #card-detail-close:hover {
   cursor: pointer;
@@ -548,7 +549,6 @@ a {
   display: block;
   margin: 20px 0 10px;
   clear: both;
-  overflow: hidden;
   text-decoration: none;
   color: #D35C48;
 }
@@ -691,15 +691,17 @@ input::-webkit-input-placeholder {
 .icon-delete:before{
   content: "\e600";
 }
+.icon-delete:hover{
+  cursor: pointer;
+}
 .icon-status {
   font-family: Status;
-  font-size: 17px;
-  float: right;
+  font-size: 13px;
+  margin-left: 9px;
+  margin-bottom: 4px;
   border: none;
   border-radius: 3px;
   background: transparent;
-  position: relative;
-  bottom: 8px;
   color: transparent;
 }
 .icon-status:before {
@@ -730,8 +732,20 @@ input::-webkit-input-placeholder {
 }
 
 #documents-page input[type=submit] {
-  border-radius: 1px;
-  border: 5px;
+  border-radius: 6px;
+  border: 0px;
+  font-size: 18px;
+  font-family: GravityLight;
+  color: white;
+  background: #CF5A47;
+  width: 9%;
+  height: 100%;
+  padding-top: 9px;
+  padding-bottom: 5px;
+}
+
+input[type=submit]:hover {
+  cursor: pointer;
 }
 
 #documents-page input[type=file]{
@@ -767,6 +781,7 @@ table tr:nth-child(odd) {
 table th {
   background-color: #3b333f;
   color: white;
+  font-family: GravityLight;
 }
 
 a#logout {
@@ -803,6 +818,9 @@ input[type=password]:hover{
 
 .single{
     border-bottom: 1px solid white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: scroll;
 }
 
 .single:hover {
@@ -832,6 +850,9 @@ input[type=password]:hover{
 .contact-detail {
     width: 200px;
     float: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: scroll;
 }
 
 .tag-remove-icon {
@@ -848,12 +869,18 @@ input[type=password]:hover{
     width: 200px;
     margin: 0 auto;
     padding-right: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: scroll;
 }
 
 .document-detail a {
     color: white;
     border-bottom: 1px dotted white;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: scroll;
 }
 
 #facts {
@@ -987,4 +1014,36 @@ html {
   font-family: GravityLight;
   clear: both;
 }
+
+/* BUG FIXES */
+
+/* tooltip */
+label {
+  display: inline-block;
+}
+
+/* text overflows */
+#company-name, #card-detail-position, #card-name, #card-position, #document-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: scroll;
+}
+
+#notes-text {
+  white-space: nowrap;
+  overflow: scroll;
+  height: 150px;
+  padding: 5px;
+}
+
+table {
+  table-layout: fixed; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+}
+
+#card-button {
+  display: inline-flex;
+}
+
 
