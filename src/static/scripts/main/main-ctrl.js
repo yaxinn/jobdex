@@ -441,7 +441,11 @@ app.controller('CardController', function($scope, $http){
         $scope.displayedCard.company = $(angular.element(card)[0]).data('company');
         $scope.displayedCard.position = $(angular.element(card)[0]).data('position');
         $scope.displayedCard.notes = $(angular.element(card)[0]).data('notes');
-        $scope.displayedCard.documents = $(angular.element(card)[0]).data('documents').split(",");
+        if ($(angular.element(card)[0]).data('documents').length > 0) {
+            $scope.displayedCard.documents = $(angular.element(card)[0]).data('documents').split(",");
+        } else {
+            $scope.displayedCard.documents = "";
+        }
         $scope.displayedCard.documenturls = $(angular.element(card)[0]).data('documenturls').split(",");
         $scope.displayedCard.contacts = $(angular.element(card)[0]).data('contacts').split(",");
         $scope.displayedCard.contactName = $scope.displayedCard.contacts[0];

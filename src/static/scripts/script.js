@@ -4,35 +4,7 @@ var app = angular.module('jobdex_app', ['ngCookies']);
 
 $("#login").leanModal({top : 100, overlay : 0.6, closeButton: ".modal_close" });
 
-//var documentURL = document.getElementById('document-url').getAttribute("href");
-//console.log(documentURL);
 PDFJS.workerSrc = "/static/bower_components/pdf.worker.js";
-//PDFJS.getDocument(documentURL).then(function(pdf) {
-//  // Using promise to fetch the page
-//  pdf.getPage(1).then(function(page) {
-//    var scale = 1.5;
-//    var viewport = page.getViewport(scale);
-//
-//    //
-//    // Prepare canvas using PDF page dimensions
-//    //
-//    var canvas = document.getElementById('the-canvas');
-//    var context = canvas.getContext('2d');
-//    canvas.height = viewport.height;
-//    canvas.width = viewport.width;
-//
-//    //
-//    // Render PDF page into canvas context
-//    //
-//    var renderContext = {
-//      canvasContext: context,
-//      viewport: viewport
-//    };
-//    page.render(renderContext);
-//  });
-//});
-
-// Calling Register Form
 $(".create_account").click(function(){
     $(".user_register").show();
     $(".user_login").hide();
@@ -67,6 +39,12 @@ jQuery(document).ready(function() {
 
 });
 
-$(function() {
-    $(document).tooltip();
-  });
+$(document).mouseup(function (e) {
+    var field = $("input[type=text]");
+
+    if (!field.is(e.target) && field.has(e.target).length === 0) {
+        field.css({
+            'border': '1px solid red',
+        });
+    }
+});
