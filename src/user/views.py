@@ -57,3 +57,32 @@ def logout_view(request):
 @csrf_exempt
 def page_not_found(request):
     return render(request, 'custom_404_page.html')
+
+def change_password_page(request):
+    return render(request, 'password-reset.html')
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        try:
+            u = User.objects.get(username=request.user.username)
+        except User.DoesNotExist:
+            return redirect('home')
+        current_pass = request.POST['current']
+        new_pass = request.POST['new']
+        confirm_pass = request.POST['confirm']
+        if not u.check_password(current_pass):
+            error_message = "Incorrect Password"
+        elif not current_pass or not new_pass or not confirm_pass:
+            error_message = "Missing Fields"
+        elif new_pass != confirm_pass:
+            error_message = "Passwords don't match"
+        elif new_pass == current_pass:
+            error_message = "Passwords cannot be the same"
+        else:
+            u.set_password(new_pass)
+            u.save()
+            return render(request, 'index.html')
+        context = {'error_message': error_message}
+        return render(request, 'change_password.html', context)
+    return render(request, 'change_password.html')

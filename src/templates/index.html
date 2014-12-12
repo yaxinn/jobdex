@@ -3,6 +3,7 @@
 {% if user.is_authenticated %}
 <div id="dashboard" ng-controller="CardController">
     <h1>{{user}}'s Dashboard</h1>
+    <a id="change-pass" href="/change-password-page/">Change Password</a>
     <div class="banner">
         <button class="icon-plus" ng-click="create_deck_helper()" title="Create a deck (i.e. company you're applying to)"></button>
         <input id="search-bar" type="search" placeholder="search tags" ng-model="tagFilter">

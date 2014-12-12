@@ -1064,4 +1064,9 @@ table {
   margin-top: 49px;
 }
 
-
+#change-pass {
+    text-align: center;
+    font-size: 15px;
+    margin: 0 auto;
+    display: block;
+}
