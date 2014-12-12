@@ -27,6 +27,12 @@
             </div>
         </div>
 
+        {% if error_message %}
+        <div id="error">
+            <h1>You must upload a PDF file.</h1>
+        </div>
+        {% endif %}
+
         <form id="document_upload" method="post" action="/api/document/upload/" enctype="multipart/form-data">
             <label for="name">Name:</label><input type="text" name="name" required/>
             <br>

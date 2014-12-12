@@ -31,7 +31,8 @@ def upload_document(request):
     pdf = request.FILES['pdf']
     user = request.user.user_profile
     if str(pdf).split(".")[-1] != "pdf":
-        return JsonResponse({'error_message': ERR_DOC_INVALID}, safe=False)
+        context = {'documents': Document.objects.all().filter(uploaded_by=request.user.user_profile), 'error_message': ERR_DOC_INVALID}
+        return render(request, 'documents.html', context)
     try:
         Document.objects.get(doc_name=name, uploaded_by=request.user.user_profile)
         name += ' (copy) '
