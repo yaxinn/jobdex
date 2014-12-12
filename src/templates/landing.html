@@ -17,9 +17,11 @@
                <div id="description">a tracking and management tool for the job search process.</div>
 
                <div id="get-started">
-
-                   <a id="login" href="#modal">get started</a>
+                   <a id="login" href="#modal">Login</a>
                </div>
+               {% if error_message %}
+               <h1 id="login-error">Credentials incorrect</h1>
+               {% endif %}
 
                <div id="modal" class="popupContainer" style="display:none;">
                     <header class="popupHeader">

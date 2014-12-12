@@ -1070,3 +1070,10 @@ table {
     margin: 0 auto;
     display: block;
 }
+
+#login-error {
+    color: white;
+    padding-top: 1em;
+    font-size: 15px;
+    font-family: SourceSansBold;
+}
