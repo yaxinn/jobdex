@@ -1046,4 +1046,22 @@ table {
   display: inline-flex;
 }
 
+#four-oh-four {
+  color: #CF5A47;
+  font-family: GravityLight;
+  font-size: 133px;
+  margin-top: 33px;
+}
+
+#page-not-found-message {
+  color: white;
+  font-family: GravityLight;
+  font-size: 28px;
+  margin-top: 33px;
+}
+
+#back-to-home {
+  margin-top: 49px;
+}
+
 

@@ -23,12 +23,11 @@ ASSETS_DIR = BASE_DIR.child("assets")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'l2ykh@^c52_dho8)u=#x-jc@m$!j-ht^#3@7#f5r_nhy-xon&f'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # TODO: CHANGE TO FALSE BEFORE DEPLOYING TO PRODUCTION
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

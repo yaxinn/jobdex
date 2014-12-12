@@ -53,3 +53,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+@csrf_exempt
+def page_not_found(request):
+    return render(request, 'custom_404_page.html')
