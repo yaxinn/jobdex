@@ -219,7 +219,7 @@ class GetDeck(TestCase):
             "contactPhone": "123456"
         }
         self.response = client.post('/api/card/add-card/', data)
-        self.response2 = client.post('/api/card/all-cards/')
+        # self.response2 = client.post('/api/card/all-cards/')
 
     def test_analyze_response(self):
         error_code = json.loads(self.response.content)['error_message']

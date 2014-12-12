@@ -57,10 +57,10 @@ def report(request):
         }
     return render(request, 'report.html', context)
 
-def get_all_cards(request):
-    cards = Card.objects.all()
-    cards_output = serializers.serialize("json", cards)
-    return JsonResponse(cards_output, safe=False)
+# def get_all_cards(request):
+#     cards = Card.objects.all()
+#     cards_output = serializers.serialize("json", cards)
+#     return JsonResponse(cards_output, safe=False)
 
 # Return all cards of a company, given company name
 # def get_company_cards(request):
