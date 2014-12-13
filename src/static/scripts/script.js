@@ -39,12 +39,14 @@ jQuery(document).ready(function() {
 
 });
 
-$(document).mouseup(function (e) {
-    var field = $("input[type=text]");
-
-    if (!field.is(e.target) && field.has(e.target).length === 0) {
-        field.css({
+$('input[type=text]').focusout(function() {
+    if ($(this).val().length == 0) {
+        $(this).css({
             'border': '1px solid red',
+        });
+    } else {
+        $(this).css({
+            'border': 'none',
         });
     }
 });
