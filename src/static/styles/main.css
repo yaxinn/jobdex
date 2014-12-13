@@ -1077,3 +1077,9 @@ table {
     font-size: 15px;
     font-family: SourceSansBold;
 }
+#endpt-error {
+    color: white;
+    padding-top: 1em;
+    font-size: 15px;
+    font-family: SourceSansBold;
+}

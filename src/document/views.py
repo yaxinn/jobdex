@@ -22,7 +22,7 @@ def documents(request):
     if request.user.is_active and request.user.is_authenticated:
         context = {"documents": Document.objects.all().filter(uploaded_by=request.user.user_profile)}
         return render(request, 'documents.html', context)
-    return render(request, 'index.html', {})
+    return render(request, 'landing.html', {"error_message": -12})
 
 @csrf_exempt
 @require_http_methods(["POST"])

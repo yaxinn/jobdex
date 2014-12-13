@@ -19,7 +19,11 @@
                <div id="get-started">
                    <a id="login" href="#modal">Login</a>
                </div>
-               {% if error_message %}
+               {% if error_message == -12 %}
+               <h1 id="endpt-error">Please login or signup</h1>
+               {% endif %}
+               
+               {% if error_message == -1 %}
                <h1 id="login-error">Credentials incorrect</h1>
                {% endif %}
 
