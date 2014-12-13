@@ -10,6 +10,7 @@ from django.core import serializers
 from django.db.models.signals import post_save
 from django.shortcuts import redirect
 import json
+from django.http import Http404
 
 testing = False
 SUCCESS = 1
@@ -27,6 +28,8 @@ def documents(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def upload_document(request):
+    if request.method == 'GET':
+        raise Http404
     name = request.POST['name']
     pdf = request.FILES['pdf']
     user = request.user.user_profile
@@ -45,6 +48,8 @@ def upload_document(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def delete_document(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST

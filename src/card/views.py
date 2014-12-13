@@ -9,6 +9,7 @@ import json
 from django.core import serializers
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.http import Http404
 
 testing = False
 DECK_EXISTS_ERROR = -23
@@ -76,7 +77,8 @@ def report(request):
 # Add card given company name, status, tags, and contact info
 @csrf_exempt
 def create_deck(request):
-
+    if request.method == 'GET':
+        raise Http404
     if testing:
         info = request.POST
     else:
@@ -108,6 +110,8 @@ def create_deck(request):
  #Adding a position to the deck
 @csrf_exempt
 def add_card(request):
+    if request.method == 'GET':
+        raise Http404
     if testing:
         info = request.POST
     else:
@@ -138,6 +142,8 @@ def add_card(request):
 # Remove deck, given a deck id
 @csrf_exempt
 def delete_deck(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -154,6 +160,8 @@ def delete_deck(request):
 # Remove card, given a card id
 @csrf_exempt
 def remove_card(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -181,6 +189,8 @@ def get_contacts(request):
 # Remove contact, given a card id and contact name
 @csrf_exempt
 def remove_contact(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -201,6 +211,8 @@ def remove_contact(request):
 # Edit a contact, given a card id and contact fields (not all fields may be overridden, depending on what user edits)
 @csrf_exempt
 def edit_contact(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -228,6 +240,8 @@ def edit_contact(request):
 # Add contact given card id and contact info
 @csrf_exempt
 def add_contact(request):
+    if request.method == 'GET':
+        raise Http404
     if testing:
         info = request.POST
     else:
@@ -253,7 +267,8 @@ def add_contact(request):
 # Add tags based on card id and tag names
 @csrf_exempt
 def add_tag(request):
-
+    if request.method == 'GET':
+        raise Http404
     if testing:
         info = request.POST
     else:
@@ -271,6 +286,8 @@ def add_tag(request):
 # Remove tag or set of tags, given a card id and tag name(s)
 @csrf_exempt
 def remove_tag(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -304,6 +321,8 @@ def get_tags(request):
 # Modify a tag, given a card id and tag name
 @csrf_exempt
 def edit_tag(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -330,6 +349,8 @@ def edit_tag(request):
 # Change status based on card id and new status
 @csrf_exempt
 def modify_card_status(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -352,6 +373,8 @@ def modify_card_status(request):
 # Edit the notes for a company.
 @csrf_exempt
 def edit_notes(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -372,6 +395,8 @@ def edit_notes(request):
 
 @csrf_exempt
 def add_task(request):
+    if request.method == 'GET':
+        raise Http404
     try:
         if testing:
             info = request.POST
@@ -390,6 +415,8 @@ def add_task(request):
 
 @csrf_exempt
 def add_document(request):
+    if request.method == 'GET':
+        raise Http404
     if testing:
         info = request.POST
     else:
