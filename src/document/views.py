@@ -26,7 +26,6 @@ def documents(request):
     return render(request, 'landing.html', {"error_message": -12})
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def upload_document(request):
     if request.method == 'GET':
         raise Http404
@@ -46,7 +45,6 @@ def upload_document(request):
     return redirect('documents')
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def delete_document(request):
     if request.method == 'GET':
         raise Http404
