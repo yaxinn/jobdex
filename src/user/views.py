@@ -8,9 +8,12 @@ from card.models import *
 from user.models import *
 from user.forms import *
 from django.core import serializers
+from django.http import Http404
 
 @csrf_exempt
 def signup_view(request):
+    if request.method == 'GET':
+        raise Http404
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -39,6 +42,8 @@ def signup_view(request):
 
 @csrf_exempt
 def login_view(request):
+    if request.method == 'GET':
+        raise Http404
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']

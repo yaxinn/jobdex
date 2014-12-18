@@ -220,6 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: GravityLight;
   text-align: left;
   color: black;
+  position: relative;
 }
 
 .deck .add-card-detail-btn {
@@ -703,6 +704,8 @@ input::-webkit-input-placeholder {
   border-radius: 3px;
   background: transparent;
   color: transparent;
+  position: absolute;
+  right: 10px;
 }
 .icon-status:before {
   content: "\e600";
@@ -1032,7 +1035,6 @@ label {
 #notes-text {
   white-space: nowrap;
   overflow: scroll;
-  height: 150px;
   padding: 5px;
 }
 
@@ -1044,6 +1046,10 @@ table {
 
 #card-button {
   display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flex;
+  -webkit-align-self: auto;
 }
 
 #four-oh-four {
@@ -1072,14 +1078,14 @@ table {
 }
 
 #login-error {
-    color: white;
+    color: #E1EDC1;
     padding-top: 1em;
     font-size: 15px;
-    font-family: SourceSansBold;
+    font-family: SourceSansLight;
 }
 #endpt-error {
-    color: white;
+    color: #E1EDC1;
     padding-top: 1em;
     font-size: 15px;
-    font-family: SourceSansBold;
+    font-family: SourceSansLight;
 }
