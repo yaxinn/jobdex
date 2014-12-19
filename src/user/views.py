@@ -37,7 +37,7 @@ def signup_view(request):
                 error_message = user_form.errors.items()[0][1]
     else:
         error_message = None
-    context = {'error_message': -1}
+    context = {'error_message': -2}
     return render(request, 'landing.html', context)
 
 @csrf_exempt

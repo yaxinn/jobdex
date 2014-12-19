@@ -51,7 +51,7 @@ app.controller('UserController', function($scope, $http) {
         
         var req = JSON.stringify({username: $scope.user.username, password: $scope.user.password, confirm_password: $scope.user.confirm_password, email: $scope.user.email});
         
-        $http.post('/api/users', req).
+        $http.post('/sign_up', req).
             success(function(data, status, headers, config) {
                 if (data.error_message <= 0) {
                     $scope.errorHandler(data.error_message);
@@ -67,6 +67,24 @@ app.controller('UserController', function($scope, $http) {
         });
 
         $scope.user = {};
+    };
+
+    // $scope.validForm = function(){
+    //     if ($scope.password == $scope.confirm_password && $scope.username!=""){
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    // }
+
+    $scope.validEmail = function(){
+        if ($scope.email == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     };
 
     //Verify a user's login info
