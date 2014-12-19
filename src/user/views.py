@@ -51,7 +51,7 @@ def login_view(request):
         if user is not None and user.is_active:
             login(request, user)
         else:
-            context = {'error_message': "-1"}
+            context = {'error_message': -1}
             return render(request, 'landing.html', context)
         return redirect('home')
     else:
